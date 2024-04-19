@@ -1,5 +1,4 @@
-body {
-}
+body {}
 
 .blog-listing {
     padding-top: 30px;
@@ -468,12 +467,15 @@ img {
 .msg {
     font-weight: bold;
 }
+
 .msg:hover {
     color: #0177ac;
 }
+
 a {
     text-decoration: none !important;
 }
+
 #modal-background {
     position: fixed;
     width: 100%;
@@ -496,7 +498,7 @@ button {
 
 .modal-background>div {
     width: 600px;
-    max-width: 100%;
+    max-width: 90%;
     height: fit;
     padding: 30px;
     position: relative;
@@ -510,7 +512,7 @@ button {
     border: none;
     font-size: 3rem;
     position: absolute;
-    right: 30px;
+    right: 10px;
     top: 0px;
     z-index: 10000;
 }
