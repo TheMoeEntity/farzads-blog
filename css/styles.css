@@ -12744,6 +12744,7 @@ header.masthead .post-heading .meta a {
 
 .blog {
   padding: 120px 0;
+
 }
 
 .blog .posts-list article {
@@ -12755,7 +12756,7 @@ header.masthead .post-heading .meta a {
 }
 
 .blog .posts-list .post-img {
-  max-height: 240px;
+  max-height: 0px;
   margin: -30px -30px 15px -30px;
   overflow: hidden;
 }
@@ -12764,6 +12765,10 @@ header.masthead .post-heading .meta a {
   font-size: 16px;
   color: rgba(var(--default-color-rgb), 0.6);
   margin-bottom: 10px;
+}
+
+.blog .posts-list>div {
+  max-width: 420px;
 }
 
 .blog .posts-list .title {
