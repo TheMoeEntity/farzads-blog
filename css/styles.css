@@ -515,6 +515,7 @@ legend+* {
 ::-webkit-inner-spin-button {
   height: auto;
 }
+
 #modal-background {
   position: fixed;
   width: 100%;
@@ -533,6 +534,26 @@ button {
   background-color: transparent;
   outline: none;
   border: none;
+}
+
+.scrollTop {
+  width: 40px;
+  height: 40px;
+  background-color: #ffff;
+  position: fixed;
+  bottom: -20px;
+  opacity: 0;
+  border-radius: 6px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.4s;
+  color: #0d6efd;
+  border: 2px solid #0d6efd;
+  z-index: 10000000;
+  box-shadow: 3px 2px 9px 2px rgba(0, 0, 0, 0.21);
 }
 
 .closeTitle {
@@ -559,6 +580,7 @@ button {
 .modal-background>div form {
   padding: 0 30px;
 }
+
 [type=search] {
   outline-offset: -2px;
   -webkit-appearance: textfield;

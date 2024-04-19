@@ -1,10 +1,28 @@
 const modal = document.getElementById('modal-background')
+const scrollBtn = document.getElementById('scrollBtn')
 function message() {
     modal.style.display = 'flex'
 }
 function closeModal() {
     modal.style.display = 'none'
 }
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+};
+const animateIn = () => {
+
+    if (
+        document.body.scrollTop > 120 ||
+        document.documentElement.scrollTop > 120
+    ) {
+        scrollBtn.style.bottom = "30px";
+        scrollBtn.style.opacity = "1";
+    } else {
+        scrollBtn.style.bottom = "-20px";
+        scrollBtn.style.opacity = "0";
+    }
+};
+window.addEventListener("scroll", animateIn);
 window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
     const mainNav = document.getElementById('mainNav');
