@@ -516,3 +516,9 @@ button {
     top: 0px;
     z-index: 10000;
 }
+
+@media screen and (max-width:500px) {
+    .modal-background button:first-child {
+        right: 10px;
+    }
+}
