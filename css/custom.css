@@ -500,7 +500,8 @@ button {
     width: 600px;
     max-width: 90%;
     height: fit;
-    padding: 30px;
+    padding: 0 30px;
+    padding-bottom: 20px;
     position: relative;
     background-color: white;
 }
@@ -511,8 +512,12 @@ button {
     outline: none;
     border: none;
     font-size: 3rem;
-    position: absolute;
-    right: 10px;
-    top: 0px;
+    float: right;
+    margin-right: 0px;
+    margin-top: 0px;
     z-index: 10000;
+}
+
+.modal-background form {
+    clear: both;
 }
