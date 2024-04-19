@@ -496,16 +496,31 @@ button {
     border: none;
 }
 
+.closeTitle {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    color: black;
+    font-size: 50px;
+    padding-right: 15px;
+}
+
 .modal-background>div {
     width: 600px;
     max-width: 90%;
     height: fit;
-    padding: 30px;
+    padding: 20px 0;
     position: relative;
     background-color: white;
 }
 
-.modal-background button:first-child {
+.modal-background>div form {
+    padding: 0 30px;
+}
+
+.test {
     background-color: transparent;
     color: white;
     outline: none;
@@ -515,10 +530,4 @@ button {
     right: 5%;
     top: 0px;
     z-index: 10000;
-}
-
-@media screen and (max-width:500px) {
-    .modal-background button:first-child {
-        right: 10px;
-    }
 }
