@@ -505,6 +505,7 @@ button {
     color: black;
     font-size: 50px;
     padding-right: 15px;
+    cursor: pointer;
 }
 
 .modal-background>div {
@@ -518,16 +519,4 @@ button {
 
 .modal-background>div form {
     padding: 0 30px;
-}
-
-.test {
-    background-color: transparent;
-    color: white;
-    outline: none;
-    border: none;
-    font-size: 3rem;
-    position: absolute;
-    right: 5%;
-    top: 0px;
-    z-index: 10000;
 }
