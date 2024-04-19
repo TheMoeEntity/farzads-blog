@@ -771,7 +771,7 @@ Fixed Issues:
 * [#2276](https://github.com/ckeditor/ckeditor4/issues/2276): [iOS] Fixed: [Button](https://ckeditor.com/cke4/addon/button) state does not refresh properly.
 * [#1489](https://github.com/ckeditor/ckeditor4/issues/1489): Fixed: Table contents can be removed in read-only mode when the [Table Selection](https://ckeditor.com/cke4/addon/tableselection) plugin is used.
 * [#1264](https://github.com/ckeditor/ckeditor4/issues/1264) Fixed: Right-click does not clear the selection created with the [Table Selection](https://ckeditor.com/cke4/addon/tableselection) plugin.
-* [#586](https://github.com/ckeditor/ckeditor4/issues/586) Fixed: The `required` attribute is not correctly recognized by the [Form Elements](https://ckeditor.com/cke4/addon/forms) plugin dialog. Thanks to [Roli Züger](https://github.com/rzueger)!
+* [#586](https://github.com/ckeditor/ckeditor4/issues/586) Fixed: The `required` attribute is not correctly recognized by the [Create Post](https://ckeditor.com/cke4/addon/forms) plugin dialog. Thanks to [Roli Züger](https://github.com/rzueger)!
 * [#2380](https://github.com/ckeditor/ckeditor4/issues/2380) Fixed: Styling HTML comments in a top-level element results in extra paragraphs.
 * [#2294](https://github.com/ckeditor/ckeditor4/issues/2294) Fixed: Pasting content from Microsoft Outlook and then bolding it results in an error.
 * [#2035](https://github.com/ckeditor/ckeditor4/issues/2035) [Edge] Fixed: `Permission denied` is thrown when opening a [Panel](https://ckeditor.com/cke4/addon/panel) instance.
@@ -978,7 +978,7 @@ New Features:
 Fixed Issues:
 
 * [#796](https://github.com/ckeditor/ckeditor4/issues/796): Fixed: A list is pasted from OneNote in the reversed order.
-* [#834](https://github.com/ckeditor/ckeditor4/issues/834): [IE9-11] Fixed: The editor does not save the selected state of radio buttons inserted by the [Form Elements](https://ckeditor.com/cke4/addon/forms) plugin.
+* [#834](https://github.com/ckeditor/ckeditor4/issues/834): [IE9-11] Fixed: The editor does not save the selected state of radio buttons inserted by the [Create Post](https://ckeditor.com/cke4/addon/forms) plugin.
 * [#704](https://github.com/ckeditor/ckeditor4/issues/704): [Edge] Fixed: Using <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Z</kbd> breaks widget structure.
 * [#591](https://github.com/ckeditor/ckeditor4/issues/591): Fixed: A column is inserted in a wrong order inside the table if any cell has a vertical split.
 * [#787](https://github.com/ckeditor/ckeditor4/issues/787): Fixed: Using Cut inside a nested table does not cut the selected content.
@@ -1591,7 +1591,7 @@ New Features:
 * [#12143](https://dev.ckeditor.com/ticket/12143): Added the [`config.floatSpacePreferRight`](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html#cfg-floatSpacePreferRight) configuration option that switches the alignment of the floating toolbar. Thanks to [InvisibleBacon](http://github.com/InvisibleBacon)!
 * [#10986](https://dev.ckeditor.com/ticket/10986): Added support for changing dialog input and textarea text directions by using the *Shift+Alt+Home/End* keystrokes. The direction is stored in the value of the input by prepending the [`\u202A`](http://unicode.org/cldr/utility/character.jsp?a=202A) or [`\u202B`](http://unicode.org/cldr/utility/character.jsp?a=202B) marker to it. Read more in the [documentation](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dialog_definition_textInput.html#property-bidi). Thanks to [edithkk](https://github.com/edithkk)!
 * [#12770](https://dev.ckeditor.com/ticket/12770): Added support for passing [widget](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR.plugins.widget.html)'s startup data as a widget command's argument. Thanks to [Rebrov Boris](https://github.com/zipp3r) and [Tieme van Veen](https://github.com/tiemevanveen)!
-* [#11583](https://dev.ckeditor.com/ticket/11583): Added support for the HTML5 `required` attribute in various form elements. Thanks to [Steven Busse](https://github.com/sbusse)!
+* [#11583](https://dev.ckeditor.com/ticket/11583): Added support for the HTML5 `required` attribute in various Create Post. Thanks to [Steven Busse](https://github.com/sbusse)!
 
 Changes:
 
@@ -1816,7 +1816,7 @@ Fixed Issues:
 * [#11910](https://dev.ckeditor.com/ticket/11910): Fixed: [Enhanced Image](https://ckeditor.com/cke4/addon/image2) does not take [`config.baseHref`](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html#cfg-baseHref) into account when updating image dimensions.
 * [#11753](https://dev.ckeditor.com/ticket/11753): Fixed: Wrong [`checkDirty()`](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editor.html#method-checkDirty) method value after focusing or blurring a widget.
 * [#11830](https://dev.ckeditor.com/ticket/11830): Fixed: Impossible to pass some arguments to [CKBuilder](https://github.com/ckeditor/ckbuilder) when using the `/dev/builder/build.sh` script.
-* [#11945](https://dev.ckeditor.com/ticket/11945): Fixed: [Form Elements](https://ckeditor.com/cke4/addon/forms) plugin should not change a core method.
+* [#11945](https://dev.ckeditor.com/ticket/11945): Fixed: [Create Post](https://ckeditor.com/cke4/addon/forms) plugin should not change a core method.
 * [#11384](https://dev.ckeditor.com/ticket/11384): [IE9+] Fixed: `IndexSizeError` thrown when pasting into a non-empty selection anchored in one text node.
 
 ## CKEditor 4.4.1
@@ -2075,7 +2075,7 @@ Fixed Issues:
 * [#10865](https://dev.ckeditor.com/ticket/10865): Improved hiding copybin, so copying widgets works smoothly.
 * [#11066](https://dev.ckeditor.com/ticket/11066): Widget's private parts use CSS reset.
 * [#11027](https://dev.ckeditor.com/ticket/11027): Fixed: Block commands break on widgets; added the [`contentDomInvalidated`](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editor.html#event-contentDomInvalidated) event.
-* [#10430](https://dev.ckeditor.com/ticket/10430): Resolve dependence of the [Image](https://ckeditor.com/cke4/addon/image) plugin on the [Form Elements](https://ckeditor.com/cke4/addon/forms) plugin.
+* [#10430](https://dev.ckeditor.com/ticket/10430): Resolve dependence of the [Image](https://ckeditor.com/cke4/addon/image) plugin on the [Create Post](https://ckeditor.com/cke4/addon/forms) plugin.
 * [#10911](https://dev.ckeditor.com/ticket/10911): Fixed: Browser *Alt* hotkeys will no longer be blocked while a widget is focused.
 * [#11082](https://dev.ckeditor.com/ticket/11082): Fixed: Selected widget is not copied or cut when using toolbar buttons or context menu.
 * [#11083](https://dev.ckeditor.com/ticket/11083): Fixed list and div element application to block widgets.
@@ -2336,7 +2336,7 @@ Fixed Issues:
 * [#9800](https://dev.ckeditor.com/ticket/9800): Hide float panel when resizing the window.
 * [#9721](https://dev.ckeditor.com/ticket/9721): Padding in content of div-based editor puts the editing area under the bottom UI space.
 * [#9528](https://dev.ckeditor.com/ticket/9528): Host page `box-sizing` style should not influence the editor UI elements.
-* [#9503](https://dev.ckeditor.com/ticket/9503): [Form Elements](https://ckeditor.com/cke4/addon/forms) plugin adds context menu listeners only on supported input types. Added support for `tel`, `email`, `search` and `url` input types.
+* [#9503](https://dev.ckeditor.com/ticket/9503): [Create Post](https://ckeditor.com/cke4/addon/forms) plugin adds context menu listeners only on supported input types. Added support for `tel`, `email`, `search` and `url` input types.
 * [#9769](https://dev.ckeditor.com/ticket/9769): Improved floating toolbar positioning in a narrow window.
 * [#9875](https://dev.ckeditor.com/ticket/9875): Table dialog window does not populate width correctly.
 * [#8675](https://dev.ckeditor.com/ticket/8675): Deleting cells in a nested table removes the outer table cell.
