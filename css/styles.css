@@ -139,6 +139,10 @@ hr {
     flex-flow: column wrap;
   }
 
+  .book-grid>div:nth-child(1) {
+    padding-right: 0px;
+  }
+
   header.masthead {
     background-attachment: scroll !important;
   }
