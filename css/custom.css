@@ -500,24 +500,19 @@ button {
     width: 600px;
     max-width: 90%;
     height: fit;
-    padding: 0 30px;
-    padding-bottom: 20px;
+    padding: 30px;
     position: relative;
     background-color: white;
 }
 
-.modal-background>div button:first-child {
+.modal-background button:first-child {
     background-color: transparent;
-    color: black;
+    color: white;
     outline: none;
     border: none;
     font-size: 3rem;
-    float: right;
-    margin-right: 0px;
-    margin-top: 0px;
+    position: absolute;
+    right: 5%;
+    top: 0px;
     z-index: 10000;
-}
-
-.modal-background form {
-    clear: both;
 }
