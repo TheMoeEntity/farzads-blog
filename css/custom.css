@@ -214,7 +214,9 @@ body {}
 .article .article-title {
     padding: 15px 0 20px;
 }
-
+.title {
+    
+}
 .article .article-title h6 {
     font-size: 14px;
     font-weight: 700;

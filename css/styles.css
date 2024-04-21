@@ -12681,6 +12681,18 @@ header.masthead .post-heading .meta a {
   color: #6c757d;
 }
 
+.title a:hover {
+  color: #377DFF !important;
+}
+
+.blog-card {
+  transition: 0.4s;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+}
+
 .post-preview>.post-meta>a {
   text-decoration: none;
 }
