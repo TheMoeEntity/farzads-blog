@@ -12536,6 +12536,21 @@ footer {
   padding-bottom: 3rem;
 }
 
+#masthead {
+  width: 100%;
+  background: #ffff;
+  height: 550px;
+}
+
+#masthead:before {
+  background-color: #fff !important;
+}
+
+#header {
+  background-color: rgba(0, 0, 0, 0.025);
+  color: white;
+}
+
 header.masthead {
   position: relative;
   margin-bottom: 3rem;
