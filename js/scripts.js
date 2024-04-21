@@ -1,12 +1,12 @@
 const modal = document.getElementById('modal-background')
 const scrollBtn = document.getElementById('scrollBtn')
-function message() {
+const message = () => {
     modal.style.display = 'flex'
 }
-function closeModal() {
+const closeModal = () => {
     modal.style.display = 'none'
 }
-function scrollToTop() {
+const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 };
 const animateIn = () => {
