@@ -76,8 +76,8 @@ const setPost = () => {
     author.textContent = `By ${singlePost.author}`
     content.innerHTML = singlePost.content
     const firstChiild = content.firstChild
-    firstChiild.setAttribute('class','article-content')
-    
+    firstChiild.setAttribute('class', 'article-content')
+
 }
 if (title) {
     setPost()
