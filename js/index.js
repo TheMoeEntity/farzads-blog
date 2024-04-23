@@ -11,6 +11,7 @@ const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
 const content = document.querySelector('#post-content')
 const postImage = document.querySelector('#blog-image')
+const othersContainer = document.querySelector('#others')
 const getOtherPosts = () => {
     const others = postsArray.filter(post => post.id !== id)
     if (others) {
@@ -31,7 +32,31 @@ const getOtherPosts = () => {
         });
     }
 }
-
+async function addComment(event) {
+    const [isError, formFields] = Helpers.validateFormFields(event, errContainer)
+    if (!isError) {
+        errContainer.textContent = 'Submitting comment..'
+        errContainer.setAttribute('class', 'success')
+        const getZeroComments = document.querySelector('#zeroComments')
+        await submitPost(formFields.name, formFields.email, formFields.comment, id).then(res => {
+            errContainer.textContent = 'Comment submitted successfully'
+            setComments(res)
+            errContainer.textContent = 'Your comment has been created and will be reviewed by the admin.'
+            if (getZeroComments) {
+                getZeroComments.textContent = ''
+            }
+            commentNum.textContent = `${singlePost.comments.length + 1} comment${(singlePost.comments.length + 1) === 1 ? '' : 's'}`
+        }).catch(error => {
+            errContainer.setAttribute('class', 'error')
+            errContainer.textContent = error || 'Something went wrong'
+        }).finally(
+            setTimeout(() => {
+                event.target.reset()
+                errContainer.textContent = ''
+            }, 3000)
+        )
+    }
+}
 const setComments = (res) => {
     const comment = document.createElement('div')
     comment.setAttribute('class', "d-flex flex-column")
@@ -209,33 +234,7 @@ if (title) {
     setPost()
 }
 let otherPosts
-const othersContainer = document.querySelector('#others')
 
-async function addComment(event) {
-    const [isError, formFields] = Helpers.validateFormFields(event, errContainer)
-    if (!isError) {
-        errContainer.textContent = 'Submitting comment..'
-        errContainer.setAttribute('class', 'success')
-        const getZeroComments = document.querySelector('#zeroComments')
-        await submitPost(formFields.name, formFields.email, formFields.comment, id).then(res => {
-            errContainer.textContent = 'Comment submitted successfully'
-            setComments(res)
-            errContainer.textContent = 'Your comment has been created and will be reviewed by the admin.'
-            if (getZeroComments) {
-                getZeroComments.textContent = ''
-            }
-            commentNum.textContent = `${singlePost.comments.length + 1} comment${(singlePost.comments.length + 1) === 1 ? '' : 's'}`
-        }).catch(error => {
-            errContainer.setAttribute('class', 'error')
-            errContainer.textContent = error || 'Something went wrong'
-        }).finally(
-            setTimeout(() => {
-                event.target.reset()
-                errContainer.textContent = ''
-            }, 3000)
-        )
-    }
-}
 
 if (othersContainer) {
     commentsForm.addEventListener('submit', addComment)
