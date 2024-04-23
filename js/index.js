@@ -55,7 +55,6 @@ if (postsContainer) {
 }
 
 
-// export { }
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id')
@@ -68,13 +67,17 @@ getSinglePost()
 const title = document.querySelector('#post-title')
 const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
-// const date_added = document.querySelector('#post-sub')
+const content = document.querySelector('#post-content')
 
 const setPost = () => {
     title.textContent = singlePost.title
     sub_title.textContent = singlePost.sub_title
     date_added.textContent = Helpers.formatDate(getDate(singlePost.date_added))
     author.textContent = `By ${singlePost.author}`
+    content.innerHTML = singlePost.content
+    const firstChiild = content.firstChild
+    firstChiild.setAttribute('class','article-content')
+    
 }
 if (title) {
     setPost()

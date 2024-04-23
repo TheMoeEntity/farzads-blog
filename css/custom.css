@@ -214,9 +214,9 @@ body {}
 .article .article-title {
     padding: 15px 0 20px;
 }
-.title {
-    
-}
+
+.title {}
+
 .article .article-title h6 {
     font-size: 14px;
     font-weight: 700;
@@ -284,6 +284,17 @@ body {}
     color: black;
     margin: 0;
 }
+
+#post-content blockquote p:nth-child(2) {
+    color: #20247b;
+    /* font-size: 16px; */
+    margin-top: 20px;
+    font-weight: bolder;
+}
+
+/* #post-content blockquote p cite {
+    font-weight: bolder;
+} */
 
 .article .article-content blockquote .blockquote-footer {
     color: #20247b;
