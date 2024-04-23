@@ -1,4 +1,6 @@
+import { Helpers } from "./helpers.js";
 const postsContainer = document.querySelector('#blogList')
+
 const getPosts = async () => {
     const formData = new FormData()
     formData.append('getPosts', '')
@@ -16,14 +18,18 @@ const getPosts = async () => {
 };
 const data = await getPosts()
 console.log(data)
+const getDate = (date_addeds) => {
+    const postDate = date_addeds.split(' ')
+    return postDate[0]
+}
 const postsArray = data
-if (postsArray.length > 0) {
+if (postsContainer) {
+    if (postsArray.length > 0) {
 
-    postsArray.forEach(post => {
-        const postElement = document.createElement('div')
-        const postDate = post.date_added.split(' ')
-        postElement.setAttribute('class', 'col-xl-4 col-lg-6 col-md-6 blog-card')
-        postElement.innerHTML = `
+        postsArray.forEach((post) => {
+            const postElement = document.createElement('div')
+            postElement.setAttribute('class', 'col-xl-4 col-lg-6 col-md-6 blog-card')
+            postElement.innerHTML = `
                     <article class="shadow-sm">
                         <h2 class="title">
                             <a href="post.html?id=${post.id}">${post.title}</a>
@@ -32,18 +38,69 @@ if (postsArray.length > 0) {
                         <div class="d-flex align-items-center">
                             <div class="post-meta">
                                 <p class="post-date">
-                                    <time datetime="2022-01-01">${postDate[0]}</time>
+                                    <time datetime="2022-01-01">${Helpers.formatDate(getDate(post.date_added))}</time>
                                 </p>
                             </div>
                         </div>
                     </article>
     `
-        postsContainer.prepend(postElement)
-    })
-} else {
-    const noPostsElement = document.createElement('div');
-    noPostsElement.textContent = 'No posts to show.';
-    noPostsElement.setAttribute('class', 'alert alert-info w-75 mx-auto');
-    postsContainer.appendChild(noPostsElement);
+            postsContainer.prepend(postElement)
+        })
+    } else {
+        const noPostsElement = document.createElement('div');
+        noPostsElement.textContent = 'No posts to show.';
+        noPostsElement.setAttribute('class', 'alert alert-info w-75 mx-auto');
+        postsContainer.appendChild(noPostsElement);
+    }
 }
 
+
+// export { }
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const id = urlParams.get('id')
+let singlePost
+const getSinglePost = () => {
+    const post = postsArray.find(post => post.id == id)
+    singlePost = post
+}
+getSinglePost()
+const title = document.querySelector('#post-title')
+const sub_title = document.querySelector('#post-sub')
+const author = document.querySelector('#post-author')
+// const date_added = document.querySelector('#post-sub')
+
+const setPost = () => {
+    title.textContent = singlePost.title
+    sub_title.textContent = singlePost.sub_title
+    date_added.textContent = Helpers.formatDate(getDate(singlePost.date_added))
+    author.textContent = `By ${singlePost.author}`
+}
+if (title) {
+    setPost()
+}
+let otherPosts
+const othersContainer = document.querySelector('#others')
+const getOtherPosts = () => {
+    const others = postsArray.filter(post => post.id !== id)
+    if (others) {
+        otherPosts = others
+        otherPosts.forEach(post => {
+            const postElement = document.createElement('div')
+            postElement.setAttribute('class', 'py-3 d-flex flex-column')
+            postElement.innerHTML = `
+                <span class="text-secondary small mb-2">
+                    ${Helpers.formatDate(getDate(post.date_added))}
+                </span>
+                <h5 class="decoration-underline">
+                <u><a href="post.html">${post.title}</a></u>
+                </h5>
+            `
+
+            othersContainer.appendChild(postElement)
+        });
+    }
+}
+if (othersContainer) {
+    getOtherPosts()
+}

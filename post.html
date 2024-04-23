@@ -120,17 +120,17 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-10">
                     <div class="post-heading text-center">
-                        <h1 class="text-dark">They Now Bade Farewell To The Kind But Unseen People</h1>
-                        <h2 class="subheading text-dark">Problems look mighty small from 150 miles up</h2>
+                        <h1 class="text-dark" id="post-title"></h1>
+                        <h2 class="subheading text-dark" id="post-sub">Problems look mighty small from 150 miles up</h2>
                         <div
                             class="meta text-dark mx-auto mt-5 d-flex gap-x-2 justify-content-between col-md-10 col-lg-8 col-xl-7">
                             <span>
                                 <i class="fas fa-user"></i>
-                                <span class="pl-5">By Farzad</span>
+                                <span class="pl-5" id="post-author">By Farzad</span>
                             </span>
                             <span>
                                 <i class="fas fa-calendar"></i>
-                                <span>28th August, 2024</span>
+                                <span id="date_added">28th August, 2024</span>
                             </span>
                             <span>
                                 <i class="fas fa-comments"></i>
@@ -290,32 +290,11 @@
                         </div>
                     </div>
                     <!-- End Latest Post -->
-                    <div class="px-3 mt-5 d-flex flex-column gap-y-2">
+                    <div class="px-3 mt-5 d-flex flex-column gap-y-2" id="others">
                         <h3>Other Posts</h3>
                         <div class="py-3 d-flex flex-column">
                             <span class="text-secondary small mb-2">
                                 September 09, 2023
-                            </span>
-                            <h5 class="decoration-underline">
-                                <u><a href="post.html">They Now Bade Farewell To The Kind But Unseen People</a></u>
-                            </h5>
-                        </div>
-
-                        <div class="py-3 d-flex flex-column">
-                            <span class="text-secondary small mb-2">
-                                August 23, 2024
-                            </span>
-                            <h5 class="decoration-underline">
-                                <u><a href="post.html">
-                                        eni amet luctus enim sem libero tellus viverra venenatis aliquam. Commodo
-                                        natoque quam pulvinar elit
-                                    </a></u>
-                            </h5>
-                        </div>
-
-                        <div class="py-3 d-flex flex-column">
-                            <span class="text-secondary small mb-2">
-                                May 12, 2023
                             </span>
                             <h5 class="decoration-underline">
                                 <u><a href="post.html">They Now Bade Farewell To The Kind But Unseen People</a></u>
@@ -387,6 +366,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script src="js/index.js" type="module"></script>
 </body>
 
 </html>
