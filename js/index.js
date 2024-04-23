@@ -12,6 +12,7 @@ const author = document.querySelector('#post-author')
 const content = document.querySelector('#post-content')
 const postImage = document.querySelector('#blog-image')
 const othersContainer = document.querySelector('#others')
+let singlePost
 const getOtherPosts = () => {
     const others = postsArray.filter(post => post.id !== id)
     if (others) {
@@ -199,7 +200,7 @@ postsArray.slice(0, 3).forEach(post => {
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id')
-let singlePost
+
 
 await getSinglePost()
 
@@ -226,6 +227,7 @@ const setPost = () => {
         const noComment = `<h3 id='zeroComments'>No comments yet</h3>`
         commentsContainer.innerHTML = noComment;
     }
+    document.title = 'Farzad Nosrati | Posts | ' + singlePost.title
     commentNum.textContent = `${singlePost.comments.length} comment${singlePost.comments.length === 1 ? '' : 's'}`
 
 
