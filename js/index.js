@@ -1,11 +1,11 @@
 import { Helpers } from "./helpers.js";
 const postsContainer = document.querySelector('#blogList')
-
+const footerBlog = document.querySelector('#footer-blogs')
 const getPosts = async () => {
     const formData = new FormData()
     formData.append('getPosts', '')
     try {
-        const response = await fetch('https://ikennaibe.com/farzad/posts', {
+        const response = await fetch('https://api.ikennaibe.com/farzad/posts', {
             method: 'POST',
             body: formData,
         });
@@ -53,7 +53,15 @@ if (postsContainer) {
         postsContainer.appendChild(noPostsElement);
     }
 }
-
+postsArray.slice(0,3).forEach(post => {
+    const list = document.createElement('li')
+    list.innerHTML = `
+    <strong>
+    <a href="/post.html?id=${post.id}">${post.title}</a>
+    </strong>
+    `
+    footerBlog.appendChild(list)
+});
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -68,6 +76,7 @@ const title = document.querySelector('#post-title')
 const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
 const content = document.querySelector('#post-content')
+const postImage = document.querySelector('#blog-image')
 
 const setPost = () => {
     title.textContent = singlePost.title
@@ -76,7 +85,14 @@ const setPost = () => {
     author.textContent = `By ${singlePost.author}`
     content.innerHTML = singlePost.content
     const firstChiild = content.firstChild
-    firstChiild.setAttribute('class', 'article-content')
+    firstChiild.setAttribute('class', 'article-content px-3 py-2')
+    if (singlePost.image) {
+        const image = document.createElement('img')
+        image.setAttribute('src', singlePost.image)
+        image.setAttribute('class', 'img-fluid')
+        image.setAttribute('alt', singlePost.title)
+        postImage.appendChild(image)
+    }
 
 }
 if (title) {
@@ -96,7 +112,7 @@ const getOtherPosts = () => {
                     ${Helpers.formatDate(getDate(post.date_added))}
                 </span>
                 <h5 class="decoration-underline">
-                <u><a href="post.html">${post.title}</a></u>
+                <u><a href="post.html?id=${post.id}">${post.title}</a></u>
                 </h5>
             `
 
