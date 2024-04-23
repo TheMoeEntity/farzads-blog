@@ -4,10 +4,10 @@ const footerBlog = document.querySelector('#footer-blogs')
 const commentsForm = document.querySelector('#contact-form')
 const errContainer = document.querySelector('#errors')
 const commentsContainer = document.querySelector('#get-comments')
+const commentNum = document.querySelector('#comment-num')
 const setComments = (res) => {
     const comment = document.createElement('div')
     comment.setAttribute('class', "d-flex flex-column")
-    console.log(res)
     comment.innerHTML = `                               
              <div class="d-flex align-items-center gap-2">
                     <div class="author-bubble">
@@ -18,7 +18,7 @@ const setComments = (res) => {
                         <span class="post-author">${res.name}</span>
                         <span class="post-added text-dark">${res.email}</span>
                         <span class="post-added">
-                            ${res.date_added}
+                            ${Helpers.formatDate(getDate(res.date_added))}
                             <span class="mx-1 ${res.status == 0 ? 'pending' : 'published'}" id="post-status">${res.status == 0 ? 'Pending' : 'Published'}</span>
                         </span>
                     </div>
@@ -75,7 +75,7 @@ const submitPost = async (name, email, comment, id) => {
         });
         const data = await response.json();
         console.log(data)
-        return data;
+        return data.comment;
     } catch (error) {
         console.error(error);
         const errorMessage = error.message || "An error occured posting your comment"
@@ -145,7 +145,6 @@ const content = document.querySelector('#post-content')
 const postImage = document.querySelector('#blog-image')
 
 const setPost = () => {
-    console.log("tile", singlePost)
     title.textContent = singlePost.title
     sub_title.textContent = singlePost.sub_title
     date_added.textContent = Helpers.formatDate(getDate(singlePost.date_added))
@@ -160,12 +159,14 @@ const setPost = () => {
         image.setAttribute('alt', singlePost.title)
         postImage.appendChild(image)
     }
-    console.log(singlePost)
     singlePost.comments.forEach(post => {
-        console.log("postfdfreererere", post)
         setComments(post)
     })
-
+    if (singlePost.comments.length === 0) {
+        const noComment = `<h3 id='zeroComments'>No comments yet</h3>`
+        commentsContainer.innerHTML = noComment;
+    }
+    commentNum.textContent = `${singlePost.comments.length} comment${singlePost.comments.length === 1 ? '' : 's'}`
 
 
 }
@@ -196,20 +197,25 @@ const getOtherPosts = () => {
 }
 
 async function addComment(event) {
-    const isError = Helpers.validateFormFields(event, errContainer)
+    const [isError, formFields] = Helpers.validateFormFields(event, errContainer)
     if (!isError) {
         errContainer.textContent = 'Submitting comment..'
         errContainer.setAttribute('class', 'success')
-        await submitPost().then(res => {
+        const getZeroComments = document.querySelector('#zeroComments')
+        await submitPost(formFields.name, formFields.email, formFields.comment, id).then(res => {
             errContainer.textContent = 'Comment submitted successfully'
             setComments(res)
             errContainer.textContent = 'Your comment has been created and will be reviewed by the admin.'
-
+            if (getZeroComments) {
+                getZeroComments.textContent = ''
+            }
+            commentNum.textContent = `${singlePost.comments.length+1} comment${(singlePost.comments.length+1) === 1 ? '' : 's'}`
         }).catch(error => {
             errContainer.setAttribute('class', 'error')
             errContainer.textContent = error || 'Something went wrong'
         }).finally(
             setTimeout(() => {
+                event.target.reset()
                 errContainer.textContent = ''
             }, 3000)
         )

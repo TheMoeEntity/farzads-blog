@@ -72,7 +72,8 @@ export class Helpers {
             errMessage.setAttribute('class', 'error')
             isError = true
         }
-        return isError
+        const formFields = { name, email, comment }
+        return [isError, formFields]
 
     }
 }
