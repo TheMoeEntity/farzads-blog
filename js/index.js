@@ -6,6 +6,32 @@ const commentsForm = document.querySelector('#contact-form')
 const errContainer = document.querySelector('#errors')
 const commentsContainer = document.querySelector('#get-comments')
 const commentNum = document.querySelector('#comment-num')
+const title = document.querySelector('#post-title')
+const sub_title = document.querySelector('#post-sub')
+const author = document.querySelector('#post-author')
+const content = document.querySelector('#post-content')
+const postImage = document.querySelector('#blog-image')
+const getOtherPosts = () => {
+    const others = postsArray.filter(post => post.id !== id)
+    if (others) {
+        otherPosts = others
+        otherPosts.forEach(post => {
+            const postElement = document.createElement('div')
+            postElement.setAttribute('class', 'py-3 d-flex flex-column')
+            postElement.innerHTML = `
+                <span class="text-secondary small mb-2">
+                    ${Helpers.formatDate(getDate(post.date_added))}
+                </span>
+                <h5 class="decoration-underline">
+                <u><a href="post.html?id=${post.id}">${post.title}</a></u>
+                </h5>
+            `
+
+            othersContainer.appendChild(postElement)
+        });
+    }
+}
+
 const setComments = (res) => {
     const comment = document.createElement('div')
     comment.setAttribute('class', "d-flex flex-column")
@@ -31,6 +57,10 @@ const setComments = (res) => {
     commentsContainer.appendChild(
         comment
     )
+}
+const getSinglePost = async () => {
+    const post = await getPost(id).then((x) => x)
+    singlePost = post
 }
 const getPosts = async () => {
     const formData = new FormData()
@@ -145,16 +175,9 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id')
 let singlePost
-const getSinglePost = async () => {
-    const post = await getPost(id).then((x) => x)
-    singlePost = post
-}
+
 await getSinglePost()
-const title = document.querySelector('#post-title')
-const sub_title = document.querySelector('#post-sub')
-const author = document.querySelector('#post-author')
-const content = document.querySelector('#post-content')
-const postImage = document.querySelector('#blog-image')
+
 
 const setPost = () => {
     title.textContent = singlePost.title
@@ -187,26 +210,6 @@ if (title) {
 }
 let otherPosts
 const othersContainer = document.querySelector('#others')
-const getOtherPosts = () => {
-    const others = postsArray.filter(post => post.id !== id)
-    if (others) {
-        otherPosts = others
-        otherPosts.forEach(post => {
-            const postElement = document.createElement('div')
-            postElement.setAttribute('class', 'py-3 d-flex flex-column')
-            postElement.innerHTML = `
-                <span class="text-secondary small mb-2">
-                    ${Helpers.formatDate(getDate(post.date_added))}
-                </span>
-                <h5 class="decoration-underline">
-                <u><a href="post.html?id=${post.id}">${post.title}</a></u>
-                </h5>
-            `
-
-            othersContainer.appendChild(postElement)
-        });
-    }
-}
 
 async function addComment(event) {
     const [isError, formFields] = Helpers.validateFormFields(event, errContainer)
