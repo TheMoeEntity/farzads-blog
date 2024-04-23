@@ -1,4 +1,5 @@
 import { Helpers } from "./helpers.js";
+const loadingOverlay = document.getElementById('loadingOverlay');
 const postsContainer = document.querySelector('#blogList')
 const footerBlog = document.querySelector('#footer-blogs')
 const commentsForm = document.querySelector('#contact-form')
@@ -44,7 +45,11 @@ const getPosts = async () => {
     } catch (error) {
         console.error(error);
         return [];
+    } finally {
+
     }
+
+
 };
 const getPost = async (postid) => {
     const formData = new FormData()
@@ -82,7 +87,14 @@ const submitPost = async (name, email, comment, id) => {
         return errorMessage;
     }
 };
-const data = await getPosts()
+const data = await getPosts().then(x => {
+    if (loadingOverlay) {
+        setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+        }, 750);
+    }
+    return x
+})
 console.log(data)
 const getDate = (date_addeds) => {
     const postDate = date_addeds.split(' ')
@@ -92,7 +104,7 @@ const postsArray = data
 if (postsContainer) {
     if (postsArray.length > 0) {
 
-        postsArray.forEach((post) => {
+        postsArray.slice(0, 6).forEach((post) => {
             const postElement = document.createElement('div')
             postElement.setAttribute('class', 'col-xl-4 col-lg-6 col-md-6 blog-card')
             postElement.innerHTML = `
@@ -209,7 +221,7 @@ async function addComment(event) {
             if (getZeroComments) {
                 getZeroComments.textContent = ''
             }
-            commentNum.textContent = `${singlePost.comments.length+1} comment${(singlePost.comments.length+1) === 1 ? '' : 's'}`
+            commentNum.textContent = `${singlePost.comments.length + 1} comment${(singlePost.comments.length + 1) === 1 ? '' : 's'}`
         }).catch(error => {
             errContainer.setAttribute('class', 'error')
             errContainer.textContent = error || 'Something went wrong'
