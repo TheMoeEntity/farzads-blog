@@ -36,12 +36,12 @@
             <div class="closeTitle">
                 <span onclick="closeModal()" class="">&times;</span>
             </div>
-            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+            <form id="contactForm">
 
                 <div class="form-floating">
                     <input class="form-control" id="name" type="text" placeholder="Enter your name..."
                         data-sb-validations="required" />
-                    <label for="name">Name</label>
+                    <label for="name">Names</label>
                     <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.
                     </div>
                 </div>
@@ -69,25 +69,8 @@
                         required.</div>
                 </div>
                 <br />
-                <!-- Submit success message-->
-                <!---->
-                <!-- This is what your users will see when the form-->
-                <!-- has successfully submitted-->
-                <div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center mb-3">
-                        <div class="fw-bolder">Form submission successful!</div>
-                        To activate this form, sign up at
-                        <br />
-                        <a
-                            href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                    </div>
-                </div>
 
-                <div class="d-none" id="submitErrorMessage">
-                    <div class="text-center text-danger mb-3">Error sending message!</div>
-                </div>
-                <!-- Submit Button-->
-                <button class="btn btn-primary text-uppercase disabled" id="submitButton" type="submit">Send</button>
+                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
             </form>
         </div>
     </div>
@@ -155,47 +138,61 @@
                         <div id="post-content">
 
                         </div>
-                        <!-- <div class="article-content">
-                            <p>Aenean eleifend ante maecenas pulvinar montes lorem et pede dis dolor pretium donec
-                                dictum.
-                                Vici consequat justo enim. Venenatis eget adipiscing luctus lorem. Adipiscing veni amet
-                                luctus enim sem libero tellus viverra venenatis aliquam. Commodo natoque quam pulvinar
-                                elit.
-                            </p>
-                            <p>Eget aenean tellus venenatis. Donec odio tempus. Felis arcu pretium metus nullam quam
-                                aenean
-                                sociis quis sem neque vici libero. Venenatis nullam fringilla pretium magnis aliquam
-                                nunc
-                                vulputate integer augue ultricies cras. Eget viverra feugiat cras ut. Sit natoque montes
-                                tempus ligula eget vitae pede rhoncus maecenas consectetuer commodo condimentum aenean.
-                            </p>
-                            <h4>What are my payment options?</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut
-                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <blockquote>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                <p class="blockquote-footer">Someone famous in <cite title="Source Title">Dick
-                                        Grayson</cite></p>
-                            </blockquote>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut
-                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                                in
-                                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </div> -->
 
                     </article>
+
+                    <!-- POST COMMENTS -->
+                    <div class="contact-form article-comment mb-5">
+                        <h4>Comments</h4>
+                        <div class="d-flex flex-column gap-4" id="get-comments">
+                            <div class="d-flex flex-column">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="author-bubble">
+                                        <i class="fas fa-user users"></i>
+                                    </div>
+
+                                    <div class="d-flex flex-column gap-1">
+                                        <span class="post-author">Author</span>
+                                        <span class="post-added">
+                                            January 23, 2024
+                                            <span class="mx-1 pending" id="post-status">Pending</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <p class="post-comment">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus quae repellendus
+                                    odio laudantium natus. Nostrum distinctio odio illum aliquam officiis assumenda.
+                                    Eaque officiis velit eum consectetur magnam, voluptatem amet debitis?
+                                </p>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="author-bubble">
+                                        <i class="fas fa-user users"></i>
+                                    </div>
+
+                                    <div class="d-flex flex-column gap-1">
+                                        <span class="post-author">Author</span>
+                                        <span class="post-added text-dark">moses@gmail.com</span>
+                                        <span class="post-added">
+                                            January 23, 2024
+                                            <span class="mx-1 published" id="post-status">Approved</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <p class="post-comment">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus quae repellendus
+                                    odio laudantium natus. Nostrum distinctio odio illum aliquam officiis assumenda.
+                                    Eaque officiis velit eum consectetur magnam, voluptatem amet debitis?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="contact-form article-comment">
                         <h4>Leave a Reply</h4>
-                        <form id="contact-form" method="POST">
+                        <form id="contact-form">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -215,9 +212,13 @@
                                             class="form-control"></textarea>
                                     </div>
                                 </div>
+                                <div id="errors" class="fadeInUp">
+
+                                </div>
                                 <div class="col-md-12">
                                     <div class="send">
-                                        <button class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
+                                        <button type="submit" class="px-btn theme"><span>Submit</span> <i
+                                                class="arrow"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -347,6 +348,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script>
+        // const addComment = (event) => {
+        //     event.preventDefault()
+        //     alert('')
+        //     const comment = document.querySelector('#comment')
+        //     const commentValue = comment.value
+        //     console.log('Comment:', commentValue);
+        // }
+    </script>
     <script src="js/index.js" type="module"></script>
 </body>
 

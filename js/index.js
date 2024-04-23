@@ -1,6 +1,36 @@
 import { Helpers } from "./helpers.js";
 const postsContainer = document.querySelector('#blogList')
 const footerBlog = document.querySelector('#footer-blogs')
+const commentsForm = document.querySelector('#contact-form')
+const errContainer = document.querySelector('#errors')
+const commentsContainer = document.querySelector('#get-comments')
+const setComments = (res) => {
+    const comment = document.createElement('div')
+    comment.setAttribute('class', "d-flex flex-column")
+    console.log(res)
+    comment.innerHTML = `                               
+             <div class="d-flex align-items-center gap-2">
+                    <div class="author-bubble">
+                        <i class="fas fa-user users"></i>
+                    </div>
+
+                    <div class="d-flex flex-column gap-1">
+                        <span class="post-author">${res.name}</span>
+                        <span class="post-added text-dark">${res.email}</span>
+                        <span class="post-added">
+                            ${res.date_added}
+                            <span class="mx-1 ${res.status == 0 ? 'pending' : 'published'}" id="post-status">${res.status == 0 ? 'Pending' : 'Published'}</span>
+                        </span>
+                    </div>
+                </div>
+                <p class="post-comment">
+                    ${res.comment}
+                </p>
+                `
+    commentsContainer.appendChild(
+        comment
+    )
+}
 const getPosts = async () => {
     const formData = new FormData()
     formData.append('getPosts', '')
@@ -14,6 +44,42 @@ const getPosts = async () => {
     } catch (error) {
         console.error(error);
         return [];
+    }
+};
+const getPost = async (postid) => {
+    const formData = new FormData()
+    formData.append('getPost', postid)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/posts', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data.post;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+const submitPost = async (name, email, comment, id) => {
+    const formData = new FormData()
+    formData.append('addComment', id)
+    formData.append('name', name)
+    formData.append('email', email)
+    formData.append('comment', comment)
+    formData.append('publish', 0)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/comments', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        console.log(data)
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured posting your comment"
+        return errorMessage;
     }
 };
 const data = await getPosts()
@@ -53,7 +119,7 @@ if (postsContainer) {
         postsContainer.appendChild(noPostsElement);
     }
 }
-postsArray.slice(0,3).forEach(post => {
+postsArray.slice(0, 3).forEach(post => {
     const list = document.createElement('li')
     list.innerHTML = `
     <strong>
@@ -67,11 +133,11 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id')
 let singlePost
-const getSinglePost = () => {
-    const post = postsArray.find(post => post.id == id)
+const getSinglePost = async () => {
+    const post = await getPost(id).then((x) => x)
     singlePost = post
 }
-getSinglePost()
+await getSinglePost()
 const title = document.querySelector('#post-title')
 const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
@@ -79,6 +145,7 @@ const content = document.querySelector('#post-content')
 const postImage = document.querySelector('#blog-image')
 
 const setPost = () => {
+    console.log("tile", singlePost)
     title.textContent = singlePost.title
     sub_title.textContent = singlePost.sub_title
     date_added.textContent = Helpers.formatDate(getDate(singlePost.date_added))
@@ -93,6 +160,13 @@ const setPost = () => {
         image.setAttribute('alt', singlePost.title)
         postImage.appendChild(image)
     }
+    console.log(singlePost)
+    singlePost.comments.forEach(post => {
+        console.log("postfdfreererere", post)
+        setComments(post)
+    })
+
+
 
 }
 if (title) {
@@ -120,6 +194,29 @@ const getOtherPosts = () => {
         });
     }
 }
+
+async function addComment(event) {
+    const isError = Helpers.validateFormFields(event, errContainer)
+    if (!isError) {
+        errContainer.textContent = 'Submitting comment..'
+        errContainer.setAttribute('class', 'success')
+        await submitPost().then(res => {
+            errContainer.textContent = 'Comment submitted successfully'
+            setComments(res)
+            errContainer.textContent = 'Your comment has been created and will be reviewed by the admin.'
+
+        }).catch(error => {
+            errContainer.setAttribute('class', 'error')
+            errContainer.textContent = error || 'Something went wrong'
+        }).finally(
+            setTimeout(() => {
+                errContainer.textContent = ''
+            }, 3000)
+        )
+    }
+}
+
 if (othersContainer) {
+    commentsForm.addEventListener('submit', addComment)
     getOtherPosts()
 }

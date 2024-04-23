@@ -12840,6 +12840,105 @@ header.masthead .post-heading .meta a {
 
 }
 
+#errors {
+  font-size: small;
+  padding: 10px 20px;
+  display: flex;
+  flex-flow: row wrap;
+  font-weight: bold;
+  justify-content: flex-end;
+}
+
+#errors.success {
+  color: var(--bs-green)
+}
+
+#errors.error {
+  color: var(--bs-red);
+  animation: wobble 2s ease;
+}
+
+@keyframes wobble {
+  0% {
+    transform: translateX(0%);
+  }
+
+  15% {
+    transform: translateX(-15%);
+  }
+
+  30% {
+    transform: translateX(15%);
+  }
+
+  45% {
+    transform: translateX(-7%);
+  }
+
+  60% {
+    transform: translateX(10%);
+  }
+
+  75% {
+    transform: translateX(-5%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.post-comment {
+  font-size: medium;
+  margin-left: 69px;
+}
+
+.post-author {
+  color: #3B71CA;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.author-bubble {
+  font-size: large;
+  color: white;
+  width: 55px;
+  height: 55px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: #3B71CA;
+  border-radius: 50%;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#post-status {
+  color: white;
+  padding: 5px;
+  width: fit-content;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: small;
+}
+
+#post-status.pending {
+  background-color: #3B71CA;
+}
+
+#post-status.published {
+  background-color: #00C853;
+}
+
+#post-status.rejected {
+  background-color: #D50000;
+}
+
+.post-added {
+  font-size: medium;
+  color: #C8C8C8;
+}
+
 .blog .posts-list article {
   box-shadow: 0 4px 16px rgba(var(--default-color-rgb), 0.1);
   padding: 30px;
@@ -12847,7 +12946,11 @@ header.masthead .post-heading .meta a {
   border-radius: 10px;
   overflow: hidden;
 }
-
+@media screen and (max-width:480px) {
+  .post-comment {
+    margin-left: 0;
+  }
+}
 .blog .posts-list .post-img {
   max-height: 0px;
   margin: -30px -30px 15px -30px;
