@@ -71,10 +71,8 @@ const setComments = (res) => {
 
                     <div class="d-flex flex-column gap-1">
                         <span class="post-author">${res.name}</span>
-                        <span class="post-added text-dark">${res.email}</span>
                         <span class="post-added">
                             ${Helpers.formatDate(getDate(res.date_added))}
-                            <span class="mx-1 ${res.status == 0 ? 'pending' : 'published'}" id="post-status">${res.status == 0 ? 'Pending' : 'Published'}</span>
                         </span>
                     </div>
                 </div>
