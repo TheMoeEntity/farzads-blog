@@ -11,8 +11,10 @@ const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
 const content = document.querySelector('#post-content')
 const postImage = document.querySelector('#blog-image')
+
 const othersContainer = document.querySelector('#others')
 let singlePost
+
 const getOtherPosts = () => {
     const others = postsArray.filter(post => post.id !== id)
     if (others) {
