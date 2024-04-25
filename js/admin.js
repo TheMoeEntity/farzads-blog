@@ -6,11 +6,12 @@ import { setComments } from "./index.js";
 
 const tableContainer = document.querySelector('#posts-table')
 const commentsContainer = document.querySelector('#comments-table')
-const commentsTab = document.querySelector('#comments-tab')
+const commentsTab = document.querySelectorAll('.comments-tab')
 const singleComment = document.querySelector('#single-comment')
 const commenter = document.querySelector('#commenter')
 const deleteBtn = document.querySelector('#deleteBtn')
 const queryString = window.location.search;
+const editDrop = document.querySelectorAll('.editDrop')
 let currentCommentID = ''
 const urlParams = new URLSearchParams(queryString);
 const titleForComment = document.querySelector('#comment-title')
@@ -109,7 +110,25 @@ const deletePost = async (uid, id) => {
         return errorMessage;
     }
 };
-const updatePost = async (uid, id, publish) => {
+const updatePost = async (uid, post) => {
+    const formData = new FormData()
+    formData.append('editComment', id)
+    formData.append('uid', uid)
+    formData.append('publish', publish === true ? 1 : 0)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/comments', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured updating comment"
+        return errorMessage;
+    }
+};
+const updateComment = async (uid, id, publish) => {
     const formData = new FormData()
     formData.append('updateComment', id)
     formData.append('uid', uid)
@@ -139,7 +158,7 @@ const approveComment = async (uid, id, text) => {
     if (text === "Pend") {
         shouldPublish = false
     }
-    const response = await updatePost(uid, id, shouldPublish).then((x) => x)
+    const response = await updateComment(uid, id, shouldPublish).then((x) => x)
     if (response.status && response.status === 'success') {
         const comment = singlePost.comments.find(x => x.id == id)
         commenter.textContent = `${comment.name}'s comments have been ${shouldPublish ? 'published' : 'put on pending'}`
@@ -155,12 +174,15 @@ const getSinglePost = async () => {
 }
 const setCommentsTab = () => {
     if (posts.length > 0) {
-        posts.forEach(post => {
-            const listItem = document.createElement('li')
-            listItem.setAttribute('class', 'nav-item')
-            listItem.innerHTML = `<a class="nav-link" href="/admin/comments/?id=${post.id}">Post ID: ${post.id} </a>`
-            commentsTab.appendChild(listItem)
+        commentsTab.forEach(x => {
+            posts.forEach(post => {
+                const listItem = document.createElement('li')
+                listItem.setAttribute('class', 'nav-item')
+                listItem.innerHTML = `<a class="nav-link post-links" data-postID="${post.id}">Post ID: ${post.id} </a>`
+                x.appendChild(listItem)
+            })
         })
+
 
     }
 }
@@ -274,6 +296,7 @@ if (singlePost.comments && singlePost.comments.length > 0) {
 const viewBtns = document.querySelectorAll('.viewBtn')
 const approveBtns = document.querySelectorAll('.approveBtn')
 const commentDeleteBtns = document.querySelectorAll('.delete-button')
+const postLinks = document.querySelectorAll('.post-links')
 if (commentDeleteBtns) {
     for (const button of commentDeleteBtns) {
         button.addEventListener('click', async (e) => {
@@ -290,6 +313,23 @@ if (approveBtns) {
         })
     }
 }
+if (editDrop) {
+    editDrop.forEach(x => {
+        x.addEventListener('click', (e) => {
+            const dataEvent = x.getAttribute('data-event')
+            if (postLinks) {
+                postLinks.forEach(x => {
+                    const postid = x.getAttribute('data-postID')
+                    x.setAttribute('href', '/admin/' + dataEvent + '/?id=' + postid)
+                })
+            }
+            
+        })
+        
+       
+    })
+  
+}
 if (viewBtns) {
     for (const button of viewBtns) {
         button.addEventListener('click', (e) => {
@@ -300,6 +340,7 @@ if (viewBtns) {
         })
     }
 }
+
 if (deleteBtn) {
     deleteBtn.addEventListener('click', async () => {
         await deleteComment(1234567890, currentCommentID)

@@ -82,34 +82,44 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:../../partials/_sidebar.html -->
-       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">
-                            <i class="mdi mdi-home menu-icon" ></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                       <a class="nav-link" href="/admin/create/">
-                            <i class="mdi mdi-view-headline menu-icon"></i>
-                            <span class="menu-title">Create post</span>
-                        </a>
-                    </li>
-                  <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false"
-                            aria-controls="auth">
-                            <i class="mdi mdi-account menu-icon active"></i>
-                            <span class="menu-title active">Comments</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="auth">
-                            <ul class="nav flex-column sub-menu" id="comments-tab">
-                            </ul>
-                        </div>
-                    </li>
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="mdi mdi-home menu-icon" style="color:#4D84FF;"></i>
+                <span class="menu-title active" style="color:#4D84FF;">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/create/">
+                <i class="mdi mdi-view-headline menu-icon"></i>
+                <span class="menu-title">Create post</span>
+              </a>
+            </li>
+            <li class="nav-item editDrop" data-event="comments">
+              <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <i class="mdi mdi-account menu-icon"></i>
+                <span class="menu-title">Comments</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu comments-tab">
                 </ul>
-            </nav>
+              </div>
+            </li>
+            <li class="nav-item editDrop" data-event="update">
+              <a class="nav-link" data-bs-toggle="collapse" href="#auth2" aria-expanded="false" aria-controls="auth2">
+                <i class="mdi mdi-account menu-icon"></i>
+                <span class="menu-title">Edit Post</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="auth2">
+                <ul class="nav flex-column sub-menu comments-tab">
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -176,13 +186,13 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="../vendors/base/vendor.bundle.base.js"></script>
+  <script src="/admin/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="../js/off-canvas.js"></script>
-  <script src="../js/hoverable-collapse.js"></script>
+  <script src="/admin/js/off-canvas.js"></script>
+  <script src="/admin/js/hoverable-collapse.js"></script>
   <script src="../js/template.js"></script>
   <script type="module" src="../../js/admin.js"></script>
   <!-- endinject -->
