@@ -59,6 +59,29 @@ const produceInnerHTML = (status, comment) => {
                      `
     }
 }
+const producePostsInnerHTML = (status, comment) => {
+    switch (status) {
+        case "0":
+            return `
+                    <li class="list-group-item">
+                     <span class="text-center btn w-100 text-success update-button approveBtn" data-btnID="${comment.id}">Publish</span>
+                     </li>
+                    <li class="list-group-item delete-button text-danger">
+                     <span class="btn text-center w-100 text-danger delete-button" data-bs-toggle="modal" data-bs-target="#deletePostModal">Delete</span>
+                     </li>
+                `
+
+        case "1":
+            return `
+                     <li class="list-group-item delete-button text-warning">
+                     <span class="text-center btn w-100 text-warning update-button approveBtn" data-btnID="${comment.id}">Pend</span>
+                     </li>
+                     <li class="list-group-item delete-button text-danger">
+                     <span class="btn text-center w-100 text-danger delete-button" data-bs-toggle="modal" data-bs-target="#deletePostModal" data-btnID="${comment.id}">Delete</span>
+                     </li>
+                     `
+    }
+}
 const deleteComment = async (uid, commentid,) => {
     const response = await deletePost(uid, commentid).then((x) => x)
     if (response.status && response.status === 'success') {
@@ -151,6 +174,12 @@ if (posts.length > 0) {
         tableRow.innerHTML = `
             <th>${post.id}</th>
             <td style="min-width:180px;">${post.title.slice(0, 70)}...</td>
+            <td>
+            <div class="progress">
+                <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"
+                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            </td>
             <td>${Helpers.formatDate(getDate(post.date_added))}</td>
             <td><a href="/admin/comments/?id=${post.id}"><u>Comments</u></a></td>
             <td>
@@ -161,18 +190,9 @@ if (posts.length > 0) {
                 </span>
                 <div class="dropdown-menu dropdown-menu-right py-0 navbar-dropdown"
                     aria-labelledby="messageDropdown"
-                    style="width:150px; height: auto; min-height: fit-content; z-index: 99999;">
+                    style="width:150px; height: auto; min-height: fit-contents; z-index: 99999;">
                   <ul class="list-group">
-                     <li class="list-group-item">
-                     <span class='update-button'>
-                        Update
-                     </span>
-                     </li>
-                     <li class="list-group-item">
-                       <span class='delete-button'>
-                            Delete
-                        </span>  
-                     </li>
+                        ${producePostsInnerHTML(post.status, post)}
                     </ul>
                 </div>
             </div>
@@ -281,7 +301,7 @@ if (viewBtns) {
     }
 }
 if (deleteBtn) {
-    deleteBtn.addEventListener('click', async()=> {
-        await deleteComment(1234567890,currentCommentID)
+    deleteBtn.addEventListener('click', async () => {
+        await deleteComment(1234567890, currentCommentID)
     })
 }
