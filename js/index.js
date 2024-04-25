@@ -11,10 +11,37 @@ const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
 const content = document.querySelector('#post-content')
 const postImage = document.querySelector('#blog-image')
-
+let sessionActive = false
 const othersContainer = document.querySelector('#others')
 let singlePost
+const checkSession = () => {
+    return new Promise((resolve, reject) => {
+        fetch('session.php')
+            .then(response => {
+                if (response.ok) {
+                    resolve(response.json());
+                } else {
+                    reject('Failed to check session status');
+                }
+            })
+            .catch(error => reject(error));
+    });
+}
+checkSession()
+    .then(data => {
+        if (data && data.sessionActive === true) {
+            console.log('Session is active');
+            sessionActive = true
 
+        } else {
+            console.log('Session is not active');
+            sessionActive = false
+        }
+    })
+    .catch(error => {
+        sessionActive = false
+        console.error('Error checking session:', error);
+    });
 const getOtherPosts = () => {
     const others = postsArray.filter(post => post.id !== id)
     if (others) {
@@ -43,7 +70,7 @@ async function addComment(event) {
         const getZeroComments = document.querySelector('#zeroComments')
         await submitPost(formFields.name, formFields.email, formFields.comment, id).then(res => {
             errContainer.textContent = 'Comment submitted successfully'
-            setComments(res)
+            setComments(res, commentsContainer, false)
             errContainer.textContent = 'Your comment has been created and will be reviewed by the admin.'
             if (getZeroComments) {
                 getZeroComments.textContent = ''
@@ -60,7 +87,7 @@ async function addComment(event) {
         )
     }
 }
-const setComments = (res) => {
+export const setComments = (res, container, isAdmin) => {
     const comment = document.createElement('div')
     comment.setAttribute('class', "d-flex flex-column")
     comment.innerHTML = `                               
@@ -73,6 +100,7 @@ const setComments = (res) => {
                         <span class="post-author">${res.name}</span>
                         <span class="post-added">
                             ${Helpers.formatDate(getDate(res.date_added))}
+                        <span class="mx-1 ${sessionActive && res.status == 0 ? 'pending' : sessionActive && res.status !== 0 ? 'published' : ''}" id="post-status">${res.status == 0 ? 'Pending' : 'Published'}</span>
                         </span>
                     </div>
                 </div>
@@ -80,15 +108,23 @@ const setComments = (res) => {
                     ${res.comment}
                 </p>
                 `
-    commentsContainer.appendChild(
-        comment
-    )
+    if (!isAdmin) {
+        container.appendChild(comment)
+    } else if (isAdmin) {
+        if (container.firstChild) {
+            container.replaceChild(comment, container.firstChild);
+        } else {
+            container.appendChild(comment);
+        }
+    }
+
 }
 const getSinglePost = async () => {
     const post = await getPost(id).then((x) => x)
+    console.log(post)
     singlePost = post
 }
-const getPosts = async () => {
+export const getPosts = async () => {
     const formData = new FormData()
     formData.append('getPosts', '')
     try {
@@ -97,7 +133,10 @@ const getPosts = async () => {
             body: formData,
         });
         const data = await response.json();
-        return data.posts;
+        if (sessionActive) {
+            return data.posts;
+        }
+        return data.posts.filter(x => x.status == "1")
     } catch (error) {
         console.error(error);
         return [];
@@ -107,7 +146,7 @@ const getPosts = async () => {
 
 
 };
-const getPost = async (postid) => {
+export const getPost = async (postid) => {
     const formData = new FormData()
     formData.append('getPost', postid)
     try {
@@ -152,7 +191,7 @@ const data = await getPosts().then(x => {
     return x
 })
 console.log(data)
-const getDate = (date_addeds) => {
+export const getDate = (date_addeds) => {
     const postDate = date_addeds.split(' ')
     return postDate[0]
 }
@@ -170,7 +209,10 @@ if (postsContainer) {
                         </h2>
 
                         <div class="d-flex align-items-center">
-                            <div class="post-meta">
+                            <div class="post-meta gap-2 d-flex flex-column">
+                                <div style="font-size:small;" class="text-white p-2 ${sessionActive && post.status == 0 ? 'bg-warning' : sessionActive && post.status !== 0 ? 'bg-success' : 'd-none'}">
+                                    <b>${post.status == "0" ? "PENDING" : "PUBLISHED"}</b>
+                                </div>
                                 <p class="post-date">
                                     <time datetime="2022-01-01">${Helpers.formatDate(getDate(post.date_added))}</time>
                                 </p>
@@ -194,7 +236,9 @@ postsArray.slice(0, 3).forEach(post => {
     <a href="/post.html?id=${post.id}">${post.title}</a>
     </strong>
     `
-    footerBlog.appendChild(list)
+    if (footerBlog) {
+        footerBlog.appendChild(list)
+    }
 });
 
 const queryString = window.location.search;
@@ -220,9 +264,18 @@ const setPost = () => {
         image.setAttribute('alt', singlePost.title)
         postImage.appendChild(image)
     }
-    singlePost.comments.forEach(post => {
-        setComments(post)
-    })
+    if (sessionActive) {
+        singlePost.comments.forEach(post => {
+            setComments(post, commentsContainer, false)
+        })
+    } else {
+        const filteredComments = singlePost.comments.filter(x => x.status == 1)
+        if (filteredComments) {
+            filteredComments.forEach(post => {
+                setComments(post, commentsContainer, false)
+            })
+        }
+    }
     if (singlePost.comments.length === 0) {
         const noComment = `<h3 id='zeroComments'>No comments yet</h3>`
         commentsContainer.innerHTML = noComment;
