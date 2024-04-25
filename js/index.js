@@ -14,34 +14,30 @@ const postImage = document.querySelector('#blog-image')
 let sessionActive = false
 const othersContainer = document.querySelector('#others')
 let singlePost
-const checkSession = () => {
-    return new Promise((resolve, reject) => {
-        fetch('session.php')
-            .then(response => {
-                if (response.ok) {
-                    resolve(response.json());
-                } else {
-                    reject('Failed to check session status');
-                }
-            })
-            .catch(error => reject(error));
-    });
-}
-checkSession()
-    .then(data => {
-        if (data && data.sessionActive === true) {
-            console.log('Session is active');
-            sessionActive = true
+function getCookie(name) {
+    let cookies = document.cookie.split(";");
 
-        } else {
-            console.log('Session is not active');
-            sessionActive = false
+    for (let cookie of cookies) {
+        let parts = cookie.split("=");
+        let cookieName = parts[0].trim();
+        let cookieValue = decodeURIComponent(parts[1]);
+
+        if (cookieName === name) {
+            return cookieValue;
         }
-    })
-    .catch(error => {
-        sessionActive = false
-        console.error('Error checking session:', error);
-    });
+    }
+
+    return null;
+}
+function isAdminLoggedIn() {
+    let adminCookie = getCookie("admin");
+    console.log(adminCookie)
+    // Check if the admin cookie exists and has a value of "true"
+    return adminCookie !== null && adminCookie === "true";
+}
+
+sessionActive = isAdminLoggedIn()
+console.log(sessionActive)
 const getOtherPosts = () => {
     const others = postsArray.filter(post => post.id !== id)
     if (others) {

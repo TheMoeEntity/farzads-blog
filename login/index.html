@@ -58,6 +58,17 @@
     <script type="module">
         const errorDiv = document.querySelector('#errorDiv')
         const loginForm = document.querySelector('#login-form')
+        function setCookie(name, value, daysToExpire) {
+            let expires = "";
+
+            if (daysToExpire) {
+                let date = new Date();
+                date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+
+            document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+        }
 
         const submitForm = async (event) => {
             event.preventDefault()
@@ -79,6 +90,7 @@
                 if (didLogin) {
                     errorDiv.textContent = 'Login success'
                     errorDiv.style.color = 'green'
+                    setCookie("admin", true, 1)
                     setTimeout(() => {
                         event.target.reset()
                         errorDiv.textContent = ''
