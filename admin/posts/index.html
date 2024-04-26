@@ -27,6 +27,9 @@
 </head>
 
 <body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
     <!-- modal -->
     <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="deletePostModalLabel"
         aria-hidden="true">
@@ -37,7 +40,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="post-error">
-                    Are you sure you want to delete this comment?
+                    Are you sure you want to delete this Post?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Cancel</button>
@@ -56,14 +59,19 @@
         <form action="" class="w-100" id="wysiwyg-form">
             <div class="form-group">
                 <label for="exampleInputName1">Title</label>
-                <input type="text" class="form-control" value="Farzad" id="exampleInputName1" placeholder="Name">
+                <input type="text" style="font-weight: bolder;" class="form-control" value="Farzad"
+                    id="exampleInputName1" placeholder="Name">
             </div>
             <div class="form-group">
                 <label for="exampleInputName1">Sub Title</label>
-                <input type="text" class="form-control" value="Farzad" id="exampleInputName1" placeholder="Name">
+                <input type="text" style="font-weight: 500;" class="form-control" value="Farzad" id="exampleInputName1"
+                    placeholder="Name">
             </div>
         </form>
         <textarea class="form-control" style="outline: none; border:none; height: 100%;" id="editWysiwyg"></textarea>
+        <div class="p-3">
+            <button type="submit" class="btn bg-dark text-white">Save changes</button>
+        </div>
     </div>
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
@@ -204,8 +212,9 @@
                                                 data-bs-toggle="modal" data-bs-target="#deletePostModal">
                                                 <b>Delete Post</b>
                                             </button>
-                                            <div id="publishError" class="actionbtn text-success">
-                                                Published
+                                            <div style="white-space: nowrap;" id="publishError"
+                                                class="actionbtn text-success">
+
                                             </div>
                                         </div>
                                     </article>
@@ -246,7 +255,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="send">
-                                                        <button type="submit" class="px-btn theme"><span>Submit</span>
+                                                        <button type="button" class="px-btn theme"><span>Submit</span>
                                                             <i class="arrow"></i></button>
                                                     </div>
                                                 </div>

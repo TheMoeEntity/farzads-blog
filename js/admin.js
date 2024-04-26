@@ -222,7 +222,7 @@ if (posts.length > 0) {
         const tableRow = document.createElement('tr')
         tableRow.innerHTML = `
             <th>${post.id}</th>
-            <td style="min-width:180px;"><a class="text-dark" href="/admin/posts/?id=${post.id}">${post.title.lenght >= 70 ? post.title.slice(0, 70) + '...' : post.title}<a></td>
+            <td style="min-width:180px;"><a class="text-dark noUnderline" href="/admin/posts/?id=${post.id}"><b>${post.title.lenght >= 70 ? post.title.slice(0, 70) + '...' : post.title}</b><a></td>
             <td>
             <div class="progress">
                 <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"

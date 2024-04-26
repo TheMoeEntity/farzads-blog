@@ -1,8 +1,8 @@
 import { Helpers } from "./helpers.js";
-
 const commentsContainer = document.querySelector('#get-comments')
 const commentNum = document.querySelector('#comment-num')
 const title = document.querySelector('#post-title')
+const loadingOverlay = document.getElementById('loadingOverlay');
 const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
 const content = document.querySelector('#post-content')
@@ -19,15 +19,19 @@ const id = urlParams.get('id')
 const closBtn = document.querySelector('#closeBtn')
 const postErrorDiv = document.querySelector('#post-error')
 const openEditor = document.querySelector('#openEditor')
+
 const deleteAdminPost = async (uid, commentid,) => {
+    loadingOverlay.style.display = 'flex';
     const response = await delAdminPost(uid, commentid).then((x) => x)
     if (response.status && response.status === 'success') {
+        loadingOverlay.style.display = 'none';
         postErrorDiv.setAttribute('class', 'modal-body text-success')
         postErrorDiv.textContent = `Post has been deleted successfully`
         setTimeout(() => {
             window.location = '/admin'
         }, 4500);
     } else if (response.status && response.status !== 'success') {
+        loadingOverlay.style.display = 'none';
         postErrorDiv.setAttribute('class', 'modal-body text-danger')
         postErrorDiv.textContent = `An error occured while trying to delete Post. Try again.`
     }
@@ -171,6 +175,9 @@ const getPost = async (postid) => {
     }
 };
 const post = await getPost(id).then(x => {
+    setTimeout(() => {
+        loadingOverlay.style.display = 'none';
+    }, 800);
     return x
 })
 const closeEditor = () => {
@@ -210,15 +217,20 @@ const setPost = () => {
         const textContent = e.target.innerText
         shouldPublish = textContent === 'Save to drafts' ? false : true
         console.log(shouldPublish)
+        loadingOverlay.style.display = 'flex';
         const response = await updateAdminPost(1234567890, post.title, post.sub_title, shouldPublish, post.content).then((x) => x)
         if (response.status && response.status === 'success') {
-            publishError.textContent = `${shouldPublish ? 'Your post has been published successfully.' : 'Your post has been saved to drafts.'}`
+            loadingOverlay.style.display = 'none';
+            publishError.textContent = `${shouldPublish ? 'Post published.' : 'Saved to drafts.'}`
+            publishError.setAttribute('class', post.status == 1 ? 'actionbtn text-warning' : 'actionbtn text-success')
         } else if (response.status && response.status !== 'success') {
-            publishError.setAttribute('class', 'py-3 text-danger')
+            publishError.setAttribute('class', post.status == 1 ? 'actionbtn text-warning' : 'actionbtn text-success')
             publishError.textContent = `Something went wrong. Let's give it another shot`
+            loadingOverlay.style.display = 'none';
         }
         setTimeout(() => {
             publishError.textContent = ""
+            window.location.reload()
         }, 4500);
     })
 }
