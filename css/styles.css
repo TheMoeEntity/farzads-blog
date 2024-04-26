@@ -12949,6 +12949,7 @@ header.masthead .post-heading .meta a {
 
 @media screen and (max-width:480px) {
   .post-comment {
+    margin-top: 20px;
     margin-left: 0;
   }
 }

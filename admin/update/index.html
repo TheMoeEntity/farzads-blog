@@ -147,8 +147,14 @@
                                             <textarea class="form-control" style="outline: none;" id="exampleTextarea1"
                                                 rows="4"></textarea>
                                         </div>
-                                        <button type="submit" class="btn btn-primary me-2 text-white">Submit</button>
-                                        <button class="btn btn-light">Cancel</button>
+                                            <button type="submit"
+                                                class="btn btn-primary me-2 text-white">Publish</button>
+                                        <button type="submit" class="btn btn-light me-2 text-dark">Drafts</button>
+                                        
+                                        <div class="" id="publish-error">
+                                        
+                                        </div>
+                                        <!-- <button class="btn btn-light">Cancel</button> -->
                                     </form>
                                 </div>
                             </div>
@@ -175,7 +181,7 @@
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="../../js/file-upload.js"></script>
-    <script>
+    <!-- <script>
         tinymce.init({
             selector: 'textarea',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
@@ -188,7 +194,7 @@
             ],
             ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
         });
-    </script>
+    </script> -->
     <!-- End custom js for this page-->
 </body>
 

@@ -12,10 +12,10 @@ const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
 const content = document.querySelector('#post-content')
 const postImage = document.querySelector('#blog-image')
+const publishError = document.querySelector('#publish-error')
 let sessionActive = false
 const othersContainer = document.querySelector('#others')
 let singlePost
-
 function getCookie(name) {
     let cookies = document.cookie.split(";");
 
@@ -117,10 +117,59 @@ const getSinglePost = async () => {
     const post = await getPost(id).then((x) => x)
     singlePost = post
     if (updatePostForm) {
+        let clickedButton = '';
+        const submitButtons = updatePostForm.querySelectorAll('button[type="submit"]');
+        if (submitButtons) {
+            submitButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    clickedButton = event.target.textContent;
+                });
+            });
+        }
         updatePostForm[0].value = singlePost.author
         updatePostForm[1].value = singlePost.title
         updatePostForm[2].value = post.sub_title
-        updatePostForm[3].value = post.content
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            setup: function (editor) {
+                editor.on('init', function () {
+                    const content = post.content;
+                    editor.setContent(content);
+                });
+            },
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+
+        updatePostForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            let shouldPublish = true
+            const editorContent = tinymce.activeEditor.getContent();
+            console.log(clickedButton)
+            if (clickedButton === 'Drafts') {
+                console.log(editorContent)
+                shouldPublish = false
+            }
+            const response = await updateAdminPost(1234567890,post.title,post.sub_title,shouldPublish, editorContent).then((x) => x)
+            if (response.status && response.status === 'success') {
+                publishError.textContent = `Your post has been edited successfully and ${shouldPublish ? 'published' : 'put on pending'}`
+                setTimeout(() => {
+                    window.location.reload()
+                }, 3500);
+            } else if (response.status && response.status !== 'success') {
+                publishError.textContent = `Something went wrong. Let's give it another shot`
+                setTimeout(() => {
+                    window.location.reload()
+                }, 3500);
+            }
+        })
     }
 }
 export const getPosts = async () => {
@@ -144,6 +193,27 @@ export const getPosts = async () => {
     }
 
 
+};
+const updateAdminPost = async (uid, title, sub_title, publish, content) => {
+    const formData = new FormData()
+    formData.append('editPost', id)
+    formData.append('uid', uid)
+    formData.append('title', title)
+    formData.append('sub_title', sub_title)
+    formData.append('content', content)
+    formData.append('publish', publish === true ? 1 : 0)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/posts', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured updating comment"
+        return errorMessage;
+    }
 };
 export const getPost = async (postid) => {
     const formData = new FormData()
