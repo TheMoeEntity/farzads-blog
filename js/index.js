@@ -6,6 +6,7 @@ const commentsForm = document.querySelector('#contact-form')
 const errContainer = document.querySelector('#errors')
 const commentsContainer = document.querySelector('#get-comments')
 const commentNum = document.querySelector('#comment-num')
+const updatePostForm = document.querySelector('#update-post-form')
 const title = document.querySelector('#post-title')
 const sub_title = document.querySelector('#post-sub')
 const author = document.querySelector('#post-author')
@@ -14,6 +15,7 @@ const postImage = document.querySelector('#blog-image')
 let sessionActive = false
 const othersContainer = document.querySelector('#others')
 let singlePost
+
 function getCookie(name) {
     let cookies = document.cookie.split(";");
 
@@ -31,13 +33,9 @@ function getCookie(name) {
 }
 function isAdminLoggedIn() {
     let adminCookie = getCookie("admin");
-    console.log(adminCookie)
-    // Check if the admin cookie exists and has a value of "true"
     return adminCookie !== null && adminCookie === "true";
 }
-
 sessionActive = isAdminLoggedIn()
-console.log(sessionActive)
 const getOtherPosts = () => {
     const others = postsArray.filter(post => post.id !== id)
     if (others) {
@@ -117,8 +115,13 @@ export const setComments = (res, container, isAdmin) => {
 }
 const getSinglePost = async () => {
     const post = await getPost(id).then((x) => x)
-    console.log(post)
     singlePost = post
+    if (updatePostForm) {
+        updatePostForm[0].value = singlePost.author
+        updatePostForm[1].value = singlePost.title
+        updatePostForm[2].value = post.sub_title
+        updatePostForm[3].value = post.content
+    }
 }
 export const getPosts = async () => {
     const formData = new FormData()
