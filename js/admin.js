@@ -3,13 +3,14 @@ import { Helpers } from "./helpers.js";
 import { getDate } from "./index.js";
 import { getPost } from "./index.js";
 import { setComments } from "./index.js";
-
 const tableContainer = document.querySelector('#posts-table')
 const commentsContainer = document.querySelector('#comments-table')
 const commentsTab = document.querySelectorAll('.comments-tab')
 const singleComment = document.querySelector('#single-comment')
 const commenter = document.querySelector('#commenter')
 const deleteBtn = document.querySelector('#deleteBtn')
+const postDeleteBtn = document.querySelector('#post-deleteBtn')
+const postErrorDiv = document.querySelector('#postErrorMessage');
 const queryString = window.location.search;
 const editDrop = document.querySelectorAll('.editDrop')
 let currentCommentID = ''
@@ -42,20 +43,20 @@ const produceInnerHTML = (status, comment) => {
         case "0":
             return `
                     <li class="list-group-item">
-                     <span class="text-center btn w-100 text-success update-button approveBtn" data-btnID="${comment.id}">Publish</span>
+                     <a class="text-center text-success update-button approveBtn" data-btnID="${comment.id}">Publish</a>
                      </li>
                     <li class="list-group-item delete-button text-danger">
-                     <span class="btn text-center w-100 text-danger delete-button" data-bs-toggle="modal" data-bs-target="#deletePostModal">Delete</span>
+                     <a class="text-center text-danger delete-button" data-bs-toggle="modal" data-bs-target="#deletePostModal">Delete</a>
                      </li>
                 `
 
         case "1":
             return `
                      <li class="list-group-item delete-button text-warning">
-                     <span class="text-center btn w-100 text-warning update-button approveBtn" data-btnID="${comment.id}">Pend</span>
+                     <a class="text-center noUnderline text-warning update-button approveBtn" data-btnID="${comment.id}">Pend</a>
                      </li>
                      <li class="list-group-item delete-button text-danger">
-                     <span class="btn text-center w-100 text-danger delete-button" data-bs-toggle="modal" data-bs-target="#deletePostModal" data-btnID="${comment.id}">Delete</span>
+                     <a class="text-center noUnderline text-danger delete-button" data-bs-toggle="modal" data-bs-target="#deletePostModal" data-btnID="${comment.id}">Delete</a>
                      </li>
                      `
     }
@@ -65,10 +66,10 @@ const producePostsInnerHTML = (status, comment) => {
         case "0":
             return `
                     <li class="list-group-item">
-                     <span class="text-center btn w-100 text-success update-button approveBtn" data-btnID="${comment.id}">Publish</span>
+                     <a class="text-center noUnderline text-success update-button approveBtn" data-btnID="${comment.id}">Publish</a>
                      </li>
                     <li class="list-group-item delete-button text-danger">
-                     <span class="btn text-center w-100 text-danger delete-button" data-bs-toggle="modal" data-bs-target="#deletePostModal">Delete</span>
+                     <a class="text-center text-danger delete-button noUnderline " data-btnID="${comment.id}" data-bs-toggle="modal" data-bs-target="#deletePostModal">Delete</a>
                      </li>
                 `
 
@@ -83,16 +84,54 @@ const producePostsInnerHTML = (status, comment) => {
                      `
     }
 }
+const deleteAdminPost = async (uid, commentid,) => {
+    const response = await delAdminPost(uid, commentid).then((x) => x)
+    if (response.status && response.status === 'success') {
+        postErrorDiv.setAttribute('class', 'text-success p-3')
+        postErrorDiv.textContent = `Post has been deleted successfully`
+        setTimeout(() => {
+            window.location.reload()
+        }, 4500);
+    } else if (response.status && response.status !== 'success') {
+        postErrorDiv.setAttribute('class', 'text-danger p-3')
+        postErrorDiv.textContent = `An error occured while trying to delete Post. Try again.`
+        setTimeout(() => {
+            window.location.reload()
+        }, 4500);
+    }
+}
 const deleteComment = async (uid, commentid,) => {
     const response = await deletePost(uid, commentid).then((x) => x)
+    const comment = singlePost.comments.find(x => x.id == commentid)
     if (response.status && response.status === 'success') {
-        const comment = singlePost.comments.find(x => x.id == commentid)
         commenter.textContent = `${comment.name}'s comments have been deleted successfully.`
         setTimeout(() => {
             window.location.reload()
-        }, 3500);
+        }, 4500);
+    } else if (response.status && response.status !== 'success') {
+        commenter.textContent = `An error occured while trying to delete comments. Try again.`
+        setTimeout(() => {
+            window.location.reload()
+        }, 4500);
     }
 }
+const delAdminPost = async (uid, id) => {
+    const formData = new FormData()
+    formData.append('deletePost', id)
+    formData.append('uid', uid)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/posts', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured while deleting post"
+        return errorMessage;
+    }
+};
 const deletePost = async (uid, id) => {
     const formData = new FormData()
     formData.append('deleteComment', id)
@@ -177,7 +216,7 @@ if (posts.length > 0) {
         const tableRow = document.createElement('tr')
         tableRow.innerHTML = `
             <th>${post.id}</th>
-            <td style="min-width:180px;">${post.title.lenght >= 70 ? post.title.slice(0, 70)+'...':post.title}</td>
+            <td style="min-width:180px;">${post.title.lenght >= 70 ? post.title.slice(0, 70) + '...' : post.title}</td>
             <td>
             <div class="progress">
                 <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"
@@ -280,9 +319,11 @@ const approveBtns = document.querySelectorAll('.approveBtn')
 const commentDeleteBtns = document.querySelectorAll('.delete-button')
 const postLinks = document.querySelectorAll('.post-links')
 if (commentDeleteBtns) {
+
     for (const button of commentDeleteBtns) {
         button.addEventListener('click', async (e) => {
             currentCommentID = e.target.getAttribute('data-btnID')
+            console.log("oti ye mi", currentCommentID)
         })
     }
 }
@@ -305,12 +346,12 @@ if (editDrop) {
                     x.setAttribute('href', '/admin/' + dataEvent + '/?id=' + postid)
                 })
             }
-            
+
         })
-        
-       
+
+
     })
-  
+
 }
 if (viewBtns) {
     for (const button of viewBtns) {
@@ -326,5 +367,10 @@ if (viewBtns) {
 if (deleteBtn) {
     deleteBtn.addEventListener('click', async () => {
         await deleteComment(1234567890, currentCommentID)
+    })
+}
+if (postDeleteBtn) {
+    postDeleteBtn.addEventListener('click', async () => {
+        await deleteAdminPost(1234567890, currentCommentID)
     })
 }

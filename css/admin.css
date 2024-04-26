@@ -108,7 +108,9 @@
     margin-right: 10px;
     font-size: small;
 }
-
+.noUnderline {
+    text-decoration: none !important;
+}
 #post-status.pending {
     background-color: #FFC108;
 }
