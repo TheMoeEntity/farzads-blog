@@ -159,21 +159,21 @@ const getSinglePost = async () => {
             }
             const response = await updateAdminPost(1234567890, updatePostForm[1].value, post.sub_title, shouldPublish, editorContent).then((x) => x)
             if (response.status && response.status === 'success') {
-                publishError.setAttribute('class', 'py-3 bg-success text-white')
+                publishError.setAttribute('class', 'py-3 text-success')
                 publishError.textContent = `Your post has been edited successfully and ${shouldPublish ? 'published' : 'put on pending'}`
                 // setTimeout(() => {
                 //     window.location.reload()
                 // }, 3500);
             } else if (response.status && response.status !== 'success') {
-                publishError.setAttribute('class', 'py-3 bg-danger text-white')
+                publishError.setAttribute('class', 'py-3 text-danger')
                 publishError.textContent = `Something went wrong. Let's give it another shot`
                 // setTimeout(() => {
                 //     window.location.reload()
                 // }, 3500);
             }
-            response.finally(() => {
+            setTimeout(() => {
                 publishError.textContent = ""
-            })
+            }, 4500);
 
         })
     }
