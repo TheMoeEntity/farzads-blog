@@ -110,24 +110,6 @@ const deletePost = async (uid, id) => {
         return errorMessage;
     }
 };
-const updatePost = async (uid, post) => {
-    const formData = new FormData()
-    formData.append('editComment', id)
-    formData.append('uid', uid)
-    formData.append('publish', publish === true ? 1 : 0)
-    try {
-        const response = await fetch('https://api.ikennaibe.com/farzad/comments', {
-            method: 'POST',
-            body: formData,
-        });
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error(error);
-        const errorMessage = error.message || "An error occured updating comment"
-        return errorMessage;
-    }
-};
 const updateComment = async (uid, id, publish) => {
     const formData = new FormData()
     formData.append('updateComment', id)

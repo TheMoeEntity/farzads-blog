@@ -350,7 +350,13 @@ const setPost = () => {
         commentsContainer.innerHTML = noComment;
     }
     document.title = 'Farzad Nosrati | Posts | ' + singlePost.title
-    commentNum.textContent = `${singlePost.comments.length} comment${singlePost.comments.length === 1 ? '' : 's'}`
+    if (!sessionActive) {
+        const filteredComments = singlePost.comments.filter(x => x.status == 1)
+        commentNum.textContent = `${filteredComments.length} comment${filteredComments.length === 1 ? '' : 's'}`
+    } else {
+        commentNum.textContent = `${singlePost.comments.length} comment${singlePost.comments.length === 1 ? '' : 's'}`
+    }
+
 
 
 }
