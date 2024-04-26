@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="../vendors/base/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- inject:css -->
+    <script src="https://cdn.tiny.cloud/1/in99ycrsy1m2h2v85lpdg644q2i39zhvmuzv1wkveysw5fx0/tinymce/7/tinymce.min.js"
+        referrerpolicy="origin"></script>
     <link rel="stylesheet" href="../../css/custom.css">
     <link rel="stylesheet" href="../../css/admin.css">
     <link rel="stylesheet" href="../../css/styles.css">
@@ -69,7 +71,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../">
                             <i class="mdi mdi-home menu-icon"></i>
-                            <span class="menu-title" >Dashboard</span>
+                            <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -124,8 +126,9 @@
                                                 placeholder="Email">
                                         </div>
                                         <div class="form-group">
-                                                <label for="exampleInputEmail3">Sub Title</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Email">
+                                            <label for="exampleInputEmail3">Sub Title</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail3"
+                                                placeholder="Email">
                                         </div>
                                         <!-- <div class="form-group d-none">
                                             <label>Image upload</label>
@@ -141,7 +144,8 @@
                                         </div> -->
                                         <div class="form-group">
                                             <label for="exampleTextarea1">Textarea</label>
-                                            <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                                            <textarea class="form-control" style="outline: none;" id="exampleTextarea1"
+                                                rows="4"></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary me-2 text-white">Submit</button>
                                         <button class="btn btn-light">Cancel</button>
@@ -171,6 +175,20 @@
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="../../js/file-upload.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
     <!-- End custom js for this page-->
 </body>
 
