@@ -52,6 +52,25 @@ export class Helpers {
         }
         return false
     }
+    static getPosts = async () => {
+        const formData = new FormData()
+        formData.append('getPosts', '')
+        try {
+            const response = await fetch('https://api.ikennaibe.com/farzad/posts', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+
+            return data.posts;
+        } catch (error) {
+            console.error(error);
+            return [];
+        } finally {
+
+        }
+
+    };
     static validateFormFields = (event, errMessage) => {
         event.preventDefault()
         const name = event.target[0].value

@@ -17,6 +17,12 @@ let currentCommentID = ''
 const urlParams = new URLSearchParams(queryString);
 const titleForComment = document.querySelector('#comment-title')
 const id = urlParams.get('id')
+const getPublish = ()=> {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const shouldPublish = urlParams.get('publish')
+    return shouldPublish === 'true'
+}
 export const getAdminPosts = async () => {
     const formData = new FormData()
     formData.append('getPosts', '')
@@ -66,20 +72,20 @@ const producePostsInnerHTML = (status, comment) => {
         case "0":
             return `
                     <li class="list-group-item">
-                     <a class="text-center noUnderline text-success update-button approveBtn" data-btnID="${comment.id}">Publish</a>
+                     <a href="/admin/update/?id=${comment.id}&publish=true"" class="text-center noUnderline text-success postEditDrop" data-btnID="${comment.id}">Publish</a>
                      </li>
                     <li class="list-group-item delete-button text-danger">
-                     <a class="text-center text-danger delete-button noUnderline " data-btnID="${comment.id}" data-bs-toggle="modal" data-bs-target="#deletePostModal">Delete</a>
+                     <a class="text-center  text-danger delete-button noUnderline " data-btnID="${comment.id}" data-bs-toggle="modal" data-bs-target="#deletePostModal">Delete</a>
                      </li>
                 `
 
         case "1":
             return `
                      <li class="list-group-item delete-button text-warning">
-                     <span class="text-center btn w-100 text-warning update-button approveBtn" data-btnID="${comment.id}">Pend</span>
+                     <a class="text-center noUnderline postEditDrop text-warning" href="/admin/update/?id=${comment.id}&publish=true" data-btnID="${comment.id}">Pend</a>
                      </li>
                      <li class="list-group-item delete-button text-danger">
-                     <span class="btn text-center w-100 text-danger delete-button" data-bs-toggle="modal" data-bs-target="#deletePostModal" data-btnID="${comment.id}">Delete</span>
+                     <a class="text-center noUnderline text-danger delete-button" data-bs-toggle="modal"  data-bs-target="#deletePostModal" data-btnID="${comment.id}">Delete</a>
                      </li>
                      `
     }
@@ -216,7 +222,7 @@ if (posts.length > 0) {
         const tableRow = document.createElement('tr')
         tableRow.innerHTML = `
             <th>${post.id}</th>
-            <td style="min-width:180px;">${post.title.lenght >= 70 ? post.title.slice(0, 70) + '...' : post.title}</td>
+            <td style="min-width:180px;"><a class="text-dark" href="/admin/posts/?id=${post.id}">${post.title.lenght >= 70 ? post.title.slice(0, 70) + '...' : post.title}<a></td>
             <td>
             <div class="progress">
                 <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"
@@ -224,11 +230,10 @@ if (posts.length > 0) {
             </div>
             </td>
             <td>${Helpers.formatDate(getDate(post.date_added))}</td>
-            <td><a href="/admin/comments/?id=${post.id}"><u>Comments</u></a></td>
             <td>
             <div class="nav-item dropdown me-1">
                 <span
-                    class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center"
+                    class="nav-link count-indicator text-dark noUnderline dropdown-toggle d-flex justify-content-center align-items-center"
                     id="messageDropdown" data-bs-toggle="dropdown">
                 </span>
                 <div class="dropdown-menu dropdown-menu-right py-0 navbar-dropdown"
@@ -299,7 +304,6 @@ if (singlePost.comments && singlePost.comments.length > 0) {
                 </div>
             </div>
             </td>
-
     `
 
         if (commentsContainer) {
@@ -323,7 +327,7 @@ if (commentDeleteBtns) {
     for (const button of commentDeleteBtns) {
         button.addEventListener('click', async (e) => {
             currentCommentID = e.target.getAttribute('data-btnID')
-            console.log("oti ye mi", currentCommentID)
+
         })
     }
 }
@@ -348,8 +352,6 @@ if (editDrop) {
             }
 
         })
-
-
     })
 
 }

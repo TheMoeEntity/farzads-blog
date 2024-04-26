@@ -24,25 +24,6 @@
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="deletePostModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deletePostModalLabel">Confirm Delete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this post?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Cancel</button>
-                    <button id="post-deleteBtn" type="button" class="btn btn-danger text-white">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -153,11 +134,10 @@
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Post ID</th>
-                                        <th scope="col">Post Title</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col" class="text-behance">Title</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Date added</th>
-                                        <th scope="col">Comments</th>
+                                        <th scope="col">Date </th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>

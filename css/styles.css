@@ -92,6 +92,58 @@
   }
 }
 
+.tox-tinymce {
+  outline: none !important;
+  border: none !important;
+}
+
+#wysiwyg-form {
+  padding: 20px;
+  margin-top: 30px;
+}
+
+#wysiwyg-form input {
+  border-radius: 5px;
+}
+
+.wysiwyg-editor {
+  width: 37%;
+  height: 90%;
+  position: fixed;
+  bottom: -100%;
+  right: 0;
+  z-index: 9999999;
+  border-top-left-radius: 15px;
+  background-color: #fff;
+  overflow: scroll;
+  transition: 0.5s;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 10px;
+  font-size: 30px;
+}
+
+@media screen and (max-width:950px) {
+  .wysiwyg-editor {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width:767px) {
+  .wysiwyg-editor {
+    padding: 10px 0;
+    width: 100%;
+    height: 65%;
+
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

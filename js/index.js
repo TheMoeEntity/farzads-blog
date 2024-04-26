@@ -48,7 +48,9 @@ const getOtherPosts = () => {
                     ${Helpers.formatDate(getDate(post.date_added))}
                 </span>
                 <h5 class="decoration-underline">
-                <u><a href="post.html?id=${post.id}">${post.title}</a></u>
+                <b>
+                <u><a class="text-dark" href="post.html?id=${post.id}">${post.title}</a></u>
+                <b>
                 </h5>
             `
 
@@ -312,7 +314,7 @@ postsArray.slice(0, 3).forEach(post => {
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const id = urlParams.get('id')
+export const id = urlParams.get('id')
 
 
 await getSinglePost()

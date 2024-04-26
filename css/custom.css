@@ -5,12 +5,22 @@ body {}
     padding-bottom: 30px;
 }
 
+@media screen and (max-width:768px) {
+    .someID {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
 .gray-bg {
     background-color: #f5f5f5;
 }
+
 .noUnderline {
     text-decoration: none !important;
+    cursor: pointer;
 }
+
 /* Blog 
 ---------------------*/
 .blog-grid {
@@ -86,12 +96,12 @@ body {}
 }
 
 .blog-aside .widget-body {
-    padding: 15px;
+    padding: 15px !important;
 }
 
 .blog-aside .widget-title {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
+    padding: 15px !important;
+    border-bottom: 1px solid #eee !important;
 }
 
 .blog-aside .widget-title h3 {
@@ -136,7 +146,7 @@ body {}
 .blog-aside .post-aside .post-aside-title a {
     font-size: 18px;
     color: #20247b;
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 
 .blog-aside .post-aside .post-aside-meta {
@@ -534,4 +544,236 @@ button {
 
 .modal-background>div form {
     padding: 0 30px;
+}
+
+#errors {
+    font-size: small;
+    padding: 10px 20px;
+    display: flex;
+    flex-flow: row wrap;
+    font-weight: bold;
+    justify-content: flex-end;
+}
+
+#errors.success {
+    color: var(--bs-green)
+}
+
+#errors.error {
+    color: var(--bs-red);
+    animation: wobble 2s ease;
+}
+
+@keyframes wobble {
+    0% {
+        transform: translateX(0%);
+    }
+
+    15% {
+        transform: translateX(-15%);
+    }
+
+    30% {
+        transform: translateX(15%);
+    }
+
+    45% {
+        transform: translateX(-7%);
+    }
+
+    60% {
+        transform: translateX(10%);
+    }
+
+    75% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.post-comment {
+    font-size: medium;
+    margin-left: 69px;
+}
+
+.post-author {
+    color: #3B71CA;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.author-bubble {
+    font-size: large;
+    color: white;
+    width: 55px;
+    height: 55px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #3B71CA;
+    border-radius: 50%;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+#post-status {
+    color: white;
+    padding: 5px;
+    width: fit-content;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: small;
+}
+
+#post-status.pending {
+    background-color: #FFC108;
+}
+
+#post-status.published {
+    background-color: #00C853;
+}
+
+#post-status.rejected {
+    background-color: #D50000;
+}
+
+.post-added {
+    font-size: medium;
+    color: #C8C8C8;
+}
+
+.blog .posts-list article {
+    box-shadow: 0 4px 16px rgba(var(--default-color-rgb), 0.1);
+    padding: 30px;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+@media screen and (max-width:480px) {
+    .post-comment {
+        margin-top: 20px;
+        margin-left: 0;
+    }
+}
+
+.blog .posts-list .post-img {
+    max-height: 0px;
+    margin: -30px -30px 15px -30px;
+    overflow: hidden;
+}
+
+.blog .posts-list .post-category {
+    font-size: 16px;
+    color: rgba(var(--default-color-rgb), 0.6);
+    margin-bottom: 10px;
+}
+
+.blog .posts-list>div {
+    max-width: 420px;
+}
+
+.blog .posts-list .title {
+    font-size: 22px;
+    font-weight: 700;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.blog .posts-list .title a {
+    color: var(--heading-color);
+    transition: 0.3s;
+}
+
+.blog .posts-list .title a:hover {
+    color: var(--accent-color);
+}
+
+.blog .posts-list .post-author-img {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.blog .posts-list .post-author {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.blog .posts-list .post-date {
+    font-size: 14px;
+    color: rgba(var(--default-color-rgb), 0.6);
+    margin-bottom: 0;
+}
+
+.blog .pagination {
+    margin-top: 30px;
+    color: rgba(var(--default-color-rgb), 0.6);
+}
+
+.blog .pagination ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.blog .pagination li {
+    margin: 0 5px;
+    transition: 0.3s;
+}
+
+.blog .pagination li a {
+    color: rgba(var(--default-color-rgb), 0.6);
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog .pagination li.active,
+.blog .pagination li:hover {
+    background: var(--accent-color);
+    color: var(--contrast-color);
+}
+
+.blog .pagination li.active a,
+.blog .pagination li:hover a {
+    color: var(--contrast-color);
+}
+
+.author-section {
+    margin-top: 60px;
+}
+
+/* ---------_____SPINNER___________ */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.97);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #333;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
