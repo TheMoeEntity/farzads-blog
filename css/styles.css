@@ -106,13 +106,17 @@
   border-radius: 5px;
 }
 
+.actionbtn {
+  font-size: medium;
+}
+
 .wysiwyg-editor {
   width: 37%;
   height: 90%;
   position: fixed;
   bottom: -100%;
   right: 0;
-  z-index: 9999999;
+  z-index: 999;
   border-top-left-radius: 15px;
   background-color: #fff;
   overflow: scroll;
