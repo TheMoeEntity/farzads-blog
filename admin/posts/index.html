@@ -40,7 +40,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="post-error">
-                    Are you sure you want to delete this Post?
+                   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Cancel</button>
@@ -117,47 +117,6 @@
         </nav>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper" id="postWrapper">
-            <!-- partial:partials/_sidebar.html -->
-            <!-- <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">
-                            <i class="mdi mdi-home menu-icon" style="color:#4D84FF;"></i>
-                            <span class="menu-title active" style="color:#4D84FF;">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/create/">
-                            <i class="mdi mdi-view-headline menu-icon"></i>
-                            <span class="menu-title">Create post</span>
-                        </a>
-                    </li>
-                    <li class="nav-item editDrop" data-event="comments">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false"
-                            aria-controls="auth">
-                            <i class="mdi mdi-account menu-icon"></i>
-                            <span class="menu-title">Comments</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="auth">
-                            <ul class="nav flex-column sub-menu comments-tab">
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item editDrop" data-event="update">
-                        <a class="nav-link" data-bs-toggle="collapse" href="#auth2" aria-expanded="false"
-                            aria-controls="auth2">
-                            <i class="mdi mdi-account menu-icon"></i>
-                            <span class="menu-title">Edit Post</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="auth2">
-                            <ul class="nav flex-column sub-menu comments-tab">
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </nav> -->
             <!-- partial -->
             <div class="main-panel mx-auto">
                 <div id="someID" style="background-color: #fff !important;">
@@ -208,7 +167,7 @@
                                                 class="actionbtn nowrap"><b>Edit Post</b></button>
                                             <button style="white-space: nowrap;" class="actionbtn text-warning"
                                                 id="saveToDrafts"><b>Save to drafts</b></button>
-                                            <button style="white-space: nowrap;" class="actionbtn text-danger"
+                                            <button style="white-space: nowrap;" id="deletePostBtn" class="actionbtn text-danger"
                                                 data-bs-toggle="modal" data-bs-target="#deletePostModal">
                                                 <b>Delete Post</b>
                                             </button>

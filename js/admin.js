@@ -327,7 +327,6 @@ if (commentDeleteBtns) {
     for (const button of commentDeleteBtns) {
         button.addEventListener('click', async (e) => {
             currentCommentID = e.target.getAttribute('data-btnID')
-
         })
     }
 }

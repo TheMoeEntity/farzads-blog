@@ -1,4 +1,5 @@
 import { Helpers } from "./helpers.js";
+let currentCommentID = ''
 const commentsContainer = document.querySelector('#get-comments')
 const commentNum = document.querySelector('#comment-num')
 const title = document.querySelector('#post-title')
@@ -12,6 +13,7 @@ const queryString = window.location.search;
 const editor = document.querySelector('#editor')
 const othersContainer = document.querySelector('#others')
 const deletePostBtn = document.querySelector('#deleteBtn')
+const deleteActionBtn = document.querySelector('#deletePostBtn')
 const saveToDrafts = document.querySelector('#saveToDrafts')
 const publishError = document.querySelector('#publishError')
 const urlParams = new URLSearchParams(queryString);
@@ -20,20 +22,56 @@ const closBtn = document.querySelector('#closeBtn')
 const postErrorDiv = document.querySelector('#post-error')
 const openEditor = document.querySelector('#openEditor')
 
+const deleteCommentAction = async (uid, id) => {
+    const formData = new FormData()
+    formData.append('deleteComment', id)
+    formData.append('uid', uid)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/comments', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured updating comment"
+        return errorMessage;
+    }
+};
+const deleteComment = async (uid, commentid,) => {
+    const response = await deleteCommentAction(uid, commentid).then((x) => x)
+    const comment = post.comments.find(x => x.id == commentid)
+    if (response.status && response.status === 'success') {
+        postErrorDiv.textContent = `${comment.name}'s comments have been deleted successfully.`
+        setTimeout(() => {
+            window.location.reload()
+        }, 750);
+    } else if (response.status && response.status !== 'success') {
+        postErrorDiv.textContent = `An error occured while trying to delete comments. Try again.`
+    }
+}
 const deleteAdminPost = async (uid, commentid,) => {
     loadingOverlay.style.display = 'flex';
-    const response = await delAdminPost(uid, commentid).then((x) => x)
-    if (response.status && response.status === 'success') {
-        loadingOverlay.style.display = 'none';
-        postErrorDiv.setAttribute('class', 'modal-body text-success')
-        postErrorDiv.textContent = `Post has been deleted successfully`
-        setTimeout(() => {
-            window.location = '/admin'
-        }, 4500);
-    } else if (response.status && response.status !== 'success') {
-        loadingOverlay.style.display = 'none';
-        postErrorDiv.setAttribute('class', 'modal-body text-danger')
-        postErrorDiv.textContent = `An error occured while trying to delete Post. Try again.`
+    if (postErrorDiv.textContent == " Are you sure you want to delete this post?") {
+        const response = await delAdminPost(uid, commentid).then((x) => x)
+        if (response.status && response.status === 'success') {
+            loadingOverlay.style.display = 'none';
+            postErrorDiv.setAttribute('class', 'modal-body text-success')
+            postErrorDiv.textContent = `Post has been deleted successfully`
+            setTimeout(() => {
+                window.location = '/admin'
+            }, 4500);
+        } else if (response.status && response.status !== 'success') {
+            loadingOverlay.style.display = 'none';
+            postErrorDiv.setAttribute('class', 'modal-body text-danger')
+            postErrorDiv.textContent = `An error occured while trying to delete Post. Try again.`
+        }
+    } else {
+        if (currentCommentID !== '') {      
+            await deleteComment(1234567890, currentCommentID)
+        }
+        loadingOverlay.style.display = 'flex';
     }
 }
 const delAdminPost = async (uid, id) => {
@@ -118,7 +156,7 @@ export const setComments = (res, container) => {
                             ${Helpers.formatDate(getDate(res.date_added))}
                         <span class="mx-1 ${res.status == 0 ? 'pending' : res.status !== 0 ? 'published' : ''}" id="post-status">${res.status == 0 ? 'Pending' : 'Published'}</span> <br/>
                         <button  class="publishbtn mt-3"><b>${res.status == 0 ? 'Publish' : 'Save to drafts'}</b></button>
-                         <button class="publishbtn text-danger"><b>Delete</b></button>
+                         <button data-btnID="${res.id}" class="publishbtn text-danger commentDelBtn" data-bs-toggle="modal" data-bs-target="#deletePostModal"><b>Delete</b></button>
                         </span>
                         <span>
                         </span>
@@ -129,7 +167,6 @@ export const setComments = (res, container) => {
                 </p>
                 `
     container.appendChild(comment)
-
 
 }
 
@@ -212,6 +249,13 @@ const setPost = () => {
     post.comments.forEach(x => {
         setComments(x, commentsContainer)
     })
+    const commentDelBtns = document.querySelectorAll('.commentDelBtn')
+    commentDelBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            currentCommentID = e.target.parentElement.getAttribute('data-btnID')
+            postErrorDiv.textContent = "Are you sure you delete comment?"
+        })
+    })
     let shouldPublish = false
     saveToDrafts.addEventListener('click', async (e) => {
         const textContent = e.target.innerText
@@ -241,6 +285,9 @@ if (post) {
     getOtherPosts()
     setPost()
 }
+deleteActionBtn.addEventListener('click', () => {
+    postErrorDiv.textContent = "Are you sure you want to delete this post?"
+})
 deletePostBtn.addEventListener('click', () => {
     deleteAdminPost(1234567890, id)
 })
