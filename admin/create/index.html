@@ -5,13 +5,15 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Farzad Nosrati | Admin Dashboard | Create comment</title>
+  <title>Farzad Nosrati | Admin Dashboard | Create post</title>
   <!-- plugins:css -->
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- inject:css -->
+  <script src="https://cdn.tiny.cloud/1/in99ycrsy1m2h2v85lpdg644q2i39zhvmuzv1wkveysw5fx0/tinymce/7/tinymce.min.js"
+    referrerpolicy="origin"></script>
   <link rel="stylesheet" href="../../css/custom.css">
   <link rel="stylesheet" href="../../css/admin.css">
   <link rel="stylesheet" href="../../css/styles.css">
@@ -108,35 +110,30 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Create Post</h4>
-                  <form class="forms-sample">
+                  <form class="forms-sample" id="create-post-form">
                     <div class="form-group">
                       <label for="exampleInputName1">Author</label>
                       <input type="text" class="form-control" value="Farzad" id="exampleInputName1" placeholder="Name">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail3">Title</label>
-                      <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+                      <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Email">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword4">Sub title</label>
-                      <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                      <label>Image upload</label>
-                      <input type="file" name="img[]" class="file-upload-default">
-                      <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                        <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-primary text-white" type="button">Upload</button>
-                        </span>
-                      </div>
+                      <label for="exampleInputEmail3">Sub Title</label>
+                      <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Email">
                     </div>
                     <div class="form-group">
                       <label for="exampleTextarea1">Textarea</label>
-                      <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                      <textarea class="form-control" style="outline: none;" id="exampleTextarea1" rows="4"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary me-2 text-white">Submit</button>
-                    <button class="btn btn-light">Cancel</button>
+                    <button type="submit" class="btn btn-primary me-2 text-white">Publish</button>
+                    <button type="submit" class="btn btn-light me-2 text-dark">Drafts</button>
+
+                    <div id="publish-error">
+
+                    </div>
+                    <!-- <button class="btn btn-light">Cancel</button> -->
                   </form>
                 </div>
               </div>
@@ -160,10 +157,10 @@
   <script src="/admin/js/hoverable-collapse.js"></script>
   <script src="/admin/js/template.js"></script>
   <script src="/js/admin.js" type="module"></script>
+  <script src="/js/create.js" type="module"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
-  <script src="/admin/js/file-upload.js"></script>
-  <!-- End custom js for this page-->
+  <script src="../../js/file-upload.js"></script>
 </body>
 
 </html>

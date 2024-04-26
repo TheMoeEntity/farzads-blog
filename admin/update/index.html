@@ -23,6 +23,9 @@
 </head>
 
 <body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
     <div class="container-scroller">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -118,19 +121,19 @@
                                         <div class="form-group">
                                             <label for="exampleInputName1">Author</label>
                                             <input type="text" class="form-control" value="Farzad"
-                                                id="exampleInputName1" placeholder="Name">
+                                                id="exampleInputName1" placeholder="Post Author">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Title</label>
                                             <input type="text" class="form-control" id="exampleInputEmail3"
-                                                placeholder="Email">
+                                                placeholder="Post title">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Sub Title</label>
                                             <input type="text" class="form-control" id="exampleInputEmail3"
-                                                placeholder="Email">
+                                                placeholder="Post sub title">
                                         </div>
-                                        <!-- <div class="form-group d-none">
+                                        <div class="form-group d-none">
                                             <label>Image upload</label>
                                             <input type="file" name="img[]" class="file-upload-default">
                                             <div class="input-group col-xs-12">
@@ -141,7 +144,7 @@
                                                         type="button">Upload</button>
                                                 </span>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div class="form-group">
                                             <label for="exampleTextarea1">Textarea</label>
                                             <textarea class="form-control" style="outline: none;" id="exampleTextarea1"
@@ -181,21 +184,6 @@
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="../../js/file-upload.js"></script>
-    <!-- <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-            mergetags_list: [
-                { value: 'First.Name', title: 'First Name' },
-                { value: 'Email', title: 'Email' },
-            ],
-            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-        });
-    </script> -->
-    <!-- End custom js for this page-->
 </body>
 
 </html>

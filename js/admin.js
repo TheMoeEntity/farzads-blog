@@ -195,7 +195,7 @@ if (posts.length > 0) {
         const tableRow = document.createElement('tr')
         tableRow.innerHTML = `
             <th>${post.id}</th>
-            <td style="min-width:180px;">${post.title.slice(0, 70)}...</td>
+            <td style="min-width:180px;">${post.title.lenght >= 70 ? post.title.slice(0, 70)+'...':post.title}</td>
             <td>
             <div class="progress">
                 <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"
