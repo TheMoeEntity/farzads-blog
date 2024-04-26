@@ -11,10 +11,65 @@ const editorForm = document.querySelector("#wysiwyg-form")
 const queryString = window.location.search;
 const editor = document.querySelector('#editor')
 const othersContainer = document.querySelector('#others')
+const deletePostBtn = document.querySelector('#deleteBtn')
+const saveToDrafts = document.querySelector('#saveToDrafts')
+const publishError = document.querySelector('#publishError')
 const urlParams = new URLSearchParams(queryString);
+const id = urlParams.get('id')
 const closBtn = document.querySelector('#closeBtn')
+const postErrorDiv = document.querySelector('#post-error')
 const openEditor = document.querySelector('#openEditor')
-
+const deleteAdminPost = async (uid, commentid,) => {
+    const response = await delAdminPost(uid, commentid).then((x) => x)
+    if (response.status && response.status === 'success') {
+        postErrorDiv.setAttribute('class', 'modal-body text-success')
+        postErrorDiv.textContent = `Post has been deleted successfully`
+        setTimeout(() => {
+            window.location = '/admin'
+        }, 4500);
+    } else if (response.status && response.status !== 'success') {
+        postErrorDiv.setAttribute('class', 'modal-body text-danger')
+        postErrorDiv.textContent = `An error occured while trying to delete Post. Try again.`
+    }
+}
+const delAdminPost = async (uid, id) => {
+    const formData = new FormData()
+    formData.append('deletePost', id)
+    formData.append('uid', uid)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/posts', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured while deleting post"
+        return errorMessage;
+    }
+};
+const updateAdminPost = async (uid, title, sub_title, publish, content) => {
+    const formData = new FormData()
+    formData.append('editPost', id)
+    formData.append('uid', uid)
+    formData.append('title', title)
+    formData.append('sub_title', sub_title)
+    formData.append('content', content)
+    formData.append('publish', publish === true ? 1 : 0)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/posts', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured updating Post"
+        return errorMessage;
+    }
+};
 const mountTinyMCE = (contentToSet) => {
     return tinymce.init({
         selector: '#editWysiwyg',
@@ -99,7 +154,7 @@ const getOtherPosts = async () => {
         });
     }
 }
-export const id = urlParams.get('id')
+
 const getPost = async (postid) => {
     const formData = new FormData()
     formData.append('getPost', postid)
@@ -128,6 +183,8 @@ const setPost = () => {
     author.textContent = `By ${post.author}`
     content.innerHTML = post.content
     mountTinyMCE(post.content)
+    saveToDrafts.textContent = post.status == 0 ? 'Publish' : 'Save to drafts'
+    saveToDrafts.setAttribute('class', post.status == 1 ? 'actionbtn text-warning' : 'actionbtn text-success')
     editorForm[0].value = post.title
     editorForm[1].value = post.sub_title
     const firstChiild = content.firstChild
@@ -148,14 +205,32 @@ const setPost = () => {
     post.comments.forEach(x => {
         setComments(x, commentsContainer)
     })
-
+    let shouldPublish = false
+    saveToDrafts.addEventListener('click', async (e) => {
+        const textContent = e.target.innerText
+        shouldPublish = textContent === 'Save to drafts' ? false : true
+        console.log(shouldPublish)
+        const response = await updateAdminPost(1234567890, post.title, post.sub_title, shouldPublish, post.content).then((x) => x)
+        if (response.status && response.status === 'success') {
+            publishError.textContent = `${shouldPublish ? 'Your post has been published successfully.' : 'Your post has been saved to drafts.'}`
+        } else if (response.status && response.status !== 'success') {
+            publishError.setAttribute('class', 'py-3 text-danger')
+            publishError.textContent = `Something went wrong. Let's give it another shot`
+        }
+        setTimeout(() => {
+            publishError.textContent = ""
+        }, 4500);
+    })
 }
-const openTinyEditor = ()=> {
+const openTinyEditor = () => {
     editor.style.bottom = '0'
 }
 if (post) {
     getOtherPosts()
     setPost()
 }
-openEditor.addEventListener('click',openTinyEditor)
+deletePostBtn.addEventListener('click', () => {
+    deleteAdminPost(1234567890, id)
+})
+openEditor.addEventListener('click', openTinyEditor)
 closBtn.addEventListener('click', closeEditor)

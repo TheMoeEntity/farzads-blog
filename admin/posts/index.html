@@ -27,6 +27,25 @@
 </head>
 
 <body>
+    <!-- modal -->
+    <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="deletePostModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePostModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="post-error">
+                    Are you sure you want to delete this comment?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Cancel</button>
+                    <button id="deleteBtn" type="button" class="btn btn-danger text-white">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div> -->
@@ -175,10 +194,19 @@
                                         <div id="post-content">
 
                                         </div>
-                                        <div class="d-flex gap-3 align-content-center">
-                                            <button id="openEditor" class="actionbtn"><b>Edit Post</b></button>
-                                            <button id="openEditor" class="actionbtn text-warning"><b>Save to drafts</b></button>
-                                            <button id="openEditor" class="actionbtn text-danger"><b>Delete Post</b></button>
+                                        <div
+                                            class="d-flex gap-3 flex-column flex-md-row align-content-start justify-content-start col-3 col-md-12">
+                                            <button style="white-space: nowrap;" id="openEditor"
+                                                class="actionbtn nowrap"><b>Edit Post</b></button>
+                                            <button style="white-space: nowrap;" class="actionbtn text-warning"
+                                                id="saveToDrafts"><b>Save to drafts</b></button>
+                                            <button style="white-space: nowrap;" class="actionbtn text-danger"
+                                                data-bs-toggle="modal" data-bs-target="#deletePostModal">
+                                                <b>Delete Post</b>
+                                            </button>
+                                            <div id="publishError" class="actionbtn text-success">
+                                                Published
+                                            </div>
                                         </div>
                                     </article>
 

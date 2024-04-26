@@ -281,9 +281,6 @@ if (postsContainer) {
 
                         <div class="d-flex align-items-center">
                             <div class="post-meta gap-2 d-flex flex-column">
-                                <div style="font-size:small;" class="text-white p-2 ${sessionActive && post.status == 0 ? 'bg-warning' : sessionActive && post.status !== 0 ? 'bg-success' : 'd-none'}">
-                                    <b>${post.status == "0" ? "PENDING" : "PUBLISHED"}</b>
-                                </div>
                                 <p class="post-date">
                                     <time datetime="2022-01-01">${Helpers.formatDate(getDate(post.date_added))}</time>
                                 </p>
