@@ -157,18 +157,24 @@ const getSinglePost = async () => {
                 console.log(editorContent)
                 shouldPublish = false
             }
-            const response = await updateAdminPost(1234567890,post.title,post.sub_title,shouldPublish, editorContent).then((x) => x)
+            const response = await updateAdminPost(1234567890, updatePostForm[1].value, post.sub_title, shouldPublish, editorContent).then((x) => x)
             if (response.status && response.status === 'success') {
+                publishError.setAttribute('class', 'py-3 bg-success text-white')
                 publishError.textContent = `Your post has been edited successfully and ${shouldPublish ? 'published' : 'put on pending'}`
-                setTimeout(() => {
-                    window.location.reload()
-                }, 3500);
+                // setTimeout(() => {
+                //     window.location.reload()
+                // }, 3500);
             } else if (response.status && response.status !== 'success') {
+                publishError.setAttribute('class', 'py-3 bg-danger text-white')
                 publishError.textContent = `Something went wrong. Let's give it another shot`
-                setTimeout(() => {
-                    window.location.reload()
-                }, 3500);
+                // setTimeout(() => {
+                //     window.location.reload()
+                // }, 3500);
             }
+            response.finally(() => {
+                publishError.textContent = ""
+            })
+
         })
     }
 }
