@@ -344,7 +344,9 @@ const setPost = () => {
             })
         }
     }
-    if (singlePost.comments.length === 0) {
+    const noApprovedComments = singlePost.comments.find(comment => comment.status == 1)
+    console.log(noApprovedComments)
+    if (singlePost.comments.length === 0 || noApprovedComments == undefined) {
         const noComment = `<h3 id='zeroComments'>No comments yet</h3>`
         commentsContainer.innerHTML = noComment;
     }
