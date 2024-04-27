@@ -60,15 +60,15 @@ export class Helpers {
             const tableRow = document.createElement('tr');
             tableRow.innerHTML = `
             <th>${post.id}</th>
-            <td style="min-width:180px;"><a class="text-dark noUnderline" href="/admin/posts/?id=${post.id}"><b>${post.title.length >= 70 ? post.title.slice(0, 70) + '...' : post.title}</b><a></td>
+            <td style="min-width:220px; white-space:no-wrap;"><a class="text-dark noUnderline" href="/admin/posts/?id=${post.id}"><b>${post.title.length >= 70 ? post.title.slice(0, 70) + '...' : post.title}</b><a></td>
             <td>
                 <div class="progress">
                     <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"
                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </td>
-            <td>${this.formatDate(getDate(post.date_added))}</td>
-            <td>
+            <td style="min-width:130px;">${this.formatDate(getDate(post.date_added))}</td>
+            <td style="min-width:130px;">
               ${(post.comments ? post.comments : randomComments) + " comment(s)"}   
             </td>
         `;
