@@ -108,6 +108,7 @@
     padding: 120px 0;
 
 }
+
 .blog-aside .widget {
     box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
     border-radius: 5px;
@@ -221,6 +222,7 @@
     display: inline-block;
     margin-right: 10px;
 }
+
 #post-status {
     color: white;
     padding: 5px;
@@ -228,6 +230,12 @@
     border-radius: 5px;
     margin-right: 10px;
     font-size: small;
+}
+
+.active-tab {
+    border-bottom: 1px solid #006AF7 !important;
+    color: #006AF7 !important;
+
 }
 
 .noUnderline {

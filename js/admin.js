@@ -8,6 +8,9 @@ const commentsContainer = document.querySelector('#comments-table')
 const singleComment = document.querySelector('#single-comment')
 const commenter = document.querySelector('#commenter')
 const deleteBtn = document.querySelector('#deleteBtn')
+const allPostsBtn = document.querySelector('#allPosts')
+const pendingPostsBtn = document.querySelector('#PendingPosts')
+const publishedPostsBtn = document.querySelector('#PublishedPosts')
 const postDeleteBtn = document.querySelector('#post-deleteBtn')
 const postErrorDiv = document.querySelector('#postErrorMessage');
 const queryString = window.location.search;
@@ -16,12 +19,8 @@ let currentCommentID = ''
 const urlParams = new URLSearchParams(queryString);
 const titleForComment = document.querySelector('#comment-title')
 const id = urlParams.get('id')
-const getPublish = ()=> {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const shouldPublish = urlParams.get('publish')
-    return shouldPublish === 'true'
-}
+let pendingPosts = []
+let publishedPosts = []
 export const getAdminPosts = async () => {
     const formData = new FormData()
     formData.append('getPosts', '')
@@ -41,7 +40,26 @@ export const getAdminPosts = async () => {
 
 
 };
-let posts = await getAdminPosts();
+let posts = await getAdminPosts().then(x => {
+    publishedPosts = x.filter(xx => xx.status == "1")
+    pendingPosts = x.filter(xx => xx.status == "0")
+    console.log(publishedPosts)
+    console.log(pendingPosts)
+    publishedPostsBtn.textContent = "Published (" + publishedPosts.length + ")"
+    pendingPostsBtn.textContent = 'Pending (' + pendingPosts.length + ')'
+    allPostsBtn.textContent = 'All Posts (' + x.length + ')'
+    publishedPostsBtn.onclick = () => {
+        Helpers.setTableRow(publishedPosts, getDate, produceInnerHTML, tableContainer)
+    }
+    pendingPostsBtn.onclick = () => {
+        Helpers.setTableRow(pendingPosts, getDate, produceInnerHTML, tableContainer)
+    }
+    allPostsBtn.onclick = () => {
+        Helpers.setTableRow(x, getDate, produceInnerHTML, tableContainer)
+    }
+    return x
+});
+
 let singlePost
 const produceInnerHTML = (status, comment) => {
     switch (status) {

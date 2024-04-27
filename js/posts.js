@@ -169,6 +169,7 @@ const mountTinyMCE = (contentToSet) => {
         file_picker_types: 'file image media',
         tinycomments_author: 'Author name',
         images_file_types: 'jpg,svg,webp',
+        zindex: 9999999999, 
         file_picker_callback: (callback, value, meta) => {
             // Provide file and text for the link dialog
             // if (meta.filetype == 'file') {
