@@ -4,6 +4,8 @@ const tableContainer = document.querySelector('#posts-table')
 const allPostsBtn = document.querySelector('#allPosts')
 const pendingPostsBtn = document.querySelector('#PendingPosts')
 const publishedPostsBtn = document.querySelector('#PublishedPosts')
+const searchInput = document.getElementById('searchInput');
+
 let pendingPosts = []
 let publishedPosts = []
 export const getAdminPosts = async () => {
@@ -54,6 +56,11 @@ let posts = await getAdminPosts().then(x => {
 
 if (posts.length > 0) {
     Helpers.setTableRow(posts, getDate, tableContainer)
+    const tableRows = document.querySelectorAll('table tr');
+    searchInput.addEventListener('input', () => {
+        Helpers.filterTableRows(searchInput.value, tableRows);
+    });
+
 } else {
     const noPostsRow = document.createElement('tr');
     noPostsRow.innerHTML = '<td colspan="4">No posts to show.</td>';
