@@ -1,6 +1,7 @@
 import { Helpers } from "./helpers.js";
-import { getDate } from "./index.js";
+const loadingOverlay = document.getElementById('loadingOverlay');
 const tableContainer = document.querySelector('#posts-table')
+const commentsTableContainer = document.querySelector('#commentsTableContainer')
 const allPostsBtn = document.querySelector('#allPosts')
 const pendingPostsBtn = document.querySelector('#PendingPosts')
 const publishedPostsBtn = document.querySelector('#PublishedPosts')
@@ -16,7 +17,6 @@ export const getAdminPosts = async () => {
             method: 'POST',
             body: formData,
         });
-        console.log(response.statusText)
         const data = await response.json();
         return data.posts;
     } catch (error) {
@@ -28,7 +28,7 @@ export const getAdminPosts = async () => {
 
 
 };
-const getAllComments = async ()=> {
+const getAllComments = async () => {
     const formData = new FormData()
     formData.append('getAllComments', 1234567890)
     try {
@@ -37,18 +37,19 @@ const getAllComments = async ()=> {
             body: formData,
         });
         const data = await response.json();
-        console.error("data",data);
-        return data.posts;
+        return data;
     } catch (error) {
-        console.log(error)
-        return [];
-    } finally {
-
+        return null
     }
 }
-await getAllComments().then((x)=> {
-    console.log(x)
-})
+await getAllComments().then(x => {
+    if (x.status == 'success') {
+        const filteredComments = x.comments.filter(comment => comment.status == '0')
+        Helpers.setcommentsTableRow(filteredComments, Helpers.getDate, commentsTableContainer)
+        return
+    }
+    return []
+}).catch(() => [])
 const producePostsInnerHTML = (status, comment) => {
     switch (status) {
         case "0":
@@ -82,25 +83,28 @@ let posts = await getAdminPosts().then(x => {
         e.target.setAttribute('class', 'btn active-tab')
         allPostsBtn.setAttribute('class', 'btn')
         pendingPostsBtn.setAttribute('class', 'btn')
-        Helpers.setTableRow(publishedPosts, getDate, tableContainer,producePostsInnerHTML)
+        Helpers.setTableRow(publishedPosts, Helpers.getDate, tableContainer, producePostsInnerHTML)
     }
     pendingPostsBtn.onclick = (e) => {
         e.target.setAttribute('class', 'btn active-tab')
         allPostsBtn.setAttribute('class', 'btn')
         publishedPostsBtn.setAttribute('class', 'btn')
-        Helpers.setTableRow(pendingPosts, getDate, tableContainer, producePostsInnerHTML)
+        Helpers.setTableRow(pendingPosts, Helpers.getDate, tableContainer, producePostsInnerHTML)
     }
     allPostsBtn.onclick = (e) => {
         e.target.setAttribute('class', 'btn active-tab')
         publishedPostsBtn.setAttribute('class', 'btn')
         pendingPostsBtn.setAttribute('class', 'btn')
-        Helpers.setTableRow(x, getDate, tableContainer, producePostsInnerHTML)
+        Helpers.setTableRow(x, Helpers.getDate, tableContainer, producePostsInnerHTML)
     }
     return x
 });
 
 if (posts.length > 0) {
-    Helpers.setTableRow(posts, getDate, tableContainer, producePostsInnerHTML)
+    setTimeout(() => {
+        loadingOverlay.style.display = 'none'
+    }, 550);
+    Helpers.setTableRow(posts, Helpers.getDate, tableContainer, producePostsInnerHTML)
     const tableRows = document.querySelectorAll('table tr');
     searchInput.addEventListener('input', () => {
         Helpers.filterTableRows(searchInput.value, tableRows);

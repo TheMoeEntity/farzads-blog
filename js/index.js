@@ -257,7 +257,7 @@ const data = await getPosts().then(x => {
     if (loadingOverlay) {
         setTimeout(() => {
             loadingOverlay.style.display = 'none';
-        }, 750);
+        }, 900);
     }
     return x
 })

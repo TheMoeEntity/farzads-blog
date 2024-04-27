@@ -52,6 +52,10 @@ export class Helpers {
         }
         return false
     }
+    static getDate = (date_addeds) => {
+        const postDate = date_addeds.split(' ')
+        return postDate[0]
+    }
     static filterTableRows(searchTerm, tableRows) {
         searchTerm = searchTerm.toLowerCase(); // Convert search term to lowercase for case-insensitive search
         tableRows.forEach(row => {
@@ -98,6 +102,46 @@ export class Helpers {
         });
         if (posts.length <= 0) {
             tableContainer.innerHTML = '<td colspan="4">No posts to show.</td>';
+        }
+    };
+    static setcommentsTableRow = (comments, getDate, tableContainer) => {
+        tableContainer.innerHTML = '';
+        comments.forEach(post => {
+            const tableRow = document.createElement('tr');
+            tableRow.innerHTML = `
+            <td><b>${post.id}</b></td>
+            <th style="min-width:350px; white-space:no-wrap;"><p style="font-weight:lighter !important;">${post.comment.split(" ").slice(0, 20).join(" ")}</p></th>
+            <td style="min-width:220px; white-space:no-wrap;"><a class="text-dark noUnderline" href="/admin/posts/?id=${post.pid}"><b>${post.post_title.length >= 70 ? post.post_title.slice(0, 70) + '...' : post.post_title}</b><a></td>
+            <td style="min-width:220px; white-space:no-wrap;">${post.name}</td>
+            <td>${post.email}</td>
+            <td style="width:60px;">
+                <div class="progress" style="min-width:60px;">
+                    <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"
+                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </td>
+            <td style="min-width:130px;">${this.formatDate(getDate(post.date_added))}</td>
+            <td>
+                <div class="nav-item dropdown me-1">
+                    <span class="nav-link count-indicator text-dark noUnderline dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" data-bs-toggle="dropdown"></span>
+                    <div class="dropdown-menu dropdown-menu-right py-0 navbar-dropdown" aria-labelledby="messageDropdown" style="width:150px; height: auto; min-height: fit-contents; z-index: 99999;">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a class="text-center noUnderline text-success postEditDrop" data-btnID="${post.id}">Publish</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="text-center noUnderline text-danger postEditDrop" data-btnID="${post.id}">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        `;
+            // Append each table row to the table container
+            tableContainer.appendChild(tableRow);
+        });
+        if (comments.length <= 0) {
+            tableContainer.innerHTML = '<td colspan="4">No comments to show.</td>';
         }
     };
 

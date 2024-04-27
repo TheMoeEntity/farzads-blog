@@ -104,10 +104,6 @@
                     <div class="row bg-light pt-3 d-flex flex-column gap-2">
                         <div class="d-flex flex-column ">
                             <h4 class='mb-2 p-2 px-3'>All Blog posts </h4>
-                            <!-- <div>
-                                <div><span class="bg-success rounded-circle" style="width:12px; height: 12px;"></span> Published</div>
-                                <div><span class="bg-warning rounded-circle" style="width:12px; height: 12px;"></span> Pending</div>
-                            </div> -->
                             <span class="text-danger p-3" id="postErrorMessage"></span>
                             <div
                                 class="tile w-100 d-flex align-items-center flex-column flex-md-row align-items-end  p-3 d-flex gap-3 justify-content-start justify-content-md-between overflow-scroll">
@@ -144,26 +140,24 @@
                     <div class="row bg-light pt-3 d-flex flex-column gap-2">
                         <div class="d-flex flex-column ">
                             <h4 class='mb-2 p-2 px-3'> Pending comments <b>*</b></h4>
-                            <!-- <div>
-                                                    <div><span class="bg-success rounded-circle" style="width:12px; height: 12px;"></span> Published</div>
-                                                    <div><span class="bg-warning rounded-circle" style="width:12px; height: 12px;"></span> Pending</div>
-                                                </div> -->
                             <span class="text-danger p-3" id="postErrorMessage"></span>
-                       
+
                         </div>
                         <div class="pt-3col-md-12 stretch-card card-body bg-white table-responsive">
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Comment</th>
                                         <th scope="col">Post</th>
                                         <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Date </th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="commentsTableContainer">
                                 </tbody>
                             </table>
                         </div>
