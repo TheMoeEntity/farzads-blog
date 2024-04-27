@@ -130,7 +130,8 @@ export class Helpers {
                                 <a class="text-center noUnderline text-success postEditDrop" data-btnID="${post.id}">Publish</a>
                             </li>
                             <li class="list-group-item">
-                                <a class="text-center noUnderline text-danger postEditDrop" data-btnID="${post.id}">Delete</a>
+                                <a class="text-center noUnderline text-danger adminDelete" data-btnID="${post.id}"  data-bs-toggle="modal"
+                                    data-bs-target="#deletePostModal" data-type="comments">Delete</a>
                             </li>
                         </ul>
                     </div>
