@@ -48,13 +48,22 @@ let posts = await getAdminPosts().then(x => {
     publishedPostsBtn.textContent = "Published (" + publishedPosts.length + ")"
     pendingPostsBtn.textContent = 'Pending (' + pendingPosts.length + ')'
     allPostsBtn.textContent = 'All Posts (' + x.length + ')'
-    publishedPostsBtn.onclick = () => {
+    publishedPostsBtn.onclick = (e) => {
+        e.target.setAttribute('class','btn active-tab')
+        allPostsBtn.setAttribute('class', 'btn')
+        pendingPostsBtn.setAttribute('class', 'btn')
         Helpers.setTableRow(publishedPosts, getDate, produceInnerHTML, tableContainer)
     }
-    pendingPostsBtn.onclick = () => {
+    pendingPostsBtn.onclick = (e) => {
+        e.target.setAttribute('class', 'btn active-tab')
+        allPostsBtn.setAttribute('class', 'btn')
+        publishedPostsBtn.setAttribute('class', 'btn')
         Helpers.setTableRow(pendingPosts, getDate, produceInnerHTML, tableContainer)
     }
-    allPostsBtn.onclick = () => {
+    allPostsBtn.onclick = (e) => {
+        e.target.setAttribute('class', 'btn active-tab')
+        publishedPostsBtn.setAttribute('class', 'btn')
+        pendingPostsBtn.setAttribute('class', 'btn')
         Helpers.setTableRow(x, getDate, produceInnerHTML, tableContainer)
     }
     return x
