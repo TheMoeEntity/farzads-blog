@@ -104,6 +104,10 @@
                     <div class="row bg-light pt-3 d-flex flex-column gap-2">
                         <div class="d-flex flex-column ">
                             <h4 class='mb-2 p-2 px-3'>All Blog posts </h4>
+                            <!-- <div>
+                                <div><span class="bg-success rounded-circle" style="width:12px; height: 12px;"></span> Published</div>
+                                <div><span class="bg-warning rounded-circle" style="width:12px; height: 12px;"></span> Pending</div>
+                            </div> -->
                             <span class="text-danger p-3" id="postErrorMessage"></span>
                             <div
                                 class="tile w-100 d-flex align-items-center flex-column flex-md-row align-items-end  p-3 d-flex gap-3 justify-content-start justify-content-md-between overflow-scroll">
@@ -114,7 +118,8 @@
                                 </div>
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <input style="border:1px solid #D8D8D8; border-radius: 20px; padding: 6px 15px;"
-                                        type="search" placeholder="Search" class="bg-transparent w-100 " name="" id="searchInput">
+                                        type="search" placeholder="Search" class="bg-transparent w-100 " name=""
+                                        id="searchInput">
                                 </div>
                             </div>
                         </div>
@@ -127,6 +132,7 @@
                                         <th scope="col">Status</th>
                                         <th scope="col">Date </th>
                                         <th scope="col">Comments</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="posts-table">

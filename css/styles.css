@@ -111,10 +111,10 @@
 }
 
 .wysiwyg-editor {
-  width: 37%;
+  width: 45%;
   height: 90%;
   position: fixed;
-  bottom: 0%;
+  bottom: -100%;
   right: 0;
   z-index: 999;
   border-top-left-radius: 15px;
@@ -144,7 +144,7 @@
     padding: 10px 0;
     width: 100%;
     height: 100%;
-    z-index:1100;
+    z-index: 1100;
 
   }
 }

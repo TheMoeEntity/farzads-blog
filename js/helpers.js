@@ -63,7 +63,7 @@ export class Helpers {
             }
         });
     }
-    static setTableRow = (posts, getDate, tableContainer) => {
+    static setTableRow = (posts, getDate, tableContainer, produceInnerHTML) => {
         // Clear existing table rows before appending new ones
         tableContainer.innerHTML = '';
         posts.forEach(post => {
@@ -72,8 +72,8 @@ export class Helpers {
             tableRow.innerHTML = `
             <th>${post.id}</th>
             <td style="min-width:220px; white-space:no-wrap;"><a class="text-dark noUnderline" href="/admin/posts/?id=${post.id}"><b>${post.title.length >= 70 ? post.title.slice(0, 70) + '...' : post.title}</b><a></td>
-            <td>
-                <div class="progress">
+            <td style="width:60px;">
+                <div class="progress" style="min-width:60px;">
                     <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"
                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
@@ -81,6 +81,16 @@ export class Helpers {
             <td style="min-width:130px;">${this.formatDate(getDate(post.date_added))}</td>
             <td style="min-width:130px;">
               ${(post.comments ? post.comments : randomComments) + " comment(s)"}   
+            </td>
+            <td>
+                <div class="nav-item dropdown me-1">
+                    <span class="nav-link count-indicator text-dark noUnderline dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" data-bs-toggle="dropdown"></span>
+                    <div class="dropdown-menu dropdown-menu-right py-0 navbar-dropdown" aria-labelledby="messageDropdown" style="width:150px; height: auto; min-height: fit-contents; z-index: 99999;">
+                        <ul class="list-group">
+                            ${produceInnerHTML(post.status, post)}
+                        </ul>
+                    </div>
+                </div>
             </td>
         `;
             // Append each table row to the table container
