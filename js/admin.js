@@ -8,6 +8,7 @@ const publishedPostsBtn = document.querySelector('#PublishedPosts')
 const searchInput = document.getElementById('searchInput');
 const modalBody = document.querySelector('#post-error')
 const adminDeleteAction = document.querySelector('#adminDeleteAction')
+const pendingComments = document.querySelector('#pendingComments')
 let adminDelBtns = ''
 let deleteType = ''
 let currentButtonID = 0
@@ -91,9 +92,6 @@ const delAdminPost = async (uid, id) => {
         return errorMessage;
     }
 };
-const quickActions = () => {
-
-}
 const getAllComments = async () => {
     const formData = new FormData()
     formData.append('getAllComments', 1234567890)
@@ -168,18 +166,22 @@ if (posts.length > 0) {
     await getAllComments().then(x => {
         if (x.status == 'success') {
             const filteredComments = x.comments.filter(comment => comment.status == '0')
-            Helpers.setcommentsTableRow(filteredComments, Helpers.getDate, commentsTableContainer)
-            adminDelBtns = [...document.querySelectorAll('.adminDelete')]
-            adminDelBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const type = btn.getAttribute('data-type')
-                    const btnID = btn.getAttribute('data-btnID')
-                    currentButtonID = btnID
-                    console.log(type)
-                    deleteType = type
-                    modalBody.textContent = `Are you sure you want to delete this ${type == "comments" ? 'comment' : 'post'}?`
+            if (filteredComments && filteredComments.length > 0) {
+                pendingComments.setAttribute('class', 'row d-block bg-light mt-5 pt-3 d-flex flex-column gap-2')
+                Helpers.setcommentsTableRow(filteredComments, Helpers.getDate, commentsTableContainer)
+                adminDelBtns = [...document.querySelectorAll('.adminDelete')]
+                adminDelBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const type = btn.getAttribute('data-type')
+                        const btnID = btn.getAttribute('data-btnID')
+                        currentButtonID = btnID
+                        console.log(type)
+                        deleteType = type
+                        modalBody.textContent = `Are you sure you want to delete this ${type == "comments" ? 'comment' : 'post'}?`
+                    })
                 })
-            })
+            }
+
             return
         }
         return []
