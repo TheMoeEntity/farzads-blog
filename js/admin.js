@@ -5,7 +5,6 @@ import { getPost } from "./index.js";
 import { setComments } from "./index.js";
 const tableContainer = document.querySelector('#posts-table')
 const commentsContainer = document.querySelector('#comments-table')
-const commentsTab = document.querySelectorAll('.comments-tab')
 const singleComment = document.querySelector('#single-comment')
 const commenter = document.querySelector('#commenter')
 const deleteBtn = document.querySelector('#deleteBtn')
@@ -199,23 +198,7 @@ const getSinglePost = async () => {
     const post = await getPost(id).then((x) => x)
     singlePost = post
 }
-const setCommentsTab = () => {
-    if (posts.length > 0) {
-        commentsTab.forEach(x => {
-            posts.forEach(post => {
-                const listItem = document.createElement('li')
-                listItem.setAttribute('class', 'nav-item')
-                listItem.innerHTML = `<a class="nav-link post-links" data-postID="${post.id}">Post ID: ${post.id} </a>`
-                x.appendChild(listItem)
-            })
-        })
 
-
-    }
-}
-if (commentsTab) {
-    setCommentsTab()
-}
 await getSinglePost()
 if (posts.length > 0) {
     posts.forEach(post => {

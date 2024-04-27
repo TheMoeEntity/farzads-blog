@@ -166,8 +166,41 @@ const mountTinyMCE = (contentToSet) => {
         plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
+        file_picker_types: 'file image media',
         tinycomments_author: 'Author name',
+        images_file_types: 'jpg,svg,webp',
+        file_picker_callback: (callback, value, meta) => {
+            // Provide file and text for the link dialog
+            // if (meta.filetype == 'file') {
+            //     callback('mypage.html', { text: 'My text' });
+            // }
+
+            // Provide image and alt text for the image dialog
+            if (meta.filetype == 'image') {
+                const imageInput = document.createElement('input')
+                imageInput.type = 'file'
+                imageInput.click();
+                imageInput.onchange = () => {
+                    const file = imageInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        callback(e.target.result, { alt: 'My alt text' });
+                    }
+                    reader.readAsDataURL(file);
+                }
+                // callback('myimage.jpg', { alt: 'My alt text' });
+            }
+
+            // Provide alternative source and posted for the media dialog
+            // if (meta.filetype == 'media') {
+            //     callback('movie.mp4', { source2: 'alt.ogg', poster: 'image.jpg' });
+            // }
+        },
         setup: function (editor) {
+            // var redoButton = editor.buttons.redo;
+            // redoButton.on('click', function () {
+            //     content.innerHTML = currentContent
+            // });
             editor.on('init', function () {
 
                 editor.setContent(contentToSet);
