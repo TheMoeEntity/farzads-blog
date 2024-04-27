@@ -105,10 +105,17 @@
                         <div class="d-flex flex-column ">
                             <h4 class='mb-2 p-2 px-3'>All Blog posts </h4>
                             <span class="text-danger p-3" id="postErrorMessage"></span>
-                            <div class="tile w-100 p-3 d-flex gap-3 overflow-scroll">
-                                <button id="allPosts" class="btn active-tab">All Posts (3)</button>
-                                <button id="PublishedPosts" class="btn">Published (1)</button>
-                                <button id="PendingPosts" class="btn">Pending (0)</button>
+                            <div
+                                class="tile w-100 d-flex align-items-center flex-column flex-md-row align-items-end  p-3 d-flex gap-3 justify-content-start justify-content-md-between overflow-scroll">
+                                <div class="col-12 col-md-5">
+                                    <button id="allPosts" class="btn active-tab">All Posts (3)</button>
+                                    <button id="PublishedPosts" class="btn">Published (1)</button>
+                                    <button id="PendingPosts" class="btn">Pending (0)</button>
+                                </div>
+                                <div>
+                                    <input style="border:1px solid #D8D8D8; border-radius: 16px;" type="search"
+                                        placeholder="Search" class="bg-transparent w-100 p-2 rounded-3" name="" id="">
+                                </div>
                             </div>
                         </div>
                         <div class="pt-3col-md-12 stretch-card card-body bg-white table-responsive">
@@ -119,7 +126,7 @@
                                         <th scope="col" class="text-behance">Title</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Date </th>
-                                        <th scope="col">Actions</th>
+                                        <th scope="col">Last updated</th>
                                     </tr>
                                 </thead>
                                 <tbody id="posts-table">
