@@ -122,7 +122,9 @@
   overflow: scroll;
   transition: 0.5s;
 }
-
+.grecaptcha-badge {
+  visibility: hidden;
+}
 .closeBtn {
   position: absolute;
   top: 5px;
