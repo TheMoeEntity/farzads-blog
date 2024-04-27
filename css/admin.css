@@ -238,6 +238,10 @@
 
 }
 
+#posts-table {
+    transition: 0.5s;
+}
+
 .noUnderline {
     text-decoration: none !important;
     cursor: pointer;

@@ -63,7 +63,7 @@ if (posts.length > 0) {
 
 } else {
     const noPostsRow = document.createElement('tr');
-    noPostsRow.innerHTML = '<td colspan="4">No posts to show.</td>';
+    noPostsRow.innerHTML = '<td colspan="5">No posts to show.</td>';
     if (tableContainer) {
         tableContainer.appendChild(noPostsRow);
     }
