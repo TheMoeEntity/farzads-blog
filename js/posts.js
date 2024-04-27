@@ -22,6 +22,54 @@ const closBtn = document.querySelector('#closeBtn')
 const postErrorDiv = document.querySelector('#post-error')
 const openEditor = document.querySelector('#openEditor')
 
+const updateComment = async (uid, id, publish) => {
+    const formData = new FormData()
+    formData.append('updateComment', id)
+    formData.append('uid', uid)
+    formData.append('publish', publish === true ? 1 : 0)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/comments', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured updating comment"
+        return errorMessage;
+    }
+};
+const approveComment = async (uid, text, commentid) => {
+    loadingOverlay.style.display = 'flex';
+    const commentStatus = post.comments.find(x => x.id === commentid)
+    let willPublish = true
+    if (text === 'Publish') {
+        if (commentStatus.status === "1") {
+            commenter.textContent = "Comment is already published"
+            return
+        }
+    }
+    if (text === "Save to drafts") {
+        willPublish = false
+    }
+    const postUpdateStatusBtns = [...(document.querySelectorAll('.postUpdateStatus'))]
+    const postUpdateStatus = postUpdateStatusBtns.find(x => x.getAttribute('data-btnID') == commentid)
+    const response = await updateComment(uid, commentid, willPublish).then((x) => x)
+    if (response.status && response.status === 'success') {
+        loadingOverlay.style.display = 'none';
+        postUpdateStatus.textContent = `${willPublish ? 'Comment published' : 'Saved to drafts.'}`
+        postUpdateStatus.setAttribute('class', willPublish ? 'text-success' : 'text-warning')
+        setTimeout(() => {
+            window.location.reload()
+        }, 3500);
+    } else {
+        loadingOverlay.style.display = 'none';
+        postUpdateStatus.textContent = `Something went wrong.`
+        postUpdateStatus.setAttribute('class', 'text-danger')
+    }
+
+}
 const deleteCommentAction = async (uid, id) => {
     const formData = new FormData()
     formData.append('deleteComment', id)
@@ -68,7 +116,7 @@ const deleteAdminPost = async (uid, commentid,) => {
             postErrorDiv.textContent = `An error occured while trying to delete Post. Try again.`
         }
     } else {
-        if (currentCommentID !== '') {      
+        if (currentCommentID !== '') {
             await deleteComment(1234567890, currentCommentID)
         }
         loadingOverlay.style.display = 'flex';
@@ -154,9 +202,10 @@ export const setComments = (res, container) => {
                         <span class="post-author">${res.name}</span>
                         <span class="post-added">
                             ${Helpers.formatDate(getDate(res.date_added))}
-                        <span class="mx-1 ${res.status == 0 ? 'pending' : res.status !== 0 ? 'published' : ''}" id="post-status">${res.status == 0 ? 'Pending' : 'Published'}</span> <br/>
-                        <button  class="publishbtn mt-3"><b>${res.status == 0 ? 'Publish' : 'Save to drafts'}</b></button>
-                         <button data-btnID="${res.id}" class="publishbtn text-danger commentDelBtn" data-bs-toggle="modal" data-bs-target="#deletePostModal"><b>Delete</b></button>
+                        <span class="mx-1 ${res.status == 0 ? 'pending' : res.status !== 0 ? 'published' : ''}" id="post-status">${res.status == 0 ? 'Pending' : 'Published'}</span> <br/> </br>
+                        <button data-btnID="${res.id}" class="publishbtn" class="mt-3"><b>${res.status == 0 ? 'Publish' : 'Save to drafts'}</b></button>
+                         <button data-btnID="${res.id}" class="text-danger commentDelBtn" data-bs-toggle="modal" data-bs-target="#deletePostModal"><b>Delete</b></button>
+                         <span data-btnID="${res.id}" class="text-success postUpdateStatus"></span>
                         </span>
                         <span>
                         </span>
@@ -167,7 +216,6 @@ export const setComments = (res, container) => {
                 </p>
                 `
     container.appendChild(comment)
-
 }
 
 export const getDate = (date_addeds) => {
@@ -253,14 +301,20 @@ const setPost = () => {
     commentDelBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             currentCommentID = e.target.parentElement.getAttribute('data-btnID')
-            postErrorDiv.textContent = "Are you sure you delete comment?"
+            postErrorDiv.textContent = "Are you sure you want to delete comment?"
         })
     })
     let shouldPublish = false
+    const publishBtn = document.querySelectorAll('.publishbtn')
+    publishBtn.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const postID = btn.getAttribute('data-btnID')
+            await approveComment(1234567890, btn.textContent, postID)
+        })
+    })
     saveToDrafts.addEventListener('click', async (e) => {
         const textContent = e.target.innerText
         shouldPublish = textContent === 'Save to drafts' ? false : true
-        console.log(shouldPublish)
         loadingOverlay.style.display = 'flex';
         const response = await updateAdminPost(1234567890, post.title, post.sub_title, shouldPublish, post.content).then((x) => x)
         if (response.status && response.status === 'success') {
@@ -285,6 +339,7 @@ if (post) {
     getOtherPosts()
     setPost()
 }
+
 deleteActionBtn.addEventListener('click', () => {
     postErrorDiv.textContent = "Are you sure you want to delete this post?"
 })
