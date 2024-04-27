@@ -40,7 +40,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="post-error">
-                   
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Cancel</button>
@@ -69,8 +69,9 @@
             </div>
         </form>
         <textarea class="form-control" style="outline: none; border:none; height: 100%;" id="editWysiwyg"></textarea>
-        <div class="p-3">
-            <button type="submit" class="btn bg-dark text-white">Save changes</button>
+        <div class="p-3 d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <button type="button" class="btn bg-dark text-white h-25 " id="saveChangesBtn">Save changes</button>
+            <p id="postEditStatus"></p>
         </div>
     </div>
     <div class="container-scroller">
@@ -167,8 +168,9 @@
                                                 class="actionbtn nowrap"><b>Edit Post</b></button>
                                             <button style="white-space: nowrap;" class="actionbtn text-warning"
                                                 id="saveToDrafts"><b>Save to drafts</b></button>
-                                            <button style="white-space: nowrap;" id="deletePostBtn" class="actionbtn text-danger"
-                                                data-bs-toggle="modal" data-bs-target="#deletePostModal">
+                                            <button style="white-space: nowrap;" id="deletePostBtn"
+                                                class="actionbtn text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deletePostModal">
                                                 <b>Delete Post</b>
                                             </button>
                                             <div style="white-space: nowrap;" id="publishError"

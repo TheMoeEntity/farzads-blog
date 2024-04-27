@@ -21,7 +21,27 @@ const id = urlParams.get('id')
 const closBtn = document.querySelector('#closeBtn')
 const postErrorDiv = document.querySelector('#post-error')
 const openEditor = document.querySelector('#openEditor')
+const saveChangesBtn = document.querySelector('#saveChangesBtn')
+const postEditStatus = document.querySelector('#postEditStatus')
+let editorInstance;
 
+saveChangesBtn.addEventListener('click', async () => {
+    if (editorInstance) {
+        const currentContent = editorInstance.getContent();
+        let shouldPublish = post.status == 1 ? false : true
+        loadingOverlay.style.display = 'flex';
+        const response = await updateAdminPost(1234567890, editorForm[0].value, editorForm[1].value, shouldPublish, currentContent).then((x) => x)
+        if (response.status && response.status === 'success') {
+            loadingOverlay.style.display = 'none';
+            postEditStatus.textContent = `${'Post saved.'}`
+            postEditStatus.setAttribute('class', 'text-success')
+        } else if (response.status && response.status !== 'success') {
+            postEditStatus.setAttribute('class', 'text-danger')
+            postEditStatus.textContent = `Something went wrong. Try again`
+            loadingOverlay.style.display = 'none';
+        }
+    }
+})
 const updateComment = async (uid, id, publish) => {
     const formData = new FormData()
     formData.append('updateComment', id)
@@ -169,7 +189,7 @@ const mountTinyMCE = (contentToSet) => {
         file_picker_types: 'file image media',
         tinycomments_author: 'Author name',
         images_file_types: 'jpg,svg,webp',
-        zindex: 9999999999, 
+        zindex: 9999999999,
         file_picker_callback: (callback, value, meta) => {
             // Provide file and text for the link dialog
             // if (meta.filetype == 'file') {
@@ -202,6 +222,7 @@ const mountTinyMCE = (contentToSet) => {
             // redoButton.on('click', function () {
             //     content.innerHTML = currentContent
             // });
+            editorInstance = editor;
             editor.on('init', function () {
 
                 editor.setContent(contentToSet);
@@ -348,9 +369,10 @@ const setPost = () => {
     })
     saveToDrafts.addEventListener('click', async (e) => {
         const textContent = e.target.innerText
+        const currentContent = editorInstance.getContent();
         shouldPublish = textContent === 'Save to drafts' ? false : true
         loadingOverlay.style.display = 'flex';
-        const response = await updateAdminPost(1234567890, post.title, post.sub_title, shouldPublish, post.content).then((x) => x)
+        const response = await updateAdminPost(1234567890, editorForm[0].value, editorForm[1].value, shouldPublish, editorInstance && editorInstance !== '' ? currentContent : post.content).then((x) => x)
         if (response.status && response.status === 'success') {
             loadingOverlay.style.display = 'none';
             publishError.textContent = `${shouldPublish ? 'Post published.' : 'Saved to drafts.'}`
