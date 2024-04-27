@@ -16,6 +16,7 @@ export const getAdminPosts = async () => {
             method: 'POST',
             body: formData,
         });
+        console.log(response.statusText)
         const data = await response.json();
         return data.posts;
     } catch (error) {
@@ -27,6 +28,27 @@ export const getAdminPosts = async () => {
 
 
 };
+const getAllComments = async ()=> {
+    const formData = new FormData()
+    formData.append('getAllComments', 1234567890)
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/comments', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        console.error("data",data);
+        return data.posts;
+    } catch (error) {
+        console.log(error)
+        return [];
+    } finally {
+
+    }
+}
+await getAllComments().then((x)=> {
+    console.log(x)
+})
 const producePostsInnerHTML = (status, comment) => {
     switch (status) {
         case "0":
