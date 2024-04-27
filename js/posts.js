@@ -290,7 +290,7 @@ const getOtherPosts = async () => {
                 </span>
                 <h5 class="decoration-underline">
                 <b>
-                <u><a class="text-dark" href="post.html?id=${post.id}">${post.title}</a></u>
+                <u><a class="text-dark" href="/admin/posts/?id=${post.id}">${post.title}</a></u>
                 <b>
                 </h5>
             `
