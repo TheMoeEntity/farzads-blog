@@ -111,7 +111,7 @@ export class Helpers {
             tableRow.innerHTML = `
             <td><b>${post.id}</b></td>
             <th style="min-width:350px; white-space:no-wrap;"><p style="font-weight:lighter !important;">${post.comment.split(" ").slice(0, 20).join(" ")}</p></th>
-            <td style="min-width:220px; white-space:no-wrap;"><a class="text-dark noUnderline" href="/admin/posts/?id=${post.pid}"><b>${post.post_title.length >= 70 ? post.post_title.slice(0, 70) + '...' : post.post_title}</b><a></td>
+            <td style="min-width:220px; white-space:no-wrap;"><a class="text-dark noUnderline" href="/admin/posts/?id=${post.pid}#postComments"><b>${post.post_title.length >= 70 ? post.post_title.slice(0, 70) + '...' : post.post_title}</b><a></td>
             <td style="min-width:220px; white-space:no-wrap;">${post.name}</td>
             <td>${post.email}</td>
             <td style="width:60px;">
