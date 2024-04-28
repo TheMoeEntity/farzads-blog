@@ -39,38 +39,34 @@
                 <span onclick="closeModal()" class="">&times;</span>
             </div>
             <form id="contactForm">
-
                 <div class="form-floating">
-                    <input class="form-control" id="name" type="text" placeholder="Enter your name..."
-                        data-sb-validations="required" />
+                    <input class="form-control" id="name" type="text" placeholder="Enter your name..." />
                     <label for="name">Name</label>
 
                 </div>
                 <div class="form-floating">
-                    <input class="form-control" id="email" type="email" placeholder="Enter your email..."
-                        data-sb-validations="required,email" />
+                    <input class="form-control" id="email" type="email" placeholder="Enter your email..." />
                     <label for="email">Email address</label>
                 </div>
                 <div class="form-floating">
-                    <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number..."
-                        data-sb-validations="required" />
+                    <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number..." />
                     <label for="phone">Phone Number</label>
                 </div>
                 <div class="form-floating">
                     <textarea class="form-control" id="message" placeholder="Enter your message here..."
-                        style="height: 12rem" data-sb-validations="required"></textarea>
+                        style="height: 12rem"></textarea>
                     <label for="message">Message</label>
-
+                    <div class="py-2" style="font-size: small;" id="errorMsgs"></div>
                 </div>
                 <br />
                 <div style="font-size: small;" class="py-3">
                     This site is protected by reCAPTCHA and the Google
-                    <a href="https://policies.google.com/privacy">Privacy Policy</a> and
-                    <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    <a href="https://policies.google.com/privacy"><u>Privacy Policy</u></a> and
+                    <a href="https://policies.google.com/terms"><u>Terms of Service</u></a> apply.
                 </div>
-
+                <div class="g-recaptcha" data-sitekey="6LezQckpAAAAAC-QSJ6kWb0ObD4PMecyFNznlxuB"></div>
                 <!-- Submit Button-->
-                <button class="btn btn-primary text-uppercase disabled" id="submitButton" type="submit">Send</button>
+                <button class="btn btn-primary text-uppercase" type="submit">Send</button>
             </form>
         </div>
     </div>
@@ -185,33 +181,7 @@
 
             <div class="row gy-4 posts-list d-flex justify-content-center justify-content-md-start" id="blogList">
 
-                <!-- <div class="col-xl-4 col-lg-6 col-md-6 blog-card">
-                    <article class="shadow-sm">
-                        <h2 class="title">
-                            <a href="post.html">Dolorum optio tempore voluptas dignissimos</a>
-                        </h2>
-
-                        <div class="d-flex align-items-center">
-                            <div class="post-meta">
-                                <p class="post-date">
-                                    <time datetime="2022-01-01">Jan 1, 2022</time>
-                                </p>
-                            </div>
-                        </div>
-
-                    </article>
-                </div> -->
-
-
             </div><!-- End blog posts list -->
-
-            <!-- <div class="pagination d-flex justify-content-center">
-                <ul>
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                </ul>
-            </div> -->
 
         </div>
 
@@ -251,16 +221,6 @@
                     <ul id="footer-blogs">
                     </ul>
                 </div>
-
-                <!-- <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-                        <h4>Contact Us</h4>
-                        <p>A108 Adam Street</p>
-                        <p>New York, NY 535022</p>
-                        <p>United States</p>
-                        <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                        <p><strong>Email:</strong> <span>info@example.com</span></p>
-                    </div> -->
-
             </div>
         </div>
 
@@ -270,6 +230,7 @@
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
     <script src="js/index.js" type="module"></script>
+    <script src="js/form.js" type="module"></script>
 </body>
 
 </html>

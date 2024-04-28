@@ -65,6 +65,7 @@ form.addEventListener('submit', async (e) => {
     if (response.status && response.status === 'success') {
         publishError.setAttribute('class', 'py-3 text-success')
         publishError.textContent = `Your post has been added successfully and ${shouldPublish ? 'published' : 'put on pending'}`
+        location.href = '/admin'
     } else if (response.status && response.status !== 'success') {
         publishError.setAttribute('class', 'py-3 text-danger')
         publishError.textContent = `Something went wrong. Let's give it another shot`

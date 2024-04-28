@@ -28,7 +28,7 @@ let editorInstance;
 saveChangesBtn.addEventListener('click', async () => {
     if (editorInstance) {
         const currentContent = editorInstance.getContent();
-        let shouldPublish = post.status == 1 ? false : true
+        let shouldPublish = post.status == 0 ? false:true
         loadingOverlay.style.display = 'flex';
         const response = await updateAdminPost(1234567890, editorForm[0].value, editorForm[1].value, shouldPublish, currentContent).then((x) => x)
         if (response.status && response.status === 'success') {
@@ -348,7 +348,7 @@ const setPost = () => {
         const noComment = `<h3 id='zeroComments'>No comments yet</h3>`
         commentsContainer.innerHTML = noComment;
     }
-    document.title = 'Farzad Nosrati | Posts | ' + post.title
+    document.title = 'Farzad Nosrati | Admin Dashboard | Post preview | ' + post.title
     commentNum.textContent = `${post.comments.length} comment${post.comments.length === 1 ? '' : 's'}`
     post.comments.forEach(x => {
         setComments(x, commentsContainer)
