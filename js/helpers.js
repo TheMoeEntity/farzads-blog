@@ -73,6 +73,16 @@ export class Helpers {
             }
         });
     }
+    static commentsNumber = (count) => {
+        switch (count) {
+            case "0":
+                return "No comments yet";
+            case "1":
+                return "1 comment";
+            default:
+                return count + " comments";
+        }
+    }
     static setTableRow = (posts, getDate, tableContainer, produceInnerHTML) => {
         // Clear existing table rows before appending new ones
         tableContainer.innerHTML = '';
@@ -89,8 +99,8 @@ export class Helpers {
                 </div>
             </td>
             <td style="min-width:130px;">${this.formatDate(getDate(post.date_added))}</td>
-            <td style="min-width:130px;">
-              ${(post.comments ? post.comments : randomComments) + " comment(s)"}   
+            <td style="min-width:150px;">
+                ${this.commentsNumber(post.comments)}
             </td>
             <td>
                 <div class="nav-item dropdown me-1">
@@ -212,7 +222,7 @@ export class Helpers {
             errMessage.textContent = 'Enter a valid email'
             errMessage.setAttribute('class', 'error text-danger')
             isError = true
-        } else if (phone.trim() === '' ) {
+        } else if (phone.trim() === '') {
             errMessage.textContent = 'Enter a valid phone number'
             errMessage.setAttribute('class', 'error text-danger')
             isError = true
