@@ -127,7 +127,7 @@ export class Helpers {
                     <div class="dropdown-menu dropdown-menu-right py-0 navbar-dropdown" aria-labelledby="messageDropdown" style="width:150px; height: auto; min-height: fit-contents; z-index: 99999;">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <a class="text-center noUnderline text-success postEditDrop" data-btnID="${post.id}">Publish</a>
+                                <a data-bs-toggle="modal" data-bs-target="#deletePostModal" class="text-center noUnderline text-success publishPend" data-type="comments" data-btnID="${post.id}">Publish</a>
                             </li>
                             <li class="list-group-item">
                                 <a class="text-center noUnderline text-danger adminDelete" data-btnID="${post.id}"  data-bs-toggle="modal"
