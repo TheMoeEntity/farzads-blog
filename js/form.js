@@ -5,7 +5,7 @@ const modalBackground = document.querySelector('#modal-background')
 
 const submitMessage = async (contactFormFields) => {
     const formData = new FormData()
-    const to = 'moseschukwudinwigberi@gmail.com'
+    const to = 'sykik09@gmail.com'
     formData.append('sendTo', to)
     formData.append('name', contactFormFields.name)
     formData.append('email', contactFormFields.email)
