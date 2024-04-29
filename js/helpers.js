@@ -213,7 +213,6 @@ export class Helpers {
         const message = event.target[3].value
         let isError = false
         const validEmail = this.validateEmail(email)
-        const validPhone = this.validatePhone(phone)
         if (name.trim() === '') {
             errMessage.textContent = 'Name cannot be empty'
             errMessage.setAttribute('class', 'error text-danger')
