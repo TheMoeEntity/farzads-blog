@@ -48,21 +48,23 @@ export class Helpers {
     static incrementTotalPosts(totalPosts, id, interval) {
         let count = 0;
         const totalPostsCountElement = document.getElementById(id);
-        interval = setInterval(() => {
-            count++;
+        if (totalPosts !== 0) {            
+            interval = setInterval(() => {
+                count++;
+                if (totalPostsCountElement) {
+                    totalPostsCountElement.textContent = count;
+                    totalPostsCountElement.style.opacity = 1;
+                }
+    
+                if (count >= totalPosts) {
+                    clearInterval(interval);
+                }
+            }, 100);
+    
+    
             if (totalPostsCountElement) {
-                totalPostsCountElement.textContent = count;
-                totalPostsCountElement.style.opacity = 1;
+                totalPostsCountElement.style.opacity = 0;
             }
-
-            if (count >= totalPosts) {
-                clearInterval(interval);
-            }
-        }, 100);
-
-
-        if (totalPostsCountElement) {
-            totalPostsCountElement.style.opacity = 0;
         }
     }
     static validateEmail = (email) => {
