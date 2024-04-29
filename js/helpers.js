@@ -45,6 +45,26 @@ export class Helpers {
         }
         return `${month} ${format[2]}, ${format[0]}`
     }
+    static incrementTotalPosts(totalPosts, id, interval) {
+        let count = 0;
+        const totalPostsCountElement = document.getElementById(id);
+        interval = setInterval(() => {
+            count++;
+            if (totalPostsCountElement) {
+                totalPostsCountElement.textContent = count;
+                totalPostsCountElement.style.opacity = 1;
+            }
+
+            if (count >= totalPosts) {
+                clearInterval(interval);
+            }
+        }, 100);
+
+
+        if (totalPostsCountElement) {
+            totalPostsCountElement.style.opacity = 0;
+        }
+    }
     static validateEmail = (email) => {
 
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -248,7 +268,7 @@ export class Helpers {
             errMessage.textContent = 'Sub title cannot be empty'
             errMessage.setAttribute('class', 'error text-danger')
             isError = true
-        }  else if (content.trim() === '' || content.length < 10) {
+        } else if (content.trim() === '' || content.length < 10) {
             errMessage.textContent = 'Blog post cannot be empty or too short'
             errMessage.setAttribute('class', 'error text-danger')
             isError = true

@@ -10,6 +10,10 @@ const modalBody = document.querySelector('#post-error')
 const adminDeleteAction = document.querySelector('#adminDeleteAction')
 const pendingComments = document.querySelector('#pendingComments')
 const updateActionBtn = document.querySelector('#updateActionBtn')
+const pendingPostsDashboard = document.querySelector('#pendingPostsDashboard')
+const pendingCommentsDashboard = document.querySelector('#pendingCommentsDashboard')
+const publishedPostsDashboard = document.querySelector('#publishedPostsDashboard')
+const publishedCommentsDashboard = document.querySelector('#publishedCommentsDashboard')
 let deleteType = ''
 let currentButtonID = 0
 let publishPend = ''
@@ -242,7 +246,17 @@ const producePostsInnerHTML = (status, comment) => {
 }
 let posts = await getAdminPosts().then(x => {
     publishedPosts = x.filter(xx => xx.status == "1")
+    if (publishedPosts) {
+        publishedPostsDashboard.textContent = publishedPosts.length
+    }
     pendingPosts = x.filter(xx => xx.status == "0")
+    if (pendingPosts) {
+        pendingPostsDashboard.textContent = pendingPosts.length
+    }
+    let adminInterval
+    setTimeout(() => {
+        Helpers.incrementTotalPosts(x.length, 'totalPostsCount', adminInterval)
+    }, 750);
     allAdminPosts = x
     publishedPostsBtn.textContent = "Published (" + publishedPosts.length + ")"
     pendingPostsBtn.textContent = 'Pending (' + pendingPosts.length + ')'
@@ -274,8 +288,18 @@ if (posts.length > 0) {
     }, 550);
     Helpers.setTableRow(posts, Helpers.getDate, tableContainer, producePostsInnerHTML)
     await getAllComments().then(x => {
+        let commentsInterval
+        let pendingInterval
+        const filteredComments = x.comments.filter(comment => comment.status == '0')
+        const approvedComments = x.comments.filter(comment => comment.status == "1")
+        publishedCommentsDashboard.textContent = approvedComments.length
+        pendingCommentsDashboard.textContent = filteredComments.length
+        const pending = filteredComments.length + pendingPosts.length
+        setTimeout(() => {
+            Helpers.incrementTotalPosts(x.comments.length, 'totalCommentsCount', commentsInterval)
+            Helpers.incrementTotalPosts(pending, 'totalPending', pendingInterval)
+        }, 750);
         if (x.status == 'success') {
-            const filteredComments = x.comments.filter(comment => comment.status == '0')
             if (filteredComments && filteredComments.length > 0) {
                 pendingComments.setAttribute('class', 'row d-block bg-light mt-5 pt-3 d-flex flex-column gap-2')
                 Helpers.setcommentsTableRow(filteredComments, Helpers.getDate, commentsTableContainer)

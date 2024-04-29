@@ -16487,6 +16487,32 @@ fieldset:disabled .btn {
     transition: opacity 0.6s ease;
 }
 
+.trans {
+    transition: 0.5s;
+}
+
+.noscroll {
+    overflow: -moz-scrollbars-none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+#totalPostsCount {
+    transition: opacity 0.5s ease-in-out;
+}
+
+#totalCommentsCount {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.noscroll::-webkit-scrollbar {
+    display: none;
+    /* Webkit (Chrome, Safari) */
+}
+
 @media (prefers-reduced-motion: reduce) {
     .carousel-indicators [data-bs-target] {
         transition: none;
