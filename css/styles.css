@@ -122,9 +122,11 @@
   overflow: scroll;
   transition: 0.5s;
 }
+
 .grecaptcha-badge {
-  visibility: hidden;
+  /* visibility: hidden; */
 }
+
 .closeBtn {
   position: absolute;
   top: 5px;
@@ -630,14 +632,18 @@ button {
 .modal-background>div {
   width: 600px;
   max-width: 90%;
-  height: fit;
-  padding: 20px 0;
+  height: 95%;
+  border-radius: 9px;
+  overflow-y: scroll;
+  padding: 0px 0;
+  padding-bottom: 20px;
   position: relative;
   background-color: white;
 }
 
 .modal-background>div form {
   padding: 0 30px;
+  overflow: scroll;
 }
 
 [type=search] {

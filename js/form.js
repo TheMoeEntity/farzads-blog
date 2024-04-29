@@ -4,10 +4,19 @@ const errorMsgs = document.querySelector("#errorMsgs")
 
 const submitForm = (e) => {
     e.preventDefault()
-    console.log("Submitting")
     const [isError] = Helpers.validateContactFormFields(e, errorMsgs)
     if (!isError) {
-        alert('form submitted')
+        const recapchaResponse = grecaptcha.getResponse()
+        if (!recapchaResponse || recapchaResponse == '') {
+            errorMsgs = "Please complete the reCAPTCHA."
+            return false
+        } else {
+            console.log(recapchaResponse)
+        }
     }
 }
 contactForm.addEventListener('submit', submitForm)
+
+window.handleRecaptchaCallback = function () {
+    submitForm();
+}

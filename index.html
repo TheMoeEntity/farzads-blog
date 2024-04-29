@@ -21,8 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet" />
-    <script
-        src="https://www.google.com/recaptcha/enterprise.js?render=6LezQckpAAAAAC-QSJ6kWb0ObD4PMecyFNznlxuB"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
@@ -59,12 +58,12 @@
                     <div class="py-2" style="font-size: small;" id="errorMsgs"></div>
                 </div>
                 <br />
-                <div style="font-size: small;" class="py-3">
+                <div style="font-size: small;" class="py-1">
                     This site is protected by reCAPTCHA and the Google
                     <a href="https://policies.google.com/privacy"><u>Privacy Policy</u></a> and
                     <a href="https://policies.google.com/terms"><u>Terms of Service</u></a> apply.
                 </div>
-                <div class="g-recaptcha" data-sitekey="6LezQckpAAAAAC-QSJ6kWb0ObD4PMecyFNznlxuB"></div>
+                <div class="g-recaptcha my-3" data-sitekey="6Lffn8opAAAAAMv9AEWbiuPA6UVRaDILxLTPO3II" data-callback="handleRecaptchaCallback"></div>
                 <!-- Submit Button-->
                 <button class="btn btn-primary text-uppercase" type="submit">Send</button>
             </form>
