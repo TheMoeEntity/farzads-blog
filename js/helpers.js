@@ -235,4 +235,27 @@ export class Helpers {
         return [isError, contactFormFields]
 
     }
+    static validateBlogPostFields = (event, errMessage) => {
+        event.preventDefault()
+        const title = event.target[1].value
+        const sub_title = event.target[2].value
+        const content = event.target[3].value
+        let isError = false
+        if (title.trim() === '') {
+            errMessage.textContent = 'Title cannot be empty'
+            errMessage.setAttribute('class', 'error text-danger')
+            isError = true
+        } else if (sub_title.trim() === '') {
+            errMessage.textContent = 'Sub title cannot be empty'
+            errMessage.setAttribute('class', 'error text-danger')
+            isError = true
+        }  else if (content.trim() === '' || content.length < 10) {
+            errMessage.textContent = 'Blog post cannot be empty or too short'
+            errMessage.setAttribute('class', 'error text-danger')
+            isError = true
+        }
+        const blogFields = { title, sub_title, content, content }
+        return [isError, blogFields]
+
+    }
 }

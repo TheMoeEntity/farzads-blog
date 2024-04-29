@@ -1,6 +1,9 @@
+import { Helpers } from "./helpers.js";
+
 const form = document.querySelector('#create-post-form')
 const submitButtons = form.querySelectorAll('button[type="submit"]');
 const publishError = document.querySelector('#publish-error')
+const postErr = document.querySelector('#postErrs')
 let clickedButton
 if (submitButtons) {
     submitButtons.forEach(button => {
@@ -53,25 +56,25 @@ window.addEventListener('load', () => {
     mountTinyMCE()
 })
 form.addEventListener('submit', async (e) => {
-    e.preventDefault()
+    const [isError] = Helpers.validateBlogPostFields(e, postErr)
     let shouldPublish = true
     const editorContent = tinymce.activeEditor.getContent();
-    console.log("click", clickedButton)
     if (clickedButton === 'Drafts') {
-        console.log(editorContent)
         shouldPublish = false
     }
-    const response = await createAdminPost(1234567890, form[1].value, form[2].value, shouldPublish, editorContent).then((x) => x)
-    if (response.status && response.status === 'success') {
-        publishError.setAttribute('class', 'py-3 text-success')
-        publishError.textContent = `Your post has been added successfully and ${shouldPublish ? 'published' : 'put on pending'}`
-        location.href = '/admin'
-    } else if (response.status && response.status !== 'success') {
-        publishError.setAttribute('class', 'py-3 text-danger')
-        publishError.textContent = `Something went wrong. Let's give it another shot`
+    if (!isError) {        
+        const response = await createAdminPost(1234567890, form[1].value, form[2].value, shouldPublish, editorContent).then((x) => x)
+        if (response.status && response.status === 'success') {
+            publishError.setAttribute('class', 'py-3 text-success')
+            publishError.textContent = `Your post has been added successfully and ${shouldPublish ? 'published' : 'put on pending'}`
+            location.href = '/admin'
+        } else if (response.status && response.status !== 'success') {
+            publishError.setAttribute('class', 'py-3 text-danger')
+            publishError.textContent = `Something went wrong. Let's give it another shot`
+        }
+        setTimeout(() => {
+            publishError.textContent = ""
+        }, 4500);
     }
-    setTimeout(() => {
-        publishError.textContent = ""
-    }, 4500);
 
 })

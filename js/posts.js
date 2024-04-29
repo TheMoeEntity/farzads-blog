@@ -121,7 +121,7 @@ const deleteComment = async (uid, commentid,) => {
 }
 const deleteAdminPost = async (uid, commentid,) => {
     loadingOverlay.style.display = 'flex';
-    if (postErrorDiv.textContent == " Are you sure you want to delete this post?") {
+    if (postErrorDiv.textContent == "Are you sure you want to delete this post?") {
         const response = await delAdminPost(uid, commentid).then((x) => x)
         if (response.status && response.status === 'success') {
             loadingOverlay.style.display = 'none';
@@ -129,7 +129,7 @@ const deleteAdminPost = async (uid, commentid,) => {
             postErrorDiv.textContent = `Post has been deleted successfully`
             setTimeout(() => {
                 window.location = '/admin'
-            }, 4500);
+            }, 2000);
         } else if (response.status && response.status !== 'success') {
             loadingOverlay.style.display = 'none';
             postErrorDiv.setAttribute('class', 'modal-body text-danger')
