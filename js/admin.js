@@ -20,6 +20,7 @@ let publishPend = ''
 let pendingPosts = []
 let publishedPosts = []
 let allAdminPosts = []
+let currTable = document.querySelector('#posts-table')
 document.addEventListener('DOMContentLoaded', function () {
     function handleButtonClick(event) {
         const target = event.target;
@@ -245,6 +246,12 @@ const producePostsInnerHTML = (status, comment) => {
 
 }
 let posts = await getAdminPosts().then(x => {
+    Helpers.setTableRow(x, Helpers.getDate, tableContainer, producePostsInnerHTML)
+    searchInput.addEventListener('input', () => {
+        const table = document.querySelector('#posts-table')
+        const tableRows = table.querySelectorAll('tr');
+        Helpers.filterTableRows(searchInput.value, tableRows);
+    });
     publishedPosts = x.filter(xx => xx.status == "1")
     if (publishedPosts) {
         publishedPostsDashboard.textContent = publishedPosts.length
@@ -286,7 +293,6 @@ if (posts.length > 0) {
     setTimeout(() => {
         loadingOverlay.style.display = 'none'
     }, 550);
-    Helpers.setTableRow(posts, Helpers.getDate, tableContainer, producePostsInnerHTML)
     await getAllComments().then(x => {
         let commentsInterval
         let pendingInterval
@@ -309,10 +315,6 @@ if (posts.length > 0) {
         }
         return []
     }).catch(() => [])
-    const tableRows = document.querySelectorAll('table tr');
-    searchInput.addEventListener('input', () => {
-        Helpers.filterTableRows(searchInput.value, tableRows);
-    });
 
 } else {
     const noPostsRow = document.createElement('tr');

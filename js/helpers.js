@@ -87,8 +87,8 @@ export class Helpers {
     static filterTableRows(searchTerm, tableRows) {
         searchTerm = searchTerm.toLowerCase(); // Convert search term to lowercase for case-insensitive search
         tableRows.forEach(row => {
-            const rowData = row.textContent.toLowerCase(); // Convert row content to lowercase for comparison
-            if (rowData.includes(searchTerm)) {
+            const secondCellText = row.querySelector('td:nth-child(2)').textContent.toLowerCase()
+            if (secondCellText.includes(searchTerm)) {
                 row.style.display = ''; // Show the row if it contains the search term
             } else {
                 row.style.display = 'none'; // Hide the row if it doesn't contain the search term
