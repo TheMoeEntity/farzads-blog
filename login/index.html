@@ -22,8 +22,8 @@
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="content-wrapper d-flex align-items-center auth px-0">
-                <div class="row w-100 mx-0">
-                    <div class="col-lg-4 mx-auto">
+                <div class="row w-100 mx-auto" style="max-width: 450px;">
+                    <div class="col-lg-12 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="brand-logo">
                                 <h3 class="h3">Admin Login</h3>
@@ -38,10 +38,14 @@
                                     <input name="password" type="password" class="form-control form-control-lg"
                                         id="password" placeholder="Password">
                                 </div>
-                                <div class="mt-3">
+                                <div class="mt-3 d-flex justify-content-between">
                                     <button type="submit"
                                         class="btn btn-block btn-primary text-white btn-lg font-weight-medium auth-form-btn">
                                         SIGN IN
+                                    </button>
+                                    <button type="button"
+                                        class="btn btn-block bg-black text-white btn-lg font-weight-medium auth-form-btn">
+                                        <a class="text-white noUnderline" href="/">HOME</a>
                                     </button>
                                 </div>
                                 <div class="error" id="errorDiv" style="display: none; color:red; padding:10px"></div>
