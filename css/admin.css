@@ -16506,7 +16506,15 @@ fieldset:disabled .btn {
     height: 45px;
     background-color: #387DF0;
 }
-
+.activity-bubble.pend {
+    background-color: #FFC108;
+}
+.activity-bubble.del {
+    background-color: #FF4747;
+}
+.activity-bubble.publish {
+    background-color: #198754;
+}
 .activity-line {
     width: 2.0px;
     height: 40px;
