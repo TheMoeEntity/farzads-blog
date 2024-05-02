@@ -16491,6 +16491,29 @@ fieldset:disabled .btn {
     transition: 0.5s;
 }
 
+.activity {
+    width: 100%;
+    padding: 30px;
+    border-bottom: 0.5px solid #f0f0f0;
+}
+
+.activity-dash ul li {
+    list-style-type: none;
+}
+
+.activity-bubble {
+    width: 45px;
+    height: 45px;
+    background-color: #387DF0;
+}
+
+.activity-line {
+    width: 2.0px;
+    height: 40px;
+    background-color: #f1f1f1;
+
+}
+
 .noscroll {
     overflow: -moz-scrollbars-none;
     /* Firefox */
