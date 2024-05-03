@@ -1,4 +1,5 @@
 import { Helpers } from "./helpers.js";
+import { activities } from "./activity.js";
 const loadingOverlay = document.getElementById('loadingOverlay');
 const tableContainer = document.querySelector('#posts-table')
 const commentsTableContainer = document.querySelector('#commentsTableContainer')
@@ -14,6 +15,7 @@ const pendingPostsDashboard = document.querySelector('#pendingPostsDashboard')
 const pendingCommentsDashboard = document.querySelector('#pendingCommentsDashboard')
 const publishedPostsDashboard = document.querySelector('#publishedPostsDashboard')
 const publishedCommentsDashboard = document.querySelector('#publishedCommentsDashboard')
+const activity = document.querySelector('#activity')
 let deleteType = ''
 let currentButtonID = 0
 let publishPend = ''

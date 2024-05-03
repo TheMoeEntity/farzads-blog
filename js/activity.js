@@ -36,7 +36,7 @@ const setActivities = (posts, activity) => {
         activity.innerHTML = '<h3 class="text-center">No activity to show.<h3>';
     }
 };
-const activities = await Helpers.getActivity().then(response => {
+export const activities = await Helpers.getActivity().then(response => {
     if (response.status === 'success') {
         setTimeout(() => {
             overlay.classList.toggle('d-none')
@@ -48,5 +48,4 @@ const activities = await Helpers.getActivity().then(response => {
         return []
     }
 })
-console.log(activities)
 
