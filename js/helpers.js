@@ -141,7 +141,7 @@ export class Helpers {
                     data.text = "Deleted comment"
                     data.color = 'del'
                     data.icon = 'fas fa-trash-alt'
-                    data.body = `You deleted the comment from <b>${status.commenter}</b> on post <b>${content.title}</b> as pending.`
+                    data.body = `You deleted the comment from <b>${status.commenter}</b> on post <b>${content.title}</b>`
 
                 }
                 break
