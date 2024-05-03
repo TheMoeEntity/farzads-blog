@@ -23,36 +23,36 @@ let pendingPosts = []
 let publishedPosts = []
 let allAdminPosts = []
 let currTable = document.querySelector('#posts-table')
-document.addEventListener('DOMContentLoaded', function () {
-    function handleButtonClick(event) {
-        const target = event.target;
-        if (target.classList.contains('adminDelete')) {
-            adminDeleteAction.setAttribute("class", "btn btn-danger d-block text-white")
-            updateActionBtn.setAttribute("class", "btn btn-warning d-none text-white")
-            const type = target.getAttribute('data-type')
-            const btnID = target.getAttribute('data-btnID')
-            currentButtonID = btnID
-            console.log(type)
-            deleteType = type
-            modalBody.textContent = `Are you sure you want to delete this ${type == "comments" ? 'comment' : 'post'}?`
-            console.log('Admin Delete button clicked');
-        } else if (target.classList.contains('publishPend')) {
-            const type = target.textContent
-            console.log(type)
-            const action = target.getAttribute('data-type') === 'posts' ? 'post' : 'comment'
-            const btnID = target.getAttribute('data-btnID')
-            currentButtonID = btnID
-            deleteType = action
-            const publishText = "Do you want to publish this " + action + "?"
-            const pendingText = "Do you want to mark this " + action + " as pending?"
-            modalBody.textContent = `${type === "Publish" ? publishText : pendingText}`
-            adminDeleteAction.setAttribute("class", "btn btn-danger d-none text-white")
-            updateActionBtn.setAttribute("class", `btn ${type === "Publish" ? "btn-success" : "btn-warning"} d-block text-white`)
-            updateActionBtn.textContent = type == "Publish" ? "Publish" : "Pend"
-            console.log(type)
-            publishPend = type
-        }
+function handleButtonClick(event) {
+    const target = event.target;
+    if (target.classList.contains('adminDelete')) {
+        adminDeleteAction.setAttribute("class", "btn btn-danger d-block text-white")
+        updateActionBtn.setAttribute("class", "btn btn-warning d-none text-white")
+        const type = target.getAttribute('data-type')
+        const btnID = target.getAttribute('data-btnID')
+        currentButtonID = btnID
+        console.log(type)
+        deleteType = type
+        modalBody.textContent = `Are you sure you want to delete this ${type == "comments" ? 'comment' : 'post'}?`
+        console.log('Admin Delete button clicked');
+    } else if (target.classList.contains('publishPend')) {
+        const type = target.textContent
+        console.log(type)
+        const action = target.getAttribute('data-type') === 'posts' ? 'post' : 'comment'
+        const btnID = target.getAttribute('data-btnID')
+        currentButtonID = btnID
+        deleteType = action
+        const publishText = "Do you want to publish this " + action + "?"
+        const pendingText = "Do you want to mark this " + action + " as pending?"
+        modalBody.textContent = `${type === "Publish" ? publishText : pendingText}`
+        adminDeleteAction.setAttribute("class", "btn btn-danger d-none text-white")
+        updateActionBtn.setAttribute("class", `btn ${type === "Publish" ? "btn-success" : "btn-warning"} d-block text-white`)
+        updateActionBtn.textContent = type == "Publish" ? "Publish" : "Pend"
+        console.log(type)
+        publishPend = type
     }
+}
+document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('posts-table').addEventListener('click', handleButtonClick);
     document.getElementById('commentsTableContainer').addEventListener('click', handleButtonClick);
@@ -249,6 +249,7 @@ const producePostsInnerHTML = (status, comment) => {
 }
 let posts = await getAdminPosts().then(x => {
     Helpers.setTableRow(x, Helpers.getDate, tableContainer, producePostsInnerHTML)
+    document.getElementById('posts-table').addEventListener('click', handleButtonClick);
     searchInput.addEventListener('input', () => {
         const table = document.querySelector('#posts-table')
         const tableRows = table.querySelectorAll('tr');
@@ -311,6 +312,7 @@ if (posts.length > 0) {
             if (filteredComments && filteredComments.length > 0) {
                 pendingComments.setAttribute('class', 'row d-block bg-light mt-5 pt-3 d-flex flex-column gap-2')
                 Helpers.setcommentsTableRow(filteredComments, Helpers.getDate, commentsTableContainer)
+                document.getElementById('commentsTableContainer').addEventListener('click', handleButtonClick);
             }
 
             return
