@@ -45,23 +45,135 @@ export class Helpers {
         }
         return `${month} ${format[2]}, ${format[0]}`
     }
+    static produceActivityTitle = (status, content) => {
+        const data = {
+            text: "",
+            icon: '',
+            body: '',
+            color: ''
+        }
+        switch (status) {
+            case '0':
+                data.text = "Admin login"
+                data.body = "You logged in successfully as admin"
+                data.icon = 'fas fa-user-shield'
+                break
+            case '1':
+                data.text = "Admin logout"
+                data.body = "You logged out successfully as admin"
+                data.icon = 'fas fa-sign-out'
+                break
+            case '2':
+                if (content.details) {
+                    const status = JSON.parse(content.details)
+                    if (status.status == '0') {
+                        data.text = "New pending post"
+                        data.icon = 'far fa-clock'
+                        data.color = 'pend'
+                        data.body = "You created and saved a new post titled " + content.title + " to drafts."
+                    } else if (status.status == '1') {
+                        data.text = "New post"
+                        data.icon = 'far fa-plus-square'
+                        data.color = 'publish'
+                        data.body = "You created and published a new post titled " + content.title
+                    }
+                }
+                break
+            case '3':
+                if (content.details) {
+                    const { status: status1 } = JSON.parse(content.details)
+                    console.log(status1)
+                    if (status1 == '1') {
+                        data.text = "Published post"
+                        data.color = 'publish'
+                        data.body = `You published a post titled "<b>${content.title}</b>`
+                        data.icon = 'far fa-check-square'
+
+                    }
+                    if (status1 == "2") {
+                        data.text = "Updated post content"
+                        data.color = ''
+                        data.body = `You updated the content of a post titled "<b>${content.title}</b>`
+                        data.icon = 'far fa-edit'
+
+                    }
+                    if (status1 == '0') {
+                        data.text = "Pending post"
+                        data.color = 'pend'
+                        data.body = `You marked a post titled "<b>${content.title}</b>" as pending`
+                        data.icon = 'far fa-clock'
+
+                    }
+                }
+                break
+            case '4':
+                data.text = "Deleted post"
+                data.color = 'del'
+                data.icon = 'fas fa-trash-alt'
+                data.body = "You deleted a post titled " + content.title
+                break
+            case '5':
+                const { commenter } = JSON.parse(content.details)
+                data.text = "New comment"
+                data.color = 'publish'
+                data.icon = 'far fa-comment'
+                data.body = `New comment from <b>${commenter}</b> on post titled <b>${content.title}</b>`
+                break
+            case '6':
+                if (content.details) {
+                    const status = JSON.parse(content.details)
+                    if (status.status == '0') {
+                        data.text = "Pending comment"
+                        data.icon = "far fa-clock"
+                        data.color = 'pend'
+                        data.body = `You marked the comment from <b>${status.commenter}</b> on post <b>${content.title}</b> as pending.`
+                    } else if (status.status == '1') {
+                        data.text = "Published comment"
+                        data.color = 'publish'
+                        data.icon = "far fa-check-square"
+                        data.body = `You published the comment from <b>${status.commenter}</b> on post <b>${content.title}</b>`
+                    }
+                }
+                break
+            case '7':
+                if (content.details) {
+                    const status = JSON.parse(content.details)
+                    data.text = "Deleted comment"
+                    data.color = 'del'
+                    data.icon = 'fas fa-trash-alt'
+                    data.body = `You deleted the comment from <b>${status.commenter}</b> on post <b>${content.title}</b> as pending.`
+
+                }
+                break
+            case '8':
+                if (content.details) {
+                    const { email, name } = JSON.parse(content.details)
+                    data.text = "New form submission"
+                    data.color = ''
+                    data.icon = 'far fa-file-alt'
+                    data.body = `You have a new submission from <b>${name}</b>, with email: <b>${email}</b> on the contact form. Please review the details provided by the user.`
+                }
+                break
+        }
+        return data
+    }
     static incrementTotalPosts(totalPosts, id, interval) {
         let count = 0;
         const totalPostsCountElement = document.getElementById(id);
-        if (totalPosts !== 0) {            
+        if (totalPosts !== 0) {
             interval = setInterval(() => {
                 count++;
                 if (totalPostsCountElement) {
                     totalPostsCountElement.textContent = count;
                     totalPostsCountElement.style.opacity = 1;
                 }
-    
+
                 if (count >= totalPosts) {
                     clearInterval(interval);
                 }
             }, 100);
-    
-    
+
+
             if (totalPostsCountElement) {
                 totalPostsCountElement.style.opacity = 0;
             }
@@ -120,7 +232,7 @@ export class Helpers {
                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </td>
-            <td style="min-width:130px;">${this.formatDate(getDate(post.date_added))}</td>
+            <td style="min-width:130px;">${this.formatTimestamp(post.date_added)}</td>
             <td style="min-width:150px;">
                 ${this.commentsNumber(post.comments)}
             </td>
@@ -158,7 +270,7 @@ export class Helpers {
                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </td>
-            <td style="min-width:130px;">${this.formatDate(getDate(post.date_added))}</td>
+            <td style="min-width:130px;">${this.formatTimestamp(post.date_added)}</td>
             <td>
                 <div class="nav-item dropdown me-1">
                     <span class="nav-link count-indicator text-dark noUnderline dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" data-bs-toggle="dropdown"></span>
@@ -279,4 +391,51 @@ export class Helpers {
         return [isError, blogFields]
 
     }
+    static formatTimestamp(timestamp) {
+        const currentDate = new Date();
+        const postDate = new Date(timestamp);
+
+        const timeDiff = currentDate.getTime() - postDate.getTime();
+        const secondsDiff = Math.floor(timeDiff / 1000);
+        const minutesDiff = Math.floor(secondsDiff / 60);
+        const hoursDiff = Math.floor(minutesDiff / 60);
+        const daysDiff = Math.floor(hoursDiff / 24);
+        const monthsDiff = Math.floor(daysDiff / 30);
+
+        if (monthsDiff >= 1) {
+            // If more than a month ago, return the date in "23rd May, 2024" format
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return postDate.toLocaleDateString('en-GB', options);
+        } else if (daysDiff >= 1) {
+            // If more than a day ago, return 'x days ago'
+            return daysDiff === 1 ? 'yesterday' : `${daysDiff} days ago`;
+        } else if (hoursDiff >= 1) {
+            // If more than an hour ago, return 'x hours ago'
+            return hoursDiff === 1 ? 'an hour ago' : `${hoursDiff} hours ago`;
+        } else if (minutesDiff >= 1) {
+            // If more than a minute ago, return 'x minutes ago'
+            return minutesDiff === 1 ? 'a minute ago' : `${minutesDiff} minutes ago`;
+        } else {
+            // If less than a minute ago, return 'just now'
+            return 'just now';
+        }
+    }
+    static getActivity = async () => {
+        const formData = new FormData()
+        formData.append('getLog', 1234567890)
+        try {
+            const response = await fetch('https://api.ikennaibe.com/farzad/activity', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error(error);
+            return [];
+        } finally {
+
+        }
+
+    };
 }
