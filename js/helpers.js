@@ -110,7 +110,7 @@ export class Helpers {
                 data.text = "Deleted post"
                 data.color = 'del'
                 data.icon = 'fas fa-trash-alt'
-                data.body = "You deleted a post titled " + content.title
+                data.body = "You deleted a post titled <b>" + content.title + '</b>'
                 break
             case '5':
                 const { commenter } = JSON.parse(content.details)
