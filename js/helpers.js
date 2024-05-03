@@ -70,12 +70,12 @@ export class Helpers {
                         data.text = "New pending post"
                         data.icon = 'far fa-clock'
                         data.color = 'pend'
-                        data.body = "You created and saved a new post titled " + content.title + " to drafts."
+                        data.body = "You created and saved a new post titled <b>" + content.title + "</b> to drafts."
                     } else if (status.status == '1') {
                         data.text = "New post"
                         data.icon = 'far fa-plus-square'
                         data.color = 'publish'
-                        data.body = "You created and published a new post titled " + content.title
+                        data.body = "You created and published a new post titled <b>" + content.title + '</b>'
                     }
                 }
                 break
@@ -93,14 +93,14 @@ export class Helpers {
                     if (status1 == "2") {
                         data.text = "Updated post content"
                         data.color = ''
-                        data.body = `You updated the content of a post titled "<b>${content.title}</b>`
+                        data.body = `You updated the content of a post titled <b>${content.title}</b>`
                         data.icon = 'far fa-edit'
 
                     }
                     if (status1 == '0') {
                         data.text = "Pending post"
                         data.color = 'pend'
-                        data.body = `You marked a post titled "<b>${content.title}</b>" as pending`
+                        data.body = `You marked a post titled <b>${content.title}</b> as pending`
                         data.icon = 'far fa-clock'
 
                     }
