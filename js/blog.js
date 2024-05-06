@@ -11,7 +11,6 @@ const data = await Helpers.getPosts().then(x => {
     return x.filter(post => post.status == 1)
 })
 const postsArray = data
-console.log(data)
 if (postsContainer) {
     if (postsArray.length > 0) {
         postsArray.forEach((post) => {

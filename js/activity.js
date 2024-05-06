@@ -77,6 +77,7 @@ const fetchPostsForPage = async (page, action) => {
             } else {
                 nextBtn.classList.remove('d-none')
             }
+            window.scrollTo({ top: 0, behavior: "smooth" });
             return
         } else {
             return []
