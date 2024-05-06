@@ -60,7 +60,7 @@ export const activities = await Helpers.getActivity(currPage, 15, noActivity).th
     }
 })
 
-const fetchPostsForPage = async (page, action) => {
+const fetchPostsForPage = async (action) => {
     overlay.classList.toggle('d-none')
     if (action == 'next') {
         currPage++
@@ -87,8 +87,8 @@ const fetchPostsForPage = async (page, action) => {
 
 
 nextBtn.addEventListener('click', () => {
-    fetchPostsForPage(currPage, 'next')
+    fetchPostsForPage('next')
 })
 prevBtn.addEventListener('click', () => {
-    fetchPostsForPage(currPage, 'prev')
+    fetchPostsForPage('prev')
 })
