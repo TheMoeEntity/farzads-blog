@@ -4,6 +4,7 @@ const form = document.querySelector('#create-post-form')
 const submitButtons = form.querySelectorAll('button[type="submit"]');
 const publishError = document.querySelector('#publish-error')
 const postErr = document.querySelector('#postErrs')
+let editorContent = ''
 let clickedButton
 if (submitButtons) {
     submitButtons.forEach(button => {
@@ -44,6 +45,11 @@ const mountTinyMCE = () => {
                 const content = "<h1>Create a blog post</h1>";
                 editor.setContent(content);
             });
+            editor.on('input', () => {
+                const currentContent = editor.getContent();
+                editorContent = currentContent
+                form[3].value = currentContent
+            })
         },
         mergetags_list: [
             { value: 'First.Name', title: 'First Name' },
@@ -56,9 +62,10 @@ window.addEventListener('load', () => {
     mountTinyMCE()
 })
 form.addEventListener('submit', async (e) => {
+    const editorContent = tinymce.activeEditor.getContent();
+    form[3].value = editorContent
     const [isError] = Helpers.validateBlogPostFields(e, postErr)
     let shouldPublish = true
-    const editorContent = tinymce.activeEditor.getContent();
     if (clickedButton === 'Drafts') {
         shouldPublish = false
     }
@@ -67,14 +74,15 @@ form.addEventListener('submit', async (e) => {
         if (response.status && response.status === 'success') {
             publishError.setAttribute('class', 'py-3 text-success')
             publishError.textContent = `Your post has been added successfully and ${shouldPublish ? 'published' : 'put on pending'}`
-            location.href = '/admin'
+            setTimeout(() => {
+                location.href = '/admin'
+                publishError.textContent = ""
+            }, 2500);
         } else if (response.status && response.status !== 'success') {
             publishError.setAttribute('class', 'py-3 text-danger')
             publishError.textContent = `Something went wrong. Let's give it another shot`
         }
-        setTimeout(() => {
-            publishError.textContent = ""
-        }, 4500);
+     
     }
 
 })

@@ -45,6 +45,28 @@ export class Helpers {
         }
         return `${month} ${format[2]}, ${format[0]}`
     }
+    static getPosts = async () => {
+        const formData = new FormData()
+        formData.append('getPosts', '')
+        try {
+            const response = await fetch('https://api.ikennaibe.com/farzad/posts', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            if (sessionActive) {
+                return data.posts;
+            }
+            return data.posts.filter(x => x.status == "1")
+        } catch (error) {
+            console.error(error);
+            return [];
+        } finally {
+
+        }
+
+
+    };
     static produceActivityTitle = (status, content) => {
         const data = {
             text: "",
@@ -82,11 +104,10 @@ export class Helpers {
             case '3':
                 if (content.details) {
                     const { status: status1 } = JSON.parse(content.details)
-                    console.log(status1)
                     if (status1 == '1') {
                         data.text = "Published post"
                         data.color = 'publish'
-                        data.body = `You published a post titled "<b>${content.title}</b>`
+                        data.body = `You published a post titled "<b>${content.title}</b>"`
                         data.icon = 'far fa-check-square'
 
                     }
@@ -196,6 +217,40 @@ export class Helpers {
         const postDate = date_addeds.split(' ')
         return postDate[0]
     }
+    static setActivities = (posts, activity) => {
+        activity.innerHTML = '';
+        posts.forEach(post => {
+            const { text, icon, body, color } = Helpers.produceActivityTitle(post.type, post)
+            const actvityRow = document.createElement('li');
+            actvityRow.setAttribute('class', 'd-flex gap-4 p-2 w-100')
+            actvityRow.innerHTML = `
+         <div
+            class="d-flex flex-column justify-content-center align-items-center">
+            <div
+                class="rounded ${color} rounded-circle activity-bubble d-flex align-items-center justify-content-center">
+                <i class="${icon} text-white"></i>
+            </div>
+            <div class="activity-line my-3">
+            </div>
+        </div>
+        <div class="d-flex flex-column gap-2 w-100">
+            <div
+                class="d-flex flex-column flex-md-row w-100 justify-content-md-between align-items-md-center py-3">
+                <h4><b>${text}</b></h4>
+                <h5 class="text-gray pr-5">${Helpers.formatTimestamp(post.date_added)}</h5>
+            </div>
+            <p class="w-100 w-md-75">
+                ${body}
+            </p>
+        </div>
+        `;
+
+            activity.appendChild(actvityRow);
+        });
+        if (posts.length <= 0) {
+            activity.innerHTML = '<h3 class="text-center">No activity to show.<h3>';
+        }
+    };
     static filterTableRows(searchTerm, tableRows) {
         searchTerm = searchTerm.toLowerCase(); // Convert search term to lowercase for case-insensitive search
         tableRows.forEach(row => {
@@ -378,16 +433,12 @@ export class Helpers {
             errMessage.textContent = 'Title cannot be empty'
             errMessage.setAttribute('class', 'error text-danger')
             isError = true
-        } else if (sub_title.trim() === '') {
-            errMessage.textContent = 'Sub title cannot be empty'
-            errMessage.setAttribute('class', 'error text-danger')
-            isError = true
         } else if (content.trim() === '' || content.length < 10) {
             errMessage.textContent = 'Blog post cannot be empty or too short'
             errMessage.setAttribute('class', 'error text-danger')
             isError = true
         }
-        const blogFields = { title, sub_title, content, content }
+        const blogFields = { title, sub_title, content }
         return [isError, blogFields]
 
     }

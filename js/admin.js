@@ -1,5 +1,4 @@
 import { Helpers } from "./helpers.js";
-import { activities } from "./activity.js";
 const loadingOverlay = document.getElementById('loadingOverlay');
 const tableContainer = document.querySelector('#posts-table')
 const commentsTableContainer = document.querySelector('#commentsTableContainer')
@@ -248,6 +247,7 @@ const producePostsInnerHTML = (status, comment) => {
 
 }
 let posts = await getAdminPosts().then(x => {
+    loadingOverlay.style.display = 'none'
     Helpers.setTableRow(x, Helpers.getDate, tableContainer, producePostsInnerHTML)
     document.getElementById('posts-table').addEventListener('click', handleButtonClick);
     searchInput.addEventListener('input', () => {
@@ -293,9 +293,7 @@ let posts = await getAdminPosts().then(x => {
 });
 
 if (posts.length > 0) {
-    setTimeout(() => {
-        loadingOverlay.style.display = 'none'
-    }, 550);
+
     await getAllComments().then(x => {
         let commentsInterval
         let pendingInterval
@@ -336,3 +334,16 @@ updateActionBtn.addEventListener('click', async () => {
 })
 
 
+const LatestActivities = await Helpers.getActivity().then(x => {
+    if (x.status == 'success') {
+        const { log } = x
+        const activities = log.slice(0, 10)
+        return activities
+    } else {
+        return []
+    }
+})
+
+if (LatestActivities && LatestActivities.length > 0) {
+    Helpers.setActivities(LatestActivities, activity)
+}

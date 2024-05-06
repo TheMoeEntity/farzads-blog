@@ -14,6 +14,7 @@ const content = document.querySelector('#post-content')
 const postImage = document.querySelector('#blog-image')
 const publishError = document.querySelector('#publish-error')
 let sessionActive = false
+const mainComments = document.querySelector('#comm')
 const othersContainer = document.querySelector('#others')
 let singlePost
 function getCookie(name) {
@@ -40,7 +41,7 @@ const getOtherPosts = () => {
     const others = postsArray.filter(post => post.id !== id)
     if (others) {
         otherPosts = others
-        otherPosts.forEach(post => {
+        otherPosts.slice(0,5).forEach(post => {
             const postElement = document.createElement('div')
             postElement.setAttribute('class', 'py-3 d-flex flex-column')
             postElement.innerHTML = `
@@ -269,7 +270,6 @@ export const getDate = (date_addeds) => {
 const postsArray = data
 if (postsContainer) {
     if (postsArray.length > 0) {
-
         postsArray.slice(0, 6).forEach((post) => {
             const postElement = document.createElement('div')
             postElement.setAttribute('class', 'col-xl-4 col-lg-6 col-md-6 blog-card')
@@ -288,7 +288,7 @@ if (postsContainer) {
                         </div>
                     </article>
     `
-            postsContainer.prepend(postElement)
+            postsContainer.append(postElement)
         })
     } else {
         const noPostsElement = document.createElement('div');
@@ -332,6 +332,9 @@ const setPost = () => {
         image.setAttribute('alt', singlePost.title)
         postImage.appendChild(image)
     }
+    if (singlePost.comments && singlePost.comments.length > 0) {
+        mainComments.classList.toggle('d-none')
+    }
     if (sessionActive) {
         singlePost.comments.forEach(post => {
             setComments(post, commentsContainer, false)
@@ -345,7 +348,6 @@ const setPost = () => {
         }
     }
     const noApprovedComments = singlePost.comments.find(comment => comment.status == 1)
-    console.log(noApprovedComments)
     if (singlePost.comments.length === 0 || noApprovedComments == undefined) {
         const noComment = `<h3 id='zeroComments'>No comments yet</h3>`
         commentsContainer.innerHTML = noComment;

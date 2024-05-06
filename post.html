@@ -93,6 +93,8 @@
                     </li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-dark"
                             onclick="message()">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 text-dark" href="/blog/">Blog</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -142,7 +144,7 @@
                     </article>
 
                     <!-- POST COMMENTS -->
-                    <div class="contact-form article-comment mb-5">
+                    <div id="comm" class="contact-form article-comment mb-5 d-none">
                         <h4>Comments</h4>
                         <div class="d-flex flex-column gap-4" id="get-comments">
                             <!-- <div class="d-flex flex-column">
@@ -297,6 +299,9 @@
                     <div class="px-3 mt-5 d-flex flex-column gap-y-2" id="others">
                         <h3>Other Posts</h3>
 
+                    </div>
+                    <div class="px-3 ">
+                        <a href="/blog"><b>View all</b></a>
                     </div>
 
                 </div>
