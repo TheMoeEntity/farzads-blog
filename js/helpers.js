@@ -471,9 +471,11 @@ export class Helpers {
             return 'just now';
         }
     }
-    static getActivity = async () => {
+    static getActivity = async (page, limit) => {
         const formData = new FormData()
         formData.append('getLog', 1234567890)
+        formData.append('limit', limit)
+        formData.append('page', page)
         try {
             const response = await fetch('https://api.ikennaibe.com/farzad/activity', {
                 method: 'POST',

@@ -255,7 +255,7 @@ let posts = await getAdminPosts().then(x => {
             lengthChange: false, // Hide page length options
             searching: false, // Disable searching
             info: false, // Hide table information
-            pageLength: 5,
+            pageLength: 10,
         });
     });
     document.getElementById('posts-table').addEventListener('click', handleButtonClick);
