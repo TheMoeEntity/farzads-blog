@@ -1,13 +1,14 @@
 import { Helpers } from "./helpers.js";
 const loadingOverlay = document.getElementById('loadingOverlay');
 const postsContainer = document.querySelector('#blogList')
+const footerBlog = document.querySelector('#footer-blogs')
 const data = await Helpers.getPosts().then(x => {
     if (loadingOverlay) {
         setTimeout(() => {
             loadingOverlay.style.display = 'none';
         }, 900);
     }
-    return x
+    return x.filter(post => post.status == 1)
 })
 const postsArray = data
 console.log(data)
@@ -41,3 +42,14 @@ if (postsContainer) {
         postsContainer.appendChild(noPostsElement);
     }
 }
+postsArray.slice(0, 3).forEach(post => {
+    const list = document.createElement('li')
+    list.innerHTML = `
+    <strong>
+    <a href="/post.html?id=${post.id}">${post.title}</a>
+    </strong>
+    `
+    if (footerBlog) {
+        footerBlog.appendChild(list)
+    }
+});
