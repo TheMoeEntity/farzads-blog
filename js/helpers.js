@@ -279,9 +279,9 @@ export class Helpers {
             const randomComments = Math.floor(Math.random(0, 1) * 4)
             const tableRow = document.createElement('tr');
             tableRow.innerHTML = `
-            <th>${post.id}</th>
+            <th  style="min-width:50px;">${post.id}</th>
             <td style="min-width:220px; white-space:no-wrap;"><a class="text-dark noUnderline" href="/admin/posts/?id=${post.id}"><b>${post.title.length >= 70 ? post.title.slice(0, 70) + '...' : post.title}</b><a></td>
-            <td style="width:60px;">
+            <td style="min-width:70px;">
                 <div class="progress" style="min-width:60px;">
                     <div class="progress-bar ${post.status == 0 ? 'bg-warning' : 'bg-success'}" role="progressbar" style="width: 100%"
                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -291,7 +291,7 @@ export class Helpers {
             <td style="min-width:150px;">
                 ${this.commentsNumber(post.comments)}
             </td>
-            <td>
+            <td style="min-width:90px;">
                 <div class="nav-item dropdown me-1">
                     <span class="nav-link count-indicator text-dark noUnderline dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" data-bs-toggle="dropdown"></span>
                     <div class="dropdown-menu dropdown-menu-right py-0 navbar-dropdown" aria-labelledby="messageDropdown" style="width:150px; height: auto; min-height: fit-contents; z-index: 99999;">

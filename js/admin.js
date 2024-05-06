@@ -344,7 +344,7 @@ updateActionBtn.addEventListener('click', async () => {
 })
 
 
-const LatestActivities = await Helpers.getActivity().then(x => {
+const LatestActivities = await Helpers.getActivity(1, 10, false).then(x => {
     if (x.status == 'success') {
         const { log } = x
         const activities = log.slice(0, 10)
