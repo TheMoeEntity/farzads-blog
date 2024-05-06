@@ -1,7 +1,7 @@
 import { Helpers } from "./helpers.js";
 const loadingOverlay = document.getElementById('loadingOverlay');
-const postsContainer = document.querySelector('#blogList')
-const footerBlog = document.querySelector('#footer-blogs')
+const postsContainer = document.querySelector('#blogList2')
+const footerBlog = document.querySelector('#footer-blogs2')
 const data = await Helpers.getPosts().then(x => {
     if (loadingOverlay) {
         setTimeout(() => {

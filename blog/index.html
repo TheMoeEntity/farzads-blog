@@ -31,6 +31,47 @@
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div>
+    <!-- ===== modal starts ===== -->
+    <div class="modal-background" id="modal-background">
+
+        <div>
+            <div class="closeTitle">
+                <span onclick="closeModal()" class="">&times;</span>
+            </div>
+            <form id="contactForm">
+                <div class="form-floating">
+                    <input class="form-control" id="name" type="text" placeholder="Enter your name..." />
+                    <label for="name">Name</label>
+
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="email" type="email" placeholder="Enter your email..." />
+                    <label for="email">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number..." />
+                    <label for="phone">Phone Number</label>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" id="message" placeholder="Enter your message here..."
+                        style="height: 12rem"></textarea>
+                    <label for="message">Message</label>
+                    <div class="py-2" style="font-size: small;" id="errorMsgs"></div>
+                </div>
+                <br />
+                <div style="font-size: small;" class="py-1">
+                    This site is protected by reCAPTCHA and the Google
+                    <a href="https://policies.google.com/privacy"><u>Privacy Policy</u></a> and
+                    <a href="https://policies.google.com/terms"><u>Terms of Service</u></a> apply.
+                </div>
+                <div class="g-recaptcha my-3 mx-auto px-auto w-100" data-sitekey="6Lffn8opAAAAAMv9AEWbiuPA6UVRaDILxLTPO3II"
+                    data-callback="handleRecaptchaCallback"></div>
+                <!-- Submit Button-->
+                <button class="btn btn-primary text-uppercase" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <!-- modal ends -->
     <!-- Navigation-->
     <!-- scroll top button -->
     <div onclick="scrollToTop()" class="scrollTop" id="scrollBtn">
@@ -46,9 +87,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="book.html">Book</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/book.html">Book</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" onclick="message()">Contact</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/">Blog</a></li>
                 </ul>
@@ -61,7 +102,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="page-heading">
-                        <h1>Blog posts</h1>
+                        <h1>Posts</h1>
                     </div>
                 </div>
             </div>
@@ -76,7 +117,7 @@
                     <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                         <div class="row gy-4 posts-list d-flex justify-content-center justify-content-md-start"
-                            id="blogList">
+                            id="blogList2">
 
                         </div><!-- End blog posts list -->
 
@@ -118,7 +159,7 @@
                 </div>
                 <div class="col-lg-4 col-6 col-md-4 footer-links">
                     <h4>Blogs</h4>
-                    <ul id="footer-blogs">
+                    <ul id="footer-blogs2">
                     </ul>
                 </div>
 
@@ -145,7 +186,7 @@
     </script>
     <!-- Core theme JS-->
     <script src="/js/scripts.js"></script>
-    <!-- <script src="/js/index.js" type="module"></script> -->
+    <script src="/js/index.js" type="module"></script>
     <script src="/js/blog.js" type="module"></script>
 </body>
 
