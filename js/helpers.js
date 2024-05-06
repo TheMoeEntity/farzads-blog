@@ -272,6 +272,19 @@ export class Helpers {
                 return count + " comments";
         }
     }
+    static formatIncomingData = (arr) => {
+        return arr.map(post => {
+            const data = {
+                "ID": post.id,
+                "Title": post.title,
+                "Status": post.status,
+                "Date": post.date_added,
+                "Comments": post.comments,
+                "Actions": ""
+            }
+            return data
+        })
+    }
     static setTableRow = (posts, getDate, tableContainer, produceInnerHTML) => {
         // Clear existing table rows before appending new ones
         tableContainer.innerHTML = '';

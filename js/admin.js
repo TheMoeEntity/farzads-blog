@@ -22,7 +22,16 @@ let publishPend = ''
 let pendingPosts = []
 let publishedPosts = []
 let allAdminPosts = []
+let dataForTable = allAdminPosts
 let currTable = document.querySelector('#posts-table')
+const columns = [
+    { data: 'ID' },
+    { data: 'Title' },
+    { data: 'Status' },
+    { data: 'Date' },
+    { data: 'Comments' },
+    { data: 'Actions' }
+]
 function handleButtonClick(event) {
     const target = event.target;
     if (target.classList.contains('adminDelete')) {
@@ -256,6 +265,7 @@ const producePostsInnerHTML = (status, comment) => {
 
 }
 let posts = await getAdminPosts().then(x => {
+    console.log(Helpers.formatIncomingData(x))
     loadingOverlay.style.display = 'none'
     Helpers.setTableRow(x, Helpers.getDate, tableContainer, producePostsInnerHTML)
     document.getElementById('posts-table').addEventListener('click', handleButtonClick);
@@ -283,10 +293,18 @@ let posts = await getAdminPosts().then(x => {
     publishedPostsBtn.onclick = (e) => {
         e.target.setAttribute('class', 'btn active-tab')
         allPostsBtn.setAttribute('class', 'btn')
+        // dataTable.clear()
+        // dataTable.data = Helpers.formatIncomingData(publishedPosts)
+        // dataForTable.columns = columns
+        // dataTable.draw();
         pendingPostsBtn.setAttribute('class', 'btn')
         Helpers.setTableRow(publishedPosts, Helpers.getDate, tableContainer, producePostsInnerHTML)
     }
     pendingPostsBtn.onclick = (e) => {
+        // dataTable.clear()
+        // dataTable.data = Helpers.formatIncomingData(pendingPosts)
+        // dataForTable.columns = columns
+        // dataTable.draw();
         e.target.setAttribute('class', 'btn active-tab')
         allPostsBtn.setAttribute('class', 'btn')
         publishedPostsBtn.setAttribute('class', 'btn')
@@ -296,6 +314,10 @@ let posts = await getAdminPosts().then(x => {
         e.target.setAttribute('class', 'btn active-tab')
         publishedPostsBtn.setAttribute('class', 'btn')
         pendingPostsBtn.setAttribute('class', 'btn')
+        // dataTable.clear()
+        // dataTable.data = Helpers.formatIncomingData(allAdminPosts)
+        // dataForTable.columns = columns
+        // dataTable.draw();
         Helpers.setTableRow(x, Helpers.getDate, tableContainer, producePostsInnerHTML)
     }
     initializeDataTable()
