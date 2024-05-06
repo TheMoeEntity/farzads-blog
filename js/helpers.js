@@ -471,7 +471,7 @@ export class Helpers {
             return 'just now';
         }
     }
-    static getActivity = async (page, limit) => {
+    static getActivity = async (page, limit, noActivity) => {
         const formData = new FormData()
         formData.append('getLog', 1234567890)
         formData.append('limit', limit)
@@ -482,6 +482,7 @@ export class Helpers {
                 body: formData,
             });
             const data = await response.json();
+            if (data.log.length === 0) noActivity = true
             return data;
         } catch (error) {
             console.error(error);

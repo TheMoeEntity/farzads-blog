@@ -4,6 +4,7 @@ const overlay = document.querySelector('#loadingOverlay')
 const nextBtn = document.querySelector('#nextBtn')
 const prevBtn = document.querySelector('#prevBtn')
 let currPage = 1
+let noActivity = false
 
 const setActivities = (posts, activity) => {
     activity.innerHTML = '';
@@ -36,7 +37,10 @@ const setActivities = (posts, activity) => {
         activity.appendChild(actvityRow);
     });
     if (posts.length <= 0) {
-        activity.innerHTML = '<h3 class="text-center">No activity to show.<h3>';
+        noActivity = true
+        activity.innerHTML = '<h3 class="text-center">No more activity to show.<h3>';
+    } else {
+        noActivity = false
     }
 };
 
@@ -47,7 +51,7 @@ const setActivityOnSuccess = (response) => {
     const activityResponse = response.log
     setActivities(activityResponse, activity)
 }
-export const activities = await Helpers.getActivity(currPage, 15).then(response => {
+export const activities = await Helpers.getActivity(currPage, 15, noActivity).then(response => {
     if (response.status === 'success') {
         setActivityOnSuccess(response)
         return response.log
@@ -58,19 +62,22 @@ export const activities = await Helpers.getActivity(currPage, 15).then(response 
 
 const fetchPostsForPage = async (page, action) => {
     overlay.classList.toggle('d-none')
-    if (currPage == 1) {
-        prevBtn.classList.toggle('opacity-0')
-        prevBtn.classList.toggle('disabled')
-    }
     if (action == 'next') {
         currPage++
     } else {
         currPage--
     }
-    await Helpers.getActivity(currPage, 15).then(response => {
+    await Helpers.getActivity(currPage, 15, noActivity).then(response => {
         if (response.status === 'success') {
+            const log = response.log
             setActivityOnSuccess(response)
-            return response.log
+            prevBtn.setAttribute('class', `btn border-1 border rounded border-black ${currPage == 1 && 'opacity-0 disabled'}`)
+            if (log.length == 0) {
+                nextBtn.classList.add('d-none')
+            } else {
+                nextBtn.classList.remove('d-none')
+            }
+            return
         } else {
             return []
         }
