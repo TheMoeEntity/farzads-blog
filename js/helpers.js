@@ -303,7 +303,7 @@ export class Helpers {
             </td>
         `;
             // Append each table row to the table container
-            tableContainer.appendChild(tableRow);
+            tableContainer.append(tableRow);
         });
         if (posts.length <= 0) {
             tableContainer.innerHTML = '<td colspan="4">No posts to show.</td>';

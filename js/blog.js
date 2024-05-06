@@ -25,7 +25,7 @@ if (postsContainer) {
                         <div class="d-flex align-items-center">
                             <div class="post-meta gap-2 d-flex flex-column">
                                 <p class="post-date">
-                                    <time datetime="2022-01-01">${Helpers.formatDate(getDate(post.date_added))}</time>
+                                    <time datetime="2022-01-01">${Helpers.formatDate(Helpers.getDate(post.date_added))}</time>
                                 </p>
                             </div>
                         </div>

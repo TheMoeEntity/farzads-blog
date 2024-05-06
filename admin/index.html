@@ -14,10 +14,14 @@
     <link rel="stylesheet" href="/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="../css/admin.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/admin/images/favicon.png" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="../css/admin.css">
+
 </head>
 
 <body>
@@ -205,7 +209,7 @@
                             </div>
                         </div>
                         <div class="pt-3col-md-12 stretch-card card-body bg-white table-responsive">
-                            <table class="table table-hover table-striped">
+                            <table class="table table-hover table-striped" id="posts-table-main">
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
@@ -253,6 +257,7 @@
                         <ul id="activity">
 
                         </ul>
+                        <a href="/admin/activity/" class="text-dark noUnderline px-4"><b >Show all</b></a>
                     </div>
                 </div>
                 <!-- content-wrapper ends -->

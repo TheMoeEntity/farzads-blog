@@ -249,6 +249,15 @@ const producePostsInnerHTML = (status, comment) => {
 let posts = await getAdminPosts().then(x => {
     loadingOverlay.style.display = 'none'
     Helpers.setTableRow(x, Helpers.getDate, tableContainer, producePostsInnerHTML)
+    $(document).ready(function () {
+        $('#posts-table-main').DataTable({
+            paging: true, // Enable pagination
+            lengthChange: false, // Hide page length options
+            searching: false, // Disable searching
+            info: false, // Hide table information
+            pageLength: 5,
+        });
+    });
     document.getElementById('posts-table').addEventListener('click', handleButtonClick);
     searchInput.addEventListener('input', () => {
         const table = document.querySelector('#posts-table')
