@@ -45,6 +45,22 @@ export class Helpers {
         }
         return `${month} ${format[2]}, ${format[0]}`
     }
+    static convertToWAT = (date) => {
+        console.log(date)
+        // Parse the timestamp string into a Date object
+        const estTimestamp = new Date(date);
+
+        // Calculate the time difference between EST (UTC-5) and WAT (UTC+1) in milliseconds
+        const timeDifference = 6 * 60 * 60 * 1000; // 6 hours difference
+
+        // Adjust the timestamp for the time difference
+        const watTimestamp = new Date(estTimestamp.getTime() + timeDifference);
+
+
+        // Format the result (optional)
+        // const formattedWatTimestamp = watTimestamp.toLocaleString('en-US', { timeZone: 'Africa/Lagos' });
+        return watTimestamp
+    }
     static getPosts = async () => {
         const formData = new FormData()
         formData.append('getPosts', '')
@@ -237,7 +253,7 @@ export class Helpers {
             <div
                 class="d-flex flex-column flex-md-row w-100 justify-content-md-between align-items-md-center py-3">
                 <h4><b>${text}</b></h4>
-                <h5 class="text-gray pr-5">${Helpers.formatTimestamp(post.date_added)}</h5>
+                <h5 class="text-gray pr-5">${this.formatTimestamp(this.convertToWAT(post.date_added))}</h5>
             </div>
             <p class="w-100 w-md-75">
                 ${body}
@@ -287,6 +303,7 @@ export class Helpers {
     }
     static setTableRow = (posts, getDate, tableContainer, produceInnerHTML) => {
         // Clear existing table rows before appending new ones
+        
         tableContainer.innerHTML = '';
         posts.forEach(post => {
             const randomComments = Math.floor(Math.random(0, 1) * 4)
@@ -300,7 +317,7 @@ export class Helpers {
                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </td>
-            <td style="min-width:130px;">${this.formatTimestamp(post.date_added)}</td>
+            <td style="min-width:130px;">${this.formatTimestamp(this.convertToWAT(post.date_added))}</td>
             <td style="min-width:150px;">
                 ${this.commentsNumber(post.comments)}
             </td>
@@ -338,7 +355,7 @@ export class Helpers {
                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </td>
-            <td style="min-width:130px;">${this.formatTimestamp(post.date_added)}</td>
+            <td style="min-width:130px;">${this.formatTimestamp(this.convertToWAT(post.date_added))}</td>
             <td>
                 <div class="nav-item dropdown me-1">
                     <span class="nav-link count-indicator text-dark noUnderline dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" data-bs-toggle="dropdown"></span>
