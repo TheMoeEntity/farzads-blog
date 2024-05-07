@@ -41,7 +41,7 @@ const getOtherPosts = () => {
     const others = postsArray.filter(post => post.id !== id)
     if (others) {
         otherPosts = others
-        otherPosts.slice(0,5).forEach(post => {
+        otherPosts.slice(0, 5).forEach(post => {
             const postElement = document.createElement('div')
             postElement.setAttribute('class', 'py-3 d-flex flex-column')
             postElement.innerHTML = `
@@ -227,6 +227,13 @@ export const getPost = async (postid) => {
             body: formData,
         });
         const data = await response.json();
+        console.log(response.status)
+        console.log(data.post)
+        if (othersContainer) {
+            if (data.post.length == 0) {
+                location.href = '/404.html'
+            }
+        }
         return data.post;
     } catch (error) {
         console.error(error);
@@ -260,6 +267,7 @@ const data = await getPosts().then(x => {
             loadingOverlay.style.display = 'none';
         }, 900);
     }
+    console.log(x)
     return x
 })
 console.log(data)
@@ -323,8 +331,9 @@ const setPost = () => {
     date_added.textContent = Helpers.formatDate(getDate(singlePost.date_added))
     author.textContent = `By ${singlePost.author}`
     content.innerHTML = singlePost.content
+    content.classList.add('px-3')
     const firstChiild = content.firstChild
-    firstChiild.setAttribute('class', 'article-content px-3 py-2')
+    firstChiild.setAttribute('class', 'article-content px-1 py-2')
     if (singlePost.image) {
         const image = document.createElement('img')
         image.setAttribute('src', singlePost.image)

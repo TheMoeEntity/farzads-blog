@@ -19,7 +19,7 @@ if (postsContainer) {
             postElement.innerHTML = `
                     <article class="shadow-sm">
                         <h2 class="title">
-                            <a href="post.html?id=${post.id}">${post.title}</a>
+                            <a href="/post.html?id=${post.id}">${post.title}</a>
                         </h2>
 
                         <div class="d-flex align-items-center">
