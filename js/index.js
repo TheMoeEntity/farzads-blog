@@ -227,13 +227,12 @@ export const getPost = async (postid) => {
             body: formData,
         });
         const data = await response.json();
-        console.log(response.status)
-        console.log(data.post)
         if (othersContainer) {
-            if (data.post.length == 0) {
+            if (data.post.length == 0 || data.post.status == 0) {
                 location.href = '/404.html'
             }
         }
+        console.log(data.post)
         return data.post;
     } catch (error) {
         console.error(error);
@@ -265,7 +264,7 @@ const data = await getPosts().then(x => {
     if (loadingOverlay) {
         setTimeout(() => {
             loadingOverlay.style.display = 'none';
-        }, 900);
+        }, 1000);
     }
     console.log(x)
     return x
