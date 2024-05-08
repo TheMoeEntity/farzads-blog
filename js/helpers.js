@@ -46,7 +46,6 @@ export class Helpers {
         return `${month} ${format[2]}, ${format[0]}`
     }
     static convertToWAT = (date) => {
-        console.log(date)
         // Parse the timestamp string into a Date object
         const estTimestamp = new Date(date);
 
