@@ -93,15 +93,15 @@
                     <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number..." />
                     <label for="phone">Phone Number</label>
                 </div>
-                    <div class="form-floating">
-                        <input class="form-control" id="addresss" type="text" placeholder="Enter a shipping address..." />
-                        <label for="phone">Address</label>
-                    </div>
+                <div class="form-floating">
+                    <input class="form-control" id="addresss" type="text" placeholder="Enter a shipping address..." />
+                    <label for="phone">Address</label>
+                </div>
                 <div class="form-floating">
                     <textarea class="form-control" id="message" placeholder="Enter your message here..."
                         style="height: 12rem"></textarea>
                     <label for="message">Message</label>
-                    <div class="py-2" style="font-size: small;" id="errorMsgs"></div>
+                    <div class="py-2" style="font-size: small;" id="errorMsgs2"></div>
                 </div>
                 <br />
                 <div style="font-size: small;" class="py-1">
@@ -109,8 +109,7 @@
                     <a href="https://policies.google.com/privacy"><u>Privacy Policy</u></a> and
                     <a href="https://policies.google.com/terms"><u>Terms of Service</u></a> apply.
                 </div>
-                <div class="g-recaptcha my-3" data-sitekey="6Lffn8opAAAAAMv9AEWbiuPA6UVRaDILxLTPO3II"
-                    data-callback="handleRecaptchaCallback"></div>
+                <div id="recaptcha2" class="my-3"></div>
                 <!-- Submit Button-->
                 <button class="btn btn-primary text-uppercase" type="submit">Send</button>
             </form>

@@ -500,6 +500,28 @@ export class Helpers {
         return [isError, contactFormFields]
 
     }
+    static validateReserveFormFields = (event, errMessage) => {
+        event.preventDefault()
+        const name = event.target[0].value
+        const email = event.target[1].value
+        const phone = event.target[2].value
+        const address = event.target[3].value
+        const message = event.target[4].value
+        let isError = false
+        const validEmail = this.validateEmail(email)
+        if (name.trim() === '') {
+            errMessage.textContent = 'Name cannot be empty'
+            errMessage.setAttribute('class', 'error text-danger')
+            isError = true
+        } else if (!validEmail) {
+            errMessage.textContent = 'Enter a valid email'
+            errMessage.setAttribute('class', 'error text-danger')
+            isError = true
+        }
+        const contactFormFields = { name, email, phone, message }
+        return [isError, contactFormFields]
+
+    }
     static validateBlogPostFields = (event, errMessage) => {
         event.preventDefault()
         const title = event.target[1].value
