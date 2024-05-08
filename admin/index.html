@@ -251,13 +251,37 @@
                             </table>
                         </div>
                     </div>
+                    <div class="row bg-light mt-5 pt-3 d-flex flex-column gap-2" id="pendingComments">
+                        <div class="d-flex flex-column ">
+                            <h4 class='mb-2 p-2 px-3'>Reserved copies</h4>
+                            <span class="text-danger p-3" id="postErrorMessage"></span>
+
+                        </div>
+                        <div class="pt-3 col-md-12 stretch-card card-body bg-white table-responsive">
+                            <table class="table table-hover table-striped noscroll">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Address </th>
+                                        <th scope="col">Message</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reservedTableContainer" class="noscroll">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
                     <div class="row activity-dash bg-white rounded rounded-5 my-4 py-3">
                         <h2 class="activity"><b>Latest Activity</b></h2>
                         <ul id="activity">
 
                         </ul>
-                        <a href="/admin/activity/" class="text-dark noUnderline px-4"><b >Show all</b></a>
+                        <a href="/admin/activity/" class="text-dark noUnderline px-4"><b>Show all</b></a>
                     </div>
                 </div>
                 <!-- content-wrapper ends -->

@@ -1,7 +1,14 @@
 const modal = document.getElementById('modal-background')
+const reserveModal = document.getElementById('reserveCopy')
 const scrollBtn = document.getElementById('scrollBtn')
 const message = () => {
     modal.style.display = 'flex'
+}
+const reserve = () => {
+    reserveModal.style.display = 'flex'
+}
+const closeReserve = () => {
+    reserveModal.style.display = 'none'
 }
 const closeModal = () => {
     modal.style.display = 'none'

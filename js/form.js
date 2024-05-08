@@ -1,5 +1,6 @@
 import { Helpers } from "./helpers.js"
 const contactForm = document.querySelector('#contactForm')
+const reserveForm = document.querySelector('#reserveForm')
 const errorMsgs = document.querySelector("#errorMsgs")
 const modalBackground = document.querySelector('#modal-background')
 
@@ -25,6 +26,29 @@ const submitMessage = async (contactFormFields) => {
         return errorMessage;
     }
 };
+const reserveCopy = async (contactFormFields) => {
+    const formData = new FormData()
+    const to = 'sykik09@gmail.com'
+    formData.append('sendTo', to)
+    formData.append('name', contactFormFields.name)
+    formData.append('reserve', contactFormFields.email)
+    formData.append('phone', contactFormFields.phone)
+    formData.append('address', contactFormFields.address)
+    formData.append('message', contactFormFields.message)
+
+    try {
+        const response = await fetch('https://api.ikennaibe.com/farzad/send', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+        const errorMessage = error.message || "An error occured while sending message. Try again."
+        return errorMessage;
+    }
+}
 const submitForm = async (e) => {
     const [isError, contactFormFields] = Helpers.validateContactFormFields(e, errorMsgs)
     if (!isError) {
@@ -56,6 +80,7 @@ const submitForm = async (e) => {
     }
 }
 contactForm.addEventListener('submit', submitForm)
+reserveForm.addEventListener('submit', submitForm)
 
 window.handleRecaptchaCallback = () => {
     submitForm();

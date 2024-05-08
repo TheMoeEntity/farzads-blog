@@ -45,6 +45,23 @@ export class Helpers {
         }
         return `${month} ${format[2]}, ${format[0]}`
     }
+    static getReserved = async (uid) => {
+        const formData = new FormData()
+        formData.append('getReserved', uid)
+        try {
+            const response = await fetch('https://api.ikennaibe.com/farzad/reserved', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            return data
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+
+
+    };
     static convertToWAT = (date) => {
         // Parse the timestamp string into a Date object
         const estTimestamp = new Date(date);
@@ -122,7 +139,7 @@ export class Helpers {
                     if (status1 == '1') {
                         data.text = "Published post"
                         data.color = 'publish'
-                        data.body = `You published a post titled "<b>${content.title}</b>"`
+                        data.body = `You published a post titled <b>${content.title}</b>`
                         data.icon = 'far fa-check-square'
 
                     }
@@ -188,6 +205,15 @@ export class Helpers {
                     data.color = ''
                     data.icon = 'far fa-file-alt'
                     data.body = `You have a new submission from <b>${name}</b>, with email: <b>${email}</b> on the contact form. Please review the details provided by the user.`
+                }
+                break
+            case '9':
+                if (content.details) {
+                    const { email, name } = JSON.parse(content.details)
+                    data.text = "New reserved copy"
+                    data.color = ''
+                    data.icon = 'fas fa-bookmark'
+                    data.body = `You have a new reservation for a copy of the book from <b>${name}</b>, with email: <b>${email}</b>. Please proceed with the necessary arrangements.`
                 }
                 break
         }
@@ -302,7 +328,7 @@ export class Helpers {
     }
     static setTableRow = (posts, getDate, tableContainer, produceInnerHTML) => {
         // Clear existing table rows before appending new ones
-        
+
         tableContainer.innerHTML = '';
         posts.forEach(post => {
             const randomComments = Math.floor(Math.random(0, 1) * 4)
@@ -338,6 +364,28 @@ export class Helpers {
             tableContainer.innerHTML = '<td colspan="4">No posts to show.</td>';
         }
     };
+    static setReservedTable = (getReserved, tableContainer) => {
+        tableContainer.innerHTML = '';
+        getReserved.forEach(reserved => {
+            const tableRow = document.createElement('tr');
+            tableRow.innerHTML = `
+               <th style="min-width:50px;">${reserved.id}</th>
+                <td style="min-width:220px; white-space:no-wrap;">${reserved.name}</td>
+                <td style="min-width:220px; white-space:no-wrap;">${reserved.email}</td>
+                <td style="min-width:220px; white-space:no-wrap;">${reserved.phone}</td>
+                <td style="min-width:200px;">
+                    ${(!reserved.address) ? "<b>No address provided</b>" : reserved.address}
+                </td>
+                <td style="min-width:250px;">
+                    ${(!reserved.message) ? "<b>No Message provided</b>" : reserved.message}
+                </td>
+                <td style="min-width:180px;">
+                   ${this.formatTimestamp(this.convertToWAT(reserved.date_added))}
+                </td>
+        `;
+            tableContainer.appendChild(tableRow);
+        });
+    }
     static setcommentsTableRow = (comments, getDate, tableContainer) => {
         tableContainer.innerHTML = '';
         comments.forEach(post => {

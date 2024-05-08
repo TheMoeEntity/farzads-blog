@@ -15,6 +15,7 @@ const pendingCommentsDashboard = document.querySelector('#pendingCommentsDashboa
 const publishedPostsDashboard = document.querySelector('#publishedPostsDashboard')
 const publishedCommentsDashboard = document.querySelector('#publishedCommentsDashboard')
 const activity = document.querySelector('#activity')
+const reservedTableContainer = document.querySelector('#reservedTableContainer')
 let dataTable;
 let deleteType = ''
 let currentButtonID = 0
@@ -265,7 +266,6 @@ const producePostsInnerHTML = (status, comment) => {
 
 }
 let posts = await getAdminPosts().then(x => {
-    console.log(Helpers.formatIncomingData(x))
     loadingOverlay.style.display = 'none'
     Helpers.setTableRow(x, Helpers.getDate, tableContainer, producePostsInnerHTML)
     document.getElementById('posts-table').addEventListener('click', handleButtonClick);
@@ -375,7 +375,17 @@ const LatestActivities = await Helpers.getActivity(1, 10, false).then(x => {
         return []
     }
 })
-
+const reserved = await Helpers.getReserved(1234567890).then(response => {
+    const { status, reserved:reservedCopies } = response
+    if (status == 'success') {
+        return reservedCopies
+    } else {
+        return []
+    }
+})
+if (reserved && reserved.length > 0) {
+    Helpers.setReservedTable(reserved, reservedTableContainer)
+}
 if (LatestActivities && LatestActivities.length > 0) {
     Helpers.setActivities(LatestActivities, activity)
 }

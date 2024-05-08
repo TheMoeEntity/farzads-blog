@@ -71,6 +71,52 @@
         </div>
     </div>
     <!-- modal ends -->
+
+    <!-- ===== modal starts ===== -->
+    <div class="modal-background" id="reserveCopy">
+
+        <div>
+            <div class="closeTitle">
+                <span onclick="closeReserve()" class="">&times;</span>
+            </div>
+            <form id="reserveForm">
+                <div class="form-floating">
+                    <input class="form-control" id="name" type="text" placeholder="Enter your name..." />
+                    <label for="name">Name</label>
+
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="email" type="email" placeholder="Enter your email..." />
+                    <label for="email">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number..." />
+                    <label for="phone">Phone Number</label>
+                </div>
+                    <div class="form-floating">
+                        <input class="form-control" id="addresss" type="text" placeholder="Enter a shipping address..." />
+                        <label for="phone">Address</label>
+                    </div>
+                <div class="form-floating">
+                    <textarea class="form-control" id="message" placeholder="Enter your message here..."
+                        style="height: 12rem"></textarea>
+                    <label for="message">Message</label>
+                    <div class="py-2" style="font-size: small;" id="errorMsgs"></div>
+                </div>
+                <br />
+                <div style="font-size: small;" class="py-1">
+                    This site is protected by reCAPTCHA and the Google
+                    <a href="https://policies.google.com/privacy"><u>Privacy Policy</u></a> and
+                    <a href="https://policies.google.com/terms"><u>Terms of Service</u></a> apply.
+                </div>
+                <div class="g-recaptcha my-3" data-sitekey="6Lffn8opAAAAAMv9AEWbiuPA6UVRaDILxLTPO3II"
+                    data-callback="handleRecaptchaCallback"></div>
+                <!-- Submit Button-->
+                <button class="btn btn-primary text-uppercase" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <!-- modal ends -->
     <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="/">Farzad Nosrati</a>
@@ -99,7 +145,8 @@
                         <h1 class="h2 d-none d-lg-block">One Divine Singularity</h1>
                         <span class="subheading my-4 d-none d-lg-block">The Grand Reunification of Science and
                             Religion</span>
-                        <button class="my-4 rounded bg-transparent text-white border px-4 py-2 border-white">Reserve
+                        <button onclick="reserve()"
+                            class="my-4 rounded bg-transparent text-white border px-4 py-2 border-white">Reserve
                             copy</button>
                     </div>
                 </div>
