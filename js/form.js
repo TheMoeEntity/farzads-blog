@@ -43,7 +43,7 @@ const submitMessage = async (contactFormFields) => {
 };
 const postReserveCopy = async (contactFormFields) => {
     const formData = new FormData()
-    const to = 'moseschukwudinwigberi@gmail.com'
+    const to = 'sykik09@gmail.com'
     formData.append('sendTo', to)
     formData.append('name', contactFormFields.name)
     formData.append('reserve', contactFormFields.email)
