@@ -6,7 +6,7 @@ const data = await Helpers.getPosts().then(x => {
     if (loadingOverlay) {
         setTimeout(() => {
             loadingOverlay.style.display = 'none';
-        }, 900);
+        }, 400);
     }
     return x.filter(post => post.status == 1)
 })
