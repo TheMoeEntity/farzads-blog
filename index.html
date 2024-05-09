@@ -136,17 +136,31 @@
         </div>
     </nav>
     <!-- Page Header-->
-    <header class="masthead" style="background-image: url('assets/img/background.jpg'); background-attachment: scroll;">
+    <header id="mastheader" class="masthead"
+        style="background-image: url('assets/img/background.jpg'); background-attachment: scroll;">
         <div class="container position-relative px-2 px-lg-5">
+            <span id="two" class="d-flex flex-column gap-2">
+                <button onclick="reserve()"
+                    class="my-4 mx-auto border-2 rounded bg-transparent text-white border px-4 py-2 border-white">Reserve
+                    copy
+                </button>
+
+                <span class="farz-name mx-auto w-100 text-center">
+                    Farzad Nosrati
+                </span>
+            </span>
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="site-heading ">
-                        <h1 class="h2 d-none d-lg-block">One Divine Singularity</h1>
-                        <span class="subheading my-4 d-none d-lg-block">The Grand Reunification of Science and
-                            Religion</span>
-                        <button onclick="reserve()"
-                            class="my-4 rounded bg-transparent text-white border px-4 py-2 border-white">Reserve
-                            copy</button>
+                    <div class="site-heading">
+                        <span id="one">
+                            <h1 class="h2">
+                                <span style="color: #D2C385;">
+                                    ONE
+                                </span>
+                            </h1>
+                            <span>Divine Singularity</span>
+                        </span>
+
                     </div>
                 </div>
             </div>

@@ -232,7 +232,6 @@ export const getPost = async (postid) => {
                 location.href = '/404.html'
             }
         }
-        console.log(data.post)
         return data.post;
     } catch (error) {
         console.error(error);
@@ -266,10 +265,8 @@ const data = await getPosts().then(x => {
             loadingOverlay.style.display = 'none';
         }, 1000);
     }
-    console.log(x)
     return x
 })
-console.log(data)
 export const getDate = (date_addeds) => {
     const postDate = date_addeds.split(' ')
     return postDate[0]

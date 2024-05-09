@@ -374,7 +374,7 @@ export class Helpers {
                 <td style="min-width:220px; white-space:no-wrap;">${reserved.email}</td>
                 <td style="min-width:220px; white-space:no-wrap;">${reserved.phone}</td>
                 <td style="min-width:200px;">
-                    ${(!reserved.address) ? "<b>No address provided</b>" : reserved.address}
+                    ${(!reserved.address || (reserved.address === 'undefined') || (typeof reserved.address == 'undefined')) ? "<b>No address provided</b>" : reserved.address}
                 </td>
                 <td style="min-width:250px;">
                     ${(!reserved.message) ? "<b>No Message provided</b>" : reserved.message}

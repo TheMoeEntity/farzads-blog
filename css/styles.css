@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+@font-face {
+  font-family: 'aptos';
+  src: url('assets/font/aptos-font/aptos-semibold.ttf');
+}
+
 /*!
 * Start Bootstrap - Clean Blog v6.0.9 (https://startbootstrap.com/theme/clean-blog)
 * Copyright 2013-2023 Start Bootstrap
@@ -577,7 +582,123 @@ legend+* {
   height: auto;
 }
 
-#modal-background, #reserveCopy {
+#one {
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, -95%);
+}
+
+#two {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 290%);
+}
+
+.farz-name {
+  text-transform: uppercase;
+  letter-spacing: 15px;
+  color: #EAE1C4;
+  font-weight: bold;
+  font-family: 'aptos', sans-serif;
+  font-size: 2rem;
+}
+
+#two button {
+  width: fit-content;
+  font-weight: bold;
+}
+
+#one h1 {
+  font-size: 7rem;
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+#one span:nth-child(2) {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+@media screen and (min-width:1025px) {
+  #mastheader {
+    height: 100vh;
+  }
+}
+
+@media screen and (max-width:1024px) {
+  #mastheader {
+    height: auto;
+    min-height: 600px;
+  }
+
+  #one h1 {
+    font-size: 5rem;
+  }
+
+  #one h3 {
+    font-size: 2rem;
+  }
+
+  #two {
+    transform: translate(-50%, 235%);
+  }
+
+  #one {
+    transform: translate(-50%, -85%);
+  }
+
+  #one h1 {
+    font-size: 5rem;
+  }
+
+  #one h3 {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width:480px) {
+  #mastheader {
+    height: auto;
+    /* min-height: 500px; */
+  }
+
+  #two {
+    transform: translate(-50%, 190%);
+  }
+
+  #one {
+    transform: translate(-50%, -85%);
+  }
+}
+
+@media screen and (max-width:320px) {
+  #one h3 {
+    font-size: 2rem;
+  }
+
+  /* #two {
+    transform: translate(-50%, 235%);
+  }
+
+  #one {
+    transform: translate(-50%, -85%);
+  } */
+
+  #one h1 {
+    font-size: 4rem;
+  }
+
+  #one span:nth-child(2) {
+    font-size: 2rem;
+  }
+}
+
+#modal-background,
+#reserveCopy {
   position: fixed;
   width: 100%;
   height: 100%;
