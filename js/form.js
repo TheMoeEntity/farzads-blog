@@ -5,20 +5,17 @@ const errorMsgs = document.querySelector("#errorMsgs")
 const errorMsgs2 = document.querySelector("#errorMsgs2")
 const modalBackground = document.querySelector('#modal-background')
 const reserveCopyDiv = document.querySelector('#reserveCopy')
-const callBack22 = async (recaptchaResponse) => {
-    const name = reserveForm[0].value;
-    const email = reserveForm[1].value;
-    const phone = reserveForm[2].value;
-    const address = reserveForm[3].value;
-    const message = reserveForm[4].value;
+let widgetId2
+const callBack = async () => {
 
-    const formFields = { name, email, phone, address, message };
     await reserveCopy();
 }
-const widgetId2 = grecaptcha.render('recaptcha2', {
-    'sitekey': '6Lffn8opAAAAAMv9AEWbiuPA6UVRaDILxLTPO3II',
-    'callback': callBack22 // Ensure you pass the correct callback function
-});
+window.onload = () => {
+    widgetId2 = grecaptcha.render('recaptcha2', {
+        'sitekey': '6Lffn8opAAAAAMv9AEWbiuPA6UVRaDILxLTPO3II',
+        callBack: callBack
+    });
+}
 const submitMessage = async (contactFormFields) => {
     const formData = new FormData()
     const to = 'sykik09@gmail.com'
@@ -43,7 +40,7 @@ const submitMessage = async (contactFormFields) => {
 };
 const postReserveCopy = async (contactFormFields) => {
     const formData = new FormData()
-    const to = 'sykik09@gmail.com'
+    const to = 'mosesnwigberi@gmail.com'
     formData.append('sendTo', to)
     formData.append('name', contactFormFields.name)
     formData.append('reserve', contactFormFields.email)

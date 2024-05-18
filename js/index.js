@@ -187,6 +187,7 @@ export const getPosts = async () => {
         if (sessionActive) {
             return data.posts;
         }
+        console.log(data.posts)
         return data.posts.filter(x => x.status == "1")
     } catch (error) {
         console.error(error);
