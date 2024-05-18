@@ -90,6 +90,7 @@
 *::after {
   box-sizing: border-box;
 }
+
 #notfound {
   position: relative;
   height: 100vh;
@@ -187,6 +188,7 @@
     font-size: 26px;
   }
 }
+
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -719,6 +721,10 @@ legend+* {
   margin: 0;
 }
 
+#mastheader {
+  max-height: 760px;
+}
+
 @media screen and (min-width:1025px) {
   #mastheader {
     height: 100vh;
@@ -759,37 +765,62 @@ legend+* {
 @media screen and (max-width:480px) {
   #mastheader {
     height: auto;
-    /* min-height: 500px; */
+    min-height: auto;
+  }
+
+  #two button {
+    font-size: 0.8rem;
   }
 
   #two {
-    transform: translate(-50%, 190%);
+    transform: translate(-50%, 90%);
   }
 
   #one {
-    transform: translate(-50%, -85%);
+    transform: translate(-50%, -175%);
+  }
+
+  #one h1 {
+    font-size: 2.5rem;
+  }
+
+  #one span:nth-child(2) {
+    font-size: 1rem;
+  }
+
+  .farz-name {
+    font-size: 0.8rem;
   }
 }
 
 @media screen and (max-width:320px) {
+  #one h1 {
+    font-size: 5rem;
+  }
+
   #one h3 {
     font-size: 2rem;
   }
 
-  /* #two {
+  #two {
     transform: translate(-50%, 235%);
   }
 
   #one {
     transform: translate(-50%, -85%);
-  } */
-
-  #one h1 {
-    font-size: 4rem;
   }
 
-  #one span:nth-child(2) {
+  #one h1 {
+    font-size: 5rem;
+  }
+
+  #one h3 {
     font-size: 2rem;
+  }
+
+  #mastheader {
+    height: auto;
+    min-height: 500px;
   }
 }
 
